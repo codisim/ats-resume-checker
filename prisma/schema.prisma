@@ -1,171 +1,154 @@
 generator client {
-    // provider = "prisma-client-js"
-     provider = "prisma-client"
+  // provider = "prisma-client-js"
+  provider = "prisma-client"
+   output   = "../src/generated"
 }
 
 datasource db {
-    provider = "postgresql"
-}
-
-// ======== models ========
-model User {
-  id          String   @id @default(cuid())
-  email       String   @unique
-  name        String?
-  image       String?
-  country     String?
-  role        UserRole @default(USER)
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  resumes     Resume[]
-  usages      Usage[]
+  provider = "postgresql"
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  country   String?
+  id      String   @id @default(cuid())
+  email   String   @unique
+  name    String?
+  image   String?
+  country String?
+  role    UserRole @default(USER)
 
   createdAt DateTime @default(now())
 
   subscriptions Subscription[]
   resumes       Resume[]
   usages        Usage[]
+  analyses      Analysis[]
 }
 
 model Resume {
-  id          String   @id @default(cuid())
-  userId      String
+  id     String @id @default(cuid())
+  userId String
 
-  fileUrl     String
-  fileName    String
-  rawText     String?
+  fileUrl  String
+  fileName String
+  rawText  String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  analyses    Analysis[]
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analyses Analysis[]
 }
 
-
-
 model JobDescription {
-  id          String   @id @default(cuid())
-  userId      String
+  id     String @id @default(cuid())
+  userId String
 
   title       String?
   company     String?
   description String
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  analyses    Analysis[]
+  analyses Analysis[]
 }
 
-
 model Analysis {
-  id              String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  userId         String
-  resumeId       String
-  jobId          String?
+  userId   String
+  resumeId String
+  jobId    String?
 
-  atsScore       Int
-  matchPercent   Int
+  atsScore     Int
+  matchPercent Int
 
-  missingSkills  Json
-  strengths      Json
-  weaknesses     Json
-  suggestions    Json
+  missingSkills Json
+  strengths     Json
+  weaknesses    Json
+  suggestions   Json
 
   improvedSummary String?
 
-  createdAt      DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  resume         Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  job            JobDescription? @relation(fields: [jobId], references: [id])
+  user   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume Resume          @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  job    JobDescription? @relation(fields: [jobId], references: [id])
 }
 
 model Usage {
-  id        String   @id @default(cuid())
-  userId    String
+  id     String @id @default(cuid())
+  userId String
 
   count     Int      @default(0)
   weekStart DateTime
 
   createdAt DateTime @default(now())
 
-  user      User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Plan {
-  id          String   @id @default(cuid())
-  name        String   @unique // FREE, PRO, GOLD
+  id          String  @id @default(cuid())
+  name        String  @unique // FREE, PRO, GOLD
   description String?
 
-  weeklyLimit Int      @default(7)
-  price       Int?     // in USD or BDT (future)
-  isActive    Boolean  @default(true)
+  weeklyLimit Int     @default(7)
+  price       Int? // in USD or BDT (future)
+  isActive    Boolean @default(true)
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   subscriptions Subscription[]
 }
 
 model Subscription {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  userId    String
-  planId    String
+  userId String
+  planId String
 
-  status    SubscriptionStatus @default(ACTIVE)
+  status SubscriptionStatus @default(ACTIVE)
 
-  startDate DateTime @default(now())
+  startDate DateTime  @default(now())
   endDate   DateTime?
 
   createdAt DateTime @default(now())
 
-  user      User @relation(fields: [userId], references: [id])
-  plan      Plan @relation(fields: [planId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  plan Plan @relation(fields: [planId], references: [id])
 }
+
 model Waitlist {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  email     String   @unique
-  country   String?
+  email   String  @unique
+  country String?
 
-  interest  String?
+  interest String?
 
   createdAt DateTime @default(now())
 }
 
-
 model Blog {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   title     String
-  slug      String   @unique
+  slug      String  @unique
   content   String
-  published Boolean  @default(false)
+  published Boolean @default(false)
 
   createdAt DateTime @default(now())
 }
 
 model Review {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  userId    String
-  message   String
-  rating    Int?
+  userId  String
+  message String
+  rating  Int?
 
   createdAt DateTime @default(now())
 }
-
-
 
 ////// enum
 
