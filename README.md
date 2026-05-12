@@ -1,39 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 ATS Resume Checker (AI-Powered SaaS)
 
-## Getting Started
+An AI-powered Resume Analyzer that compares your resume with job descriptions and provides ATS score, skill gaps, and improvement suggestions.
 
-First, run the development server:
+Built with **Next.js + TypeScript + AI + PostgreSQL**, designed for global users and scalable SaaS architecture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌍 Live Demo
+> Coming Soon: https://resume.codisim.com
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Features
 
-## Learn More
+### ✨ Core Features
+- Upload Resume (PDF / DOCX)
+- Paste Job Description
+- AI-powered ATS Score
+- Skill Gap Analysis
+- Resume Improvement Suggestions
+- Improved Summary Generator
+- Match Percentage Calculation
 
-To learn more about Next.js, take a look at the following resources:
+### 📊 Dashboard
+- View past resume analyses
+- Track ATS score history
+- Resume comparison history
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🔐 Authentication
+- Google login (Clerk)
+- User-based dashboard
+- Protected routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📈 Usage System
+- Weekly scan limit system
+- Free tier (7–12 scans/week)
+- Future Pro / Gold plan support
 
-## Deploy on Vercel
+### 🌍 Global Features (Future)
+- Country-based usage analytics
+- Interactive global user map
+- Waitlist system for Pro users
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧠 How It Works (Flow)
 
+```txt
+User Login
+   ↓
+Upload Resume (PDF/DOCX)
+   ↓
+Paste Job Description
+   ↓
+Extract Resume Text
+   ↓
+Send Data to AI (Gemini)
+   ↓
+AI Analysis:
+   - ATS Score
+   - Missing Keywords
+   - Strengths & Weaknesses
+   - Suggestions
+   ↓
+Save Result in Database
+   ↓
+Show Dashboard Report
 
 // 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
+
+Day 1 → Setup + Prisma + Auth
+Day 2 → Upload + Resume parsing
+Day 3 → AI integration
+Day 4 → Usage limit + DB logic
+Day 5 → Dashboard
+Day 6 → Landing page + waitlist
+Day 7 → Deploy
