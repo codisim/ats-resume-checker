@@ -20,7 +20,9 @@ export default function NavActions() {
     if (isSignedIn) {
         return (
             <div className="hidden md:flex items-center gap-2">
-                <Button
+
+                {/* theme switcher  */}
+                {/* <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -28,7 +30,7 @@ export default function NavActions() {
                     aria-label="Toggle theme"
                 >
                     {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-                </Button>
+                </Button> */}
                 <UserMenu />
             </div>
         );
@@ -36,7 +38,8 @@ export default function NavActions() {
 
     return (
         <div className="hidden md:flex items-center gap-2">
-            <Button
+            {/* theme stitcher  */}
+            {/* <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -44,7 +47,7 @@ export default function NavActions() {
                 aria-label="Toggle theme"
             >
                 {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-            </Button>
+            </Button> */}
             <Button
                 variant="ghost"
                 size="sm"
