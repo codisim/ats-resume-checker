@@ -72,7 +72,7 @@ export default function Hero() {
             />
 
             <HeroContent />
-            <HeroAnalysis />
+            {/* <HeroAnalysis /> */}
 
         </section>
     );
