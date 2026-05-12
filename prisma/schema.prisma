@@ -1,9 +1,10 @@
 generator client {
-    provider = "prisma-client-js"
+    // provider = "prisma-client-js"
+     provider = "prisma-client"
 }
 
 datasource db {
-    provider = "mongodb"
+    provider = "postgresql"
 }
 
 // ======== models ========
@@ -132,15 +133,15 @@ model Subscription {
   user      User @relation(fields: [userId], references: [id])
   plan      Plan @relation(fields: [planId], references: [id])
 }
-
 model Waitlist {
-  id          String   @id @default(cuid())
+  id        String   @id @default(cuid())
 
-  email       String   @unique
-  country     String?
-  interest    String? // "pro plan", "unlimited", etc
+  email     String   @unique
+  country   String?
 
-  createdAt   DateTime @default(now())
+  interest  String?
+
+  createdAt DateTime @default(now())
 }
 
 enum UserRole {
@@ -148,6 +149,11 @@ enum UserRole {
   ADMIN
 }
 
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+}
 
 
 
