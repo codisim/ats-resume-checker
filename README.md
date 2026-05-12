@@ -75,4 +75,4 @@ Day 3 → AI integration
 Day 4 → Usage limit + DB logic
 Day 5 → Dashboard
 Day 6 → Landing page + waitlist
-Day 7 → Deploy
+Day 7 → Deploy 
