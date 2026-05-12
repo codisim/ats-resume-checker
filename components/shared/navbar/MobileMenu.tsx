@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useUser, SignOutButton } from "@clerk/nextjs";
-
-interface MobileMenuProps {
-    open: boolean;
-    onClose: () => void;
-}
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 
 const links = [
     { label: "Features", href: "#features" },
@@ -15,64 +13,72 @@ const links = [
     { label: "Live users 🌍", href: "#map" },
 ];
 
-export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+export default function MobileMenu() {
     const { isSignedIn, user } = useUser();
 
     return (
-        <div
-            className={`fixed inset-0 z-40 bg-[#0A0F0D] flex flex-col items-center justify-center gap-8 transition-all duration-300 md:hidden ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                }`}
-        >
-            <ul className="flex flex-col items-center gap-6 list-none m-0 p-0">
-                {links.map((item) => (
-                    <li key={item.href}>
-                        <a
-                            href={item.href}
-                            onClick={onClose}
-                            className="text-3xl font-bold text-white hover:text-[#00C896] transition-colors duration-150"
-                        >
-                            {item.label}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+        <Sheet>
+            <SheetTrigger asChild>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:hidden text-white/70 hover:text-white hover:bg-white/10"
+                >
+                    <Menu className="size-5" />
+                </Button>
+            </SheetTrigger>
 
-            <div className="flex flex-col items-center gap-3 mt-4">
-                {isSignedIn ? (
-                    <>
-                        <p className="text-white/60 text-sm">
-                            Hey, {user?.firstName ?? "there"} 👋
-                        </p>
-                        <Link
-                            href="/dashboard"
-                            onClick={onClose}
-                            className="text-base font-medium text-[#0A0F0D] bg-[#00C896] px-8 py-3 rounded-full"
+            <SheetContent
+                side="right"
+                className="bg-[#0A0F0D] border-white/10 flex flex-col pt-10 w-72"
+            >
+                <nav className="flex flex-col gap-1">
+                    {links.map((l) => (
+                        <a
+                            key={l.href}
+                            href={l.href}
+                            className="text-lg font-medium text-white/70 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded-lg transition-colors"
                         >
-                            Dashboard →
-                        </Link>
-                        <SignOutButton>
-                            <button className="text-sm text-white/40 mt-1">Sign out</button>
-                        </SignOutButton>
-                    </>
-                ) : (
-                    <>
-                        <Link
-                            href="/sign-in"
-                            onClick={onClose}
-                            className="text-base text-white/50"
-                        >
-                            Sign in
-                        </Link>
-                        <Link
-                            href="/sign-up"
-                            onClick={onClose}
-                            className="text-base font-medium text-[#0A0F0D] bg-[#00C896] px-8 py-3 rounded-full"
-                        >
-                            Get Started →
-                        </Link>
-                    </>
-                )}
-            </div>
-        </div>
+                            {l.label}
+                        </a>
+                    ))}
+                </nav>
+
+                <div className="flex flex-col gap-2 mt-auto pb-4">
+                    {isSignedIn ? (
+                        <>
+                            <div className="flex items-center gap-3 px-3 py-3 bg-white/5 rounded-xl mb-2">
+                                <div className="size-8 rounded-full bg-gradient-to-br from-[#00C896] to-[#7B61FF] grid place-items-center text-xs font-semibold text-[#0A0F0D]">
+                                    {user?.firstName?.[0] ?? "U"}
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium text-white">{user?.firstName}</p>
+                                    <p className="text-xs text-white/40 truncate max-w-[160px]">
+                                        {user?.emailAddresses[0]?.emailAddress}
+                                    </p>
+                                </div>
+                            </div>
+                            <Button asChild className="bg-[#00C896] hover:bg-[#00A87E] text-[#0A0F0D] rounded-full">
+                                <Link href="/dashboard">Dashboard</Link>
+                            </Button>
+                            <SignOutButton>
+                                <Button variant="ghost" className="text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                                    Sign out
+                                </Button>
+                            </SignOutButton>
+                        </>
+                    ) : (
+                        <>
+                            <Button variant="ghost" asChild className="text-white/50 hover:text-white hover:bg-white/10">
+                                <Link href="/sign-in">Sign in</Link>
+                            </Button>
+                            <Button asChild className="bg-[#00C896] hover:bg-[#00A87E] text-[#0A0F0D] font-medium rounded-full">
+                                <Link href="/sign-up">Get Started →</Link>
+                            </Button>
+                        </>
+                    )}
+                </div>
+            </SheetContent>
+        </Sheet>
     );
 }
