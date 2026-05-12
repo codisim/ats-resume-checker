@@ -144,6 +144,31 @@ model Waitlist {
   createdAt DateTime @default(now())
 }
 
+
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String
+  published Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+
+  userId    String
+  message   String
+  rating    Int?
+
+  createdAt DateTime @default(now())
+}
+
+
+
+////// enum
+
 enum UserRole {
   USER
   ADMIN
@@ -153,35 +178,4 @@ enum SubscriptionStatus {
   ACTIVE
   CANCELED
   EXPIRED
-}
-
-
-
-
-
-///////// enums /////
-
-enum UserRole {
-  SUPER_ADMIN
-  ADMIN
-  TEACHER
-  STUDENT
-}
-
-enum UserStatus {
-  ACTIVE
-  INACTIVE
-  ALUMNI
-  SUSPENDED
-}
-
-enum Gender {
-  MALE
-  FEMALE
-}
-
-enum PaymentStatus {
-  PAID
-  UNPAID
-  PARTIAL
 }
