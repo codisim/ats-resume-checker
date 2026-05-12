@@ -11,7 +11,7 @@ export default function NavLinks() {
         <a
           key={l.href}
           href={l.href}
-          className="text-sm text-white/55 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-colors"
+          className="text-sm text-foreground/70 hover:text-foreground px-3 py-1.5 rounded-full hover:bg-foreground/10 transition-colors"
         >
           {l.label}
         </a>

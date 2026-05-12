@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import UserMenu from "./Usermenu";
 
 export default function NavActions() {
     const { isLoaded, isSignedIn } = useUser();
+    const { theme, setTheme } = useTheme();
+
+    const isDark = theme === "dark";
 
     if (!isLoaded) {
         return <div className="size-[34px] rounded-full bg-white/10 animate-pulse hidden md:block" />;
@@ -14,7 +19,16 @@ export default function NavActions() {
 
     if (isSignedIn) {
         return (
-            <div className="hidden md:block">
+            <div className="hidden md:flex items-center gap-2">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setTheme(isDark ? "light" : "dark")}
+                    className="size-[34px] rounded-full border border-border text-foreground/70 hover:text-foreground hover:bg-foreground/10 hover:shadow-md transition-all"
+                    aria-label="Toggle theme"
+                >
+                    {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                </Button>
                 <UserMenu />
             </div>
         );
@@ -24,9 +38,18 @@ export default function NavActions() {
         <div className="hidden md:flex items-center gap-2">
             <Button
                 variant="ghost"
+                size="icon"
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="size-[34px] rounded-full border border-border text-foreground/70 hover:text-foreground hover:bg-foreground/10 hover:shadow-md transition-all"
+                aria-label="Toggle theme"
+            >
+                {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </Button>
+            <Button
+                variant="ghost"
                 size="sm"
                 asChild
-                className="text-white/50 hover:text-white hover:bg-white/10 rounded-full"
+                className="text-foreground/70 hover:text-foreground hover:bg-foreground/10 rounded-full"
             >
                 <Link href="/sign-in">Sign in</Link>
             </Button>

@@ -37,7 +37,7 @@ export default function UserMenu() {
             {/* Avatar trigger */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative rounded-full p-0.5 ring-2 ring-transparent hover:ring-[#00C896] transition-all duration-200 focus:outline-none focus:ring-[#00C896]"
+                className="relative cursor-pointer rounded-full border border-border p-0.5 ring-2 ring-[#00C896]/65 transition-shadow duration-300 ease-out hover:shadow-[0_0_0_4px_rgba(0,200,150,0.18)] focus:outline-none focus:ring-[#00C896]"
                 aria-label="User menu"
             >
                 {user?.imageUrl ? (
@@ -57,13 +57,13 @@ export default function UserMenu() {
 
             {/* Dropdown */}
             {open && (
-                <div className="absolute right-0 top-12 w-52 bg-[#111816] border border-white/10 rounded-xl shadow-xl overflow-hidden z-50">
+                <div className="absolute right-0 top-12 z-50 w-52 overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl">
                     {/* User info header */}
-                    <div className="px-4 py-3 border-b border-white/10">
-                        <p className="text-sm font-medium text-white truncate">
+                    <div className="border-b border-border px-4 py-3">
+                        <p className="truncate text-sm font-medium text-foreground">
                             {user?.firstName} {user?.lastName}
                         </p>
-                        <p className="text-xs text-white/40 truncate mt-0.5">
+                        <p className="mt-0.5 truncate text-xs text-muted-foreground">
                             {user?.emailAddresses[0]?.emailAddress}
                         </p>
                     </div>
@@ -75,16 +75,16 @@ export default function UserMenu() {
                                 key={href}
                                 href={href}
                                 onClick={() => setOpen(false)}
-                                className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+                                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
                             >
-                                <Icon size={15} className="text-white/40" />
+                                <Icon size={15} className="text-muted-foreground" />
                                 {label}
                             </Link>
                         ))}
                     </div>
 
                     {/* Sign out */}
-                    <div className="p-1.5 border-t border-white/10">
+                    <div className="border-t border-border p-1.5">
                         <SignOutButton>
                             <button className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-colors">
                                 <LogOut size={15} />
