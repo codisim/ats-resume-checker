@@ -8,100 +8,148 @@ datasource db {
 
 // ======== models ========
 model User {
-  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
-  email              String     @unique
-  password           String
-  roles              UserRole[] @default([STUDENT])
-  needPasswordChange Boolean    @default(true)
-  isDeleted          Boolean    @default(false)
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  image       String?
+  country     String?
+  role        UserRole @default(USER)
 
-  profile UserProfile?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  notices Notice[] @relation("UserNotices")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")
+  resumes     Resume[]
+  usages      Usage[]
 }
 
-model UserProfile {
-  id            String     @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  phone         String
-  profilePhoto  String?
-  address       String?
-  gender        Gender
-
-  // ===== Teacher / Admin fields =====
-  designation   String?
-  experience    Int?
-
-  // ===== Student fields =====
-  admissionNo   String?
-  batch         String?
-  monthlyFee    Int?
-  admissionDate DateTime?
-  status        UserStatus?
-
-  userId String @unique @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
-
-  payments Payment[]
-  reviews  Review[]
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  country   String?
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  @@map("user_profiles")
+  subscriptions Subscription[]
+  resumes       Resume[]
+  usages        Usage[]
+}
+
+model Resume {
+  id          String   @id @default(cuid())
+  userId      String
+
+  fileUrl     String
+  fileName    String
+  rawText     String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analyses    Analysis[]
 }
 
 
 
-model Notice {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
+model JobDescription {
+  id          String   @id @default(cuid())
+  userId      String
+
+  title       String?
+  company     String?
   description String
 
-  createdById String @db.ObjectId
-  createdBy   User   @relation("UserNotices", fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+
+  analyses    Analysis[]
+}
+
+
+model Analysis {
+  id              String   @id @default(cuid())
+
+  userId         String
+  resumeId       String
+  jobId          String?
+
+  atsScore       Int
+  matchPercent   Int
+
+  missingSkills  Json
+  strengths      Json
+  weaknesses     Json
+  suggestions    Json
+
+  improvedSummary String?
+
+  createdAt      DateTime @default(now())
+
+  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume         Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  job            JobDescription? @relation(fields: [jobId], references: [id])
+}
+
+model Usage {
+  id        String   @id @default(cuid())
+  userId    String
+
+  count     Int      @default(0)
+  weekStart DateTime
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  @@map("notices")
+  user      User @relation(fields: [userId], references: [id])
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  name        String   @unique // FREE, PRO, GOLD
+  description String?
+
+  weeklyLimit Int      @default(7)
+  price       Int?     // in USD or BDT (future)
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+
+  userId    String
+  planId    String
+
+  status    SubscriptionStatus @default(ACTIVE)
+
+  startDate DateTime @default(now())
+  endDate   DateTime?
+
+  createdAt DateTime @default(now())
+
+  user      User @relation(fields: [userId], references: [id])
+  plan      Plan @relation(fields: [planId], references: [id])
+}
+
+model Waitlist {
+  id          String   @id @default(cuid())
+
+  email       String   @unique
+  country     String?
+  interest    String? // "pro plan", "unlimited", etc
+
+  createdAt   DateTime @default(now())
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 
 
-model Payment {
-  id     String        @id @default(auto()) @map("_id") @db.ObjectId
-  month  String
-  amount Int
-  status PaymentStatus
-  paidAt DateTime?
-
-  profileId String       @db.ObjectId
-  profile   UserProfile @relation(fields: [profileId], references: [id])
-
-  createdAt DateTime @default(now())
-
-  @@map("payments")
-}
-
-
-model Review {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  comment String
-
-  profileId String?
-  profile   UserProfile? @relation(fields: [profileId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("reviews")
-}
 
 
 
