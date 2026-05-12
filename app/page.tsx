@@ -1,3 +1,4 @@
+import Features from "@/components/home/featutes/Features";
 import Hero from "@/components/home/Hero";
 import HeroAnalysis from "@/components/home/HeroAnalysis";
 import Footer from "@/components/shared/navbar/Footer";
@@ -10,6 +11,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       {/* <HeroAnalysis />  */}
+      <Features />
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <Button>Click me</Button>
       </div>
