@@ -76,3 +76,22 @@ Day 4 → Usage limit + DB logic
 Day 5 → Dashboard
 Day 6 → Landing page + waitlist
 Day 7 → Deploy 
+
+
+
+
+1. Upload Resume (Frontend) 
+2. Send File to Backend (Frontend → Backend)
+3. Extract Resume Text (Backend)
+4. Save Resume Data (Backend → DB)-  store:file URL, raw extracted text, userId, inside database
+5.  Take Job Description (Frontend)
+6. Send JD + Resume Text to Backend (Frontend → Backend)
+Frontend sends: resume text, job description to analyze API.
+7. Extract Skills Locally (Backend) -- Backend compares: resume skills, JD skills --- using local TypeScript logic (includes, arrays, filters).
+8. Calculate ATS Score Locally (Backend) 
+9. Save Local Analysis (Backend → DB) -- Store: ATS score, missing skills, matched skills
+10. Send Optimized Prompt to AI (Backend) -- Backend sends: cleaned resume text, missing skills, ATS result, JD to Gemini AI.
+11. AI Resume Rewriter (Backend) -- AI generates:improved summary, better bullet points, recruiter-style suggestions, ATS optimized rewrite
+12. Save AI Result (Backend → DB) -- Store AI response into database.
+13. Show Results (Frontend) -- Dashboard displays: ATS score, missing skills, rewritten summary, AI suggestions
+14. Weekly Usage Check (Backend) -- Before AI call:check weekly usage, block if exceeded

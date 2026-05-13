@@ -15,7 +15,6 @@ import { AiHeader } from "@/components/ai/ai-header"
 import { AiSidebar } from "@/components/ai/ai-sidebar"
 import { AnalysisComposer } from "@/components/ai/analysis-composer"
 import { PreviousAnalyses } from "@/components/ai/previous-analyses"
-import { RecentAnalysis } from "@/components/ai/recent-analysis"
 import { StatsGrid } from "@/components/ai/stats-grid"
 import {
   type DashboardAnalysis,
@@ -80,12 +79,9 @@ export default async function Page() {
             icon={Bell}
           />
 
-          <section className="grid gap-6 xl:grid-cols-[1.12fr_0.88fr]">
-            <AnalysisComposer />
-          </section>
+          <AnalysisComposer />
 
-          <section className="mt-6 grid gap-6 xl:grid-cols-[0.98fr_1.02fr]">
-            <RecentAnalysis />
+          <section className="mt-6">
             <PreviousAnalyses analyses={analyses} />
           </section>
 

@@ -1,0 +1,117 @@
+import { NextResponse } from "next/server"
+import mammoth from "mammoth"
+import { PDFParse } from "pdf-parse"
+
+import prisma from "@/lib/prisma"
+import { getOrCreateDbUser } from "@/lib/auth-user"
+
+export const runtime = "nodejs"
+
+const MAX_BYTES = 10 * 1024 * 1024
+
+function getExtension(fileName: string) {
+  const segments = fileName.toLowerCase().split(".")
+  return segments.length > 1 ? segments.pop() : ""
+}
+
+function normalizeText(text: string) {
+  return text.replace(/\r\n/g, "\n").trim()
+}
+
+export async function POST(req: Request) {
+  try {
+    const dbUser = await getOrCreateDbUser()
+    if (!dbUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const formData = await req.formData()
+    const file = formData.get("file")
+
+    if (!(file instanceof File)) {
+      return NextResponse.json({ error: "Please upload a PDF or DOCX file." }, { status: 400 })
+    }
+
+    if (file.size > MAX_BYTES) {
+      return NextResponse.json({ error: "File is too large. Max 10MB." }, { status: 400 })
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const mimeType = file.type || "application/octet-stream"
+    const extension = getExtension(file.name)
+
+    if (
+      mimeType === "application/pdf" ||
+      extension === "pdf"
+    ) {
+      const parser = new PDFParse({ data: buffer })
+      const result = await parser.getText()
+      const text = normalizeText(result.text || "")
+
+      return NextResponse.json({
+        resumeId: await saveResume({
+          userId: dbUser.id,
+          fileName: file.name,
+          extractedText: text,
+        }),
+        fileName: file.name,
+        mimeType: "application/pdf",
+        text,
+        characterCount: text.length,
+      })
+    }
+
+    if (
+      mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      extension === "docx"
+    ) {
+      const result = await mammoth.extractRawText({ buffer })
+      const text = normalizeText(result.value || "")
+
+      return NextResponse.json({
+        resumeId: await saveResume({
+          userId: dbUser.id,
+          fileName: file.name,
+          extractedText: text,
+        }),
+        fileName: file.name,
+        mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        text,
+        characterCount: text.length,
+      })
+    }
+
+    return NextResponse.json(
+      { error: "Unsupported file type. Please upload a PDF or DOCX file." },
+      { status: 415 }
+    )
+  } catch (error) {
+    console.error("Failed to extract resume text:", error)
+
+    return NextResponse.json(
+      { error: "Could not extract text from the uploaded file." },
+      { status: 500 }
+    )
+  }
+}
+
+async function saveResume({
+  userId,
+  fileName,
+  extractedText,
+}: {
+  userId: string
+  fileName: string
+  extractedText: string
+}) {
+  const resume = await prisma.resume.create({
+    data: {
+      userId,
+      fileUrl: `local://${fileName}`,
+      fileName,
+      rawText: extractedText,
+    },
+  })
+
+  return resume.id
+}
