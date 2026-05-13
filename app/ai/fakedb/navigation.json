@@ -1,0 +1,38 @@
+[
+  {
+    "label": "Dashboard",
+    "href": "#",
+    "active": true,
+    "iconKey": "dashboard"
+  },
+  {
+    "label": "My Analyses",
+    "href": "#",
+    "iconKey": "analyses"
+  },
+  {
+    "label": "Resumes",
+    "href": "#",
+    "iconKey": "resumes"
+  },
+  {
+    "label": "Saved Jobs",
+    "href": "#",
+    "iconKey": "saved_jobs"
+  },
+  {
+    "label": "Usage",
+    "href": "#",
+    "iconKey": "usage"
+  },
+  {
+    "label": "Settings",
+    "href": "#",
+    "iconKey": "settings"
+  },
+  {
+    "label": "Billing",
+    "href": "#",
+    "iconKey": "billing"
+  }
+]

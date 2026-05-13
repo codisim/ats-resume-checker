@@ -1,0 +1,29 @@
+[
+  {
+    "score": 82,
+    "title": "Frontend Developer",
+    "date": "May 20, 2024",
+    "time": "10:30 AM",
+    "label": "Good Match",
+    "tone": "good",
+    "ring": "good"
+  },
+  {
+    "score": 74,
+    "title": "React Developer",
+    "date": "May 18, 2024",
+    "time": "04:15 PM",
+    "label": "Average Match",
+    "tone": "average",
+    "ring": "average"
+  },
+  {
+    "score": 61,
+    "title": "Full Stack Engineer",
+    "date": "May 15, 2024",
+    "time": "09:20 AM",
+    "label": "Needs Improvement",
+    "tone": "low",
+    "ring": "low"
+  }
+]

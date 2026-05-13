@@ -22,6 +22,9 @@ export default function UserMenu() {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
+
+    console.log("UserMenu rendered, user:", user);
+
     useEffect(() => {
         const handler = (e: MouseEvent) => {
             if (ref.current && !ref.current.contains(e.target as Node)) {

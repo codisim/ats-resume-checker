@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Total Analyses",
+    "value": "3",
+    "note": "All time",
+    "iconKey": "analyses",
+    "iconTone": "bg-violet-100 text-violet-600"
+  },
+  {
+    "label": "Average ATS Score",
+    "value": "72%",
+    "note": "Across all analyses",
+    "iconKey": "average",
+    "iconTone": "bg-emerald-100 text-emerald-600"
+  },
+  {
+    "label": "Resumes Uploaded",
+    "value": "1",
+    "note": "Manage your resumes",
+    "iconKey": "resumes",
+    "iconTone": "bg-blue-100 text-blue-600"
+  },
+  {
+    "label": "Weekly Usage",
+    "value": "3 / 10",
+    "note": "Scans used this week",
+    "iconKey": "weekly",
+    "iconTone": "bg-amber-100 text-amber-600"
+  }
+]
