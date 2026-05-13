@@ -18,7 +18,8 @@ export const STEPS = [
     {
         step: "03",
         icon: Sparkles,
-        title: "Get your fixed resume",
+        // title: "Get your fixed resume",
+        title: "Get an optimized, ATS resume",
         desc: "We don't just diagnose — we rewrite your summary using the exact keywords recruiters and ATS are looking for. One click, ready to apply.",
         color: "#00C896",
     },
