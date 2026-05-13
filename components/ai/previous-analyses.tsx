@@ -34,7 +34,7 @@ export function PreviousAnalyses({ analyses }: PreviousAnalysesProps) {
           <div className="grid size-7 place-items-center rounded-full bg-violet-50 text-violet-600">
             <ChevronRight className="size-4 rotate-90" />
           </div>
-          <CardTitle className="text-base">Previous Analyses</CardTitle>
+          <CardTitle className="text-lg text-black font-semibold">Previous Analyses</CardTitle>
         </div>
         <button className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">
           View All

@@ -10,7 +10,7 @@ export function RecentAnalysis() {
           <div className="grid size-7 place-items-center rounded-full bg-violet-50 text-violet-600">
             <CircleGauge className="size-4" />
           </div>
-          <CardTitle className="text-base">Recent Analysis</CardTitle>
+          <CardTitle className="text-lg text-black font-semibold">Recent Analysis</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="px-6 py-12">
