@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import path from "node:path"
 import mammoth from "mammoth"
 import { PDFParse } from "pdf-parse"
 
@@ -9,12 +8,8 @@ import { getOrCreateDbUser } from "@/lib/auth-user"
 export const runtime = "nodejs"
 
 const MAX_BYTES = 10 * 1024 * 1024
-const pdfWorkerPath = path.resolve(
-  process.cwd(),
-  "node_modules/pdf-parse/dist/worker/pdf.worker.mjs"
-)
 
-PDFParse.setWorker(pdfWorkerPath)
+PDFParse.setWorker("/pdf.worker.mjs")
 
 function getExtension(fileName: string) {
   const segments = fileName.toLowerCase().split(".")
