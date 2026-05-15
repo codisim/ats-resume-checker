@@ -23,7 +23,7 @@ export default function Navbar() {
           : "py-5"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between gap-8 px-4 sm:px-6 lg:px-8 2xl:px-10">
+      <div className="container mx-auto flex items-center justify-between gap-8 px-4 sm:px-6 lg:px-12">
         <NavLogo />
         <NavLinks />
         <div className="flex items-center gap-2">

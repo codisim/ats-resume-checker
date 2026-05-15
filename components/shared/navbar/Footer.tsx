@@ -31,7 +31,7 @@ const SOCIALS = [
 export default function Footer() {
     return (
         <footer className="bg-[#0A0F0D] border-t border-white/8">
-            <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8 2xl:px-10">
+            <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-12">
 
                 {/* Top row */}
                 <div className="mb-12 grid grid-cols-2 gap-10 md:grid-cols-5">

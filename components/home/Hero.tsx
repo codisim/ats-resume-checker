@@ -52,7 +52,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative min-h-screen overflow-hidden bg-[#0A0F0D] px-4 pt-28 pb-20">
+        <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A0F0D] px-4 py-28 lg:py-32">
 
             {/* Star background */}
             <canvas

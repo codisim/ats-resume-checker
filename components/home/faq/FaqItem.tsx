@@ -14,12 +14,12 @@ export default function FaqItem({ q, a, value }: FaqItemProps) {
     return (
         <AccordionItem
             value={value}
-            className="border border-white/8 rounded-xl px-5 mb-3 last:mb-0 data-[state=open]:border-white/15 transition-colors"
+            className="rounded-xl border border-white/8 bg-white/[0.02] px-5 transition-colors data-[state=open]:border-white/15 data-[state=open]:bg-white/[0.03]"
         >
-            <AccordionTrigger className="text-[14px] font-medium text-white/80 hover:text-white text-left py-4 hover:no-underline">
+            <AccordionTrigger className="py-4 text-left text-[14px] font-medium text-white/85 no-underline hover:no-underline data-[state=open]:text-white">
                 {q}
             </AccordionTrigger>
-            <AccordionContent className="text-[13px] text-white/45 leading-relaxed pb-4">
+            <AccordionContent className="pb-4 text-[13px] leading-relaxed text-white/45">
                 {a}
             </AccordionContent>
         </AccordionItem>

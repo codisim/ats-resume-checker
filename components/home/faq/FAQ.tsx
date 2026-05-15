@@ -8,33 +8,39 @@ import { FAQS } from "./faq.data";
 export default function FAQ() {
     return (
         <section id="faq" className="bg-[#0A0F0D] py-24 px-4">
-            <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
+            <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-12">
 
                 {/* Header */}
-                <div className="flex flex-col items-center text-center mb-12">
+                <div className="mx-auto mb-12 flex max-w-2xl flex-col items-center text-center">
                     <div className="inline-flex items-center gap-2 bg-[#00C896]/10 border border-[#00C896]/20 rounded-full px-4 py-1.5 mb-5">
                         <span className="size-1.5 rounded-full bg-[#00C896]" />
                         <span className="text-[11px] font-medium text-[#00C896] tracking-wide">FAQ</span>
                     </div>
                     <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl 2xl:text-5xl mb-3">
-                        Questions? <span className="text-[#00C896]">Answered.</span>
+                        Quick answers,
+                        <br className="hidden sm:block" />
+                        <span className="text-[#00C896]">no long scroll.</span>
                     </h2>
-                    <p className="max-w-xl text-[14px] leading-relaxed text-white/40 lg:text-[15px]">
-                        Everything you need to know before you start.
+                    <p className="max-w-lg text-[14px] leading-relaxed text-white/40 lg:text-[15px]">
+                        Short answers to the questions people usually ask before trying it.
                     </p>
                 </div>
 
-                {/* Accordion */}
+                {/* Compact cards */}
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                    <Accordion type="single" collapsible className="w-full">
+                    <Accordion
+                        type="single"
+                        collapsible
+                        className="mx-auto grid max-w-3xl grid-cols-1 gap-3"
+                    >
                         {FAQS.map((faq, i) => (
                             <FaqItem
-                                key={i}
+                                key={faq.q}
                                 value={`faq-${i}`}
                                 q={faq.q}
                                 a={faq.a}

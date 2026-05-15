@@ -21,7 +21,7 @@ const TRUST = [
 export default function CTA() {
   return (
     <section className="bg-[#0A0F0D] py-24 px-4">
-      <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -8,7 +8,7 @@ const WorldMap = dynamic(() => import("./WorldMap"), { ssr: false });
 export default function GlobalMap() {
     return (
         <section id="map" className="bg-[#0A0F0D] py-24 px-4">
-            <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-12">
 
                 {/* Header */}
                 <div className="flex flex-col items-center text-center mb-10">
