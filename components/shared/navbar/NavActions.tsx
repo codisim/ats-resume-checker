@@ -16,20 +16,12 @@ export default function NavActions() {
         return (
             <div className="hidden md:flex items-center gap-2">
                 {/* <UserMenu /> */}
-                <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className="text-foreground/70 hover:text-foreground hover:bg-foreground/10 rounded-full"
-            >
-                <Link href="/sign-in">Dashboard</Link>
-            </Button>
             <Button
                 size="sm"
                 asChild
                 className="bg-[#00C896] hover:bg-[#00A87E] text-[#0A0F0D] font-medium rounded-full px-5"
             >
-                <Link href="/sign-up">Dashboard</Link>
+                <Link href="/ai">Dashboard</Link>
             </Button>
             </div>
         );
