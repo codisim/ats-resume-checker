@@ -36,7 +36,7 @@ export function AiHeader({
 
       <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center xl:w-auto xl:justify-end">
         <Card className="w-full border-slate-200/80 bg-white/90 shadow-sm sm:w-[235px]">
-          <CardContent className="space-y-2.5 p-4">
+          <CardContent className="space-y-2.5 p-">
             <div className="flex items-start justify-between gap-3 text-sm">
               <div className="flex items-center gap-2 font-medium text-slate-600">
                 <Icon className="size-4 shrink-0 text-violet-600" />

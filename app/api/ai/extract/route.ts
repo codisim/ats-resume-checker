@@ -19,7 +19,27 @@ function normalizeText(text: string) {
   return text.replace(/\r\n/g, "\n").trim()
 }
 
+function ensurePdfJsGlobals() {
+  const globals = globalThis as typeof globalThis & Record<string, unknown>
+
+  // pdf-parse pulls in pdfjs-dist, which expects these DOM globals to exist.
+  // Vercel's Node runtime does not provide them, so we supply lightweight shims
+  // before the parser module is loaded.
+  if (typeof globals.DOMMatrix === "undefined") {
+    globals.DOMMatrix = class {}
+  }
+
+  if (typeof globals.ImageData === "undefined") {
+    globals.ImageData = class {}
+  }
+
+  if (typeof globals.Path2D === "undefined") {
+    globals.Path2D = class {}
+  }
+}
+
 function loadPdfParser() {
+  ensurePdfJsGlobals()
   return require("pdf-parse") as {
     PDFParse: typeof import("pdf-parse").PDFParse
   }
