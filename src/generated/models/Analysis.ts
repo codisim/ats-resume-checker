@@ -260,9 +260,9 @@ export type AnalysisWhereInput = {
   suggestions?: Prisma.JsonFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableFilter<"Analysis"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
   job?: Prisma.XOR<Prisma.JobDescriptionNullableScalarRelationFilter, Prisma.JobDescriptionWhereInput> | null
+  resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type AnalysisOrderByWithRelationInput = {
@@ -278,9 +278,9 @@ export type AnalysisOrderByWithRelationInput = {
   suggestions?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  resume?: Prisma.ResumeOrderByWithRelationInput
   job?: Prisma.JobDescriptionOrderByWithRelationInput
+  resume?: Prisma.ResumeOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type AnalysisWhereUniqueInput = Prisma.AtLeast<{
@@ -299,9 +299,9 @@ export type AnalysisWhereUniqueInput = Prisma.AtLeast<{
   suggestions?: Prisma.JsonFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableFilter<"Analysis"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
   job?: Prisma.XOR<Prisma.JobDescriptionNullableScalarRelationFilter, Prisma.JobDescriptionWhereInput> | null
+  resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type AnalysisOrderByWithAggregationInput = {
@@ -352,9 +352,9 @@ export type AnalysisCreateInput = {
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
-  resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
+  resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
+  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
 }
 
 export type AnalysisUncheckedCreateInput = {
@@ -382,9 +382,9 @@ export type AnalysisUpdateInput = {
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
-  resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
+  resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
 }
 
 export type AnalysisUncheckedUpdateInput = {
@@ -645,8 +645,8 @@ export type AnalysisCreateWithoutUserInput = {
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
   createdAt?: Date | string
-  resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
+  resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
 }
 
 export type AnalysisUncheckedCreateWithoutUserInput = {
@@ -717,8 +717,8 @@ export type AnalysisCreateWithoutResumeInput = {
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
+  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
 }
 
 export type AnalysisUncheckedCreateWithoutResumeInput = {
@@ -771,8 +771,8 @@ export type AnalysisCreateWithoutJobInput = {
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
   resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
+  user: Prisma.UserCreateNestedOneWithoutAnalysesInput
 }
 
 export type AnalysisUncheckedCreateWithoutJobInput = {
@@ -839,8 +839,8 @@ export type AnalysisUpdateWithoutUserInput = {
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
+  resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
 }
 
 export type AnalysisUncheckedUpdateWithoutUserInput = {
@@ -895,8 +895,8 @@ export type AnalysisUpdateWithoutResumeInput = {
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
 }
 
 export type AnalysisUncheckedUpdateWithoutResumeInput = {
@@ -951,8 +951,8 @@ export type AnalysisUpdateWithoutJobInput = {
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
   resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
 }
 
 export type AnalysisUncheckedUpdateWithoutJobInput = {
@@ -998,9 +998,9 @@ export type AnalysisSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   suggestions?: boolean
   improvedSummary?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["analysis"]>
 
 export type AnalysisSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1016,9 +1016,9 @@ export type AnalysisSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   suggestions?: boolean
   improvedSummary?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["analysis"]>
 
 export type AnalysisSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1034,9 +1034,9 @@ export type AnalysisSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   suggestions?: boolean
   improvedSummary?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["analysis"]>
 
 export type AnalysisSelectScalar = {
@@ -1056,27 +1056,27 @@ export type AnalysisSelectScalar = {
 
 export type AnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "resumeId" | "jobId" | "atsScore" | "matchPercent" | "missingSkills" | "strengths" | "weaknesses" | "suggestions" | "improvedSummary" | "createdAt", ExtArgs["result"]["analysis"]>
 export type AnalysisInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AnalysisIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AnalysisIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
+  resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $AnalysisPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Analysis"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    resume: Prisma.$ResumePayload<ExtArgs>
     job: Prisma.$JobDescriptionPayload<ExtArgs> | null
+    resume: Prisma.$ResumePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1485,9 +1485,9 @@ readonly fields: AnalysisFieldRefs;
  */
 export interface Prisma__AnalysisClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  resume<T extends Prisma.ResumeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResumeDefaultArgs<ExtArgs>>): Prisma.Prisma__ResumeClient<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job<T extends Prisma.Analysis$jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Analysis$jobArgs<ExtArgs>>): Prisma.Prisma__JobDescriptionClient<runtime.Types.Result.GetResult<Prisma.$JobDescriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  resume<T extends Prisma.ResumeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResumeDefaultArgs<ExtArgs>>): Prisma.Prisma__ResumeClient<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

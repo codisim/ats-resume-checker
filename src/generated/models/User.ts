@@ -198,10 +198,10 @@ export type UserWhereInput = {
   country?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  subscriptions?: Prisma.SubscriptionListRelationFilter
-  resumes?: Prisma.ResumeListRelationFilter
-  usages?: Prisma.UsageListRelationFilter
   analyses?: Prisma.AnalysisListRelationFilter
+  resumes?: Prisma.ResumeListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  usages?: Prisma.UsageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -212,10 +212,10 @@ export type UserOrderByWithRelationInput = {
   country?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
-  resumes?: Prisma.ResumeOrderByRelationAggregateInput
-  usages?: Prisma.UsageOrderByRelationAggregateInput
   analyses?: Prisma.AnalysisOrderByRelationAggregateInput
+  resumes?: Prisma.ResumeOrderByRelationAggregateInput
+  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  usages?: Prisma.UsageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -229,10 +229,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   country?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  subscriptions?: Prisma.SubscriptionListRelationFilter
-  resumes?: Prisma.ResumeListRelationFilter
-  usages?: Prisma.UsageListRelationFilter
   analyses?: Prisma.AnalysisListRelationFilter
+  resumes?: Prisma.ResumeListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  usages?: Prisma.UsageListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -269,10 +269,10 @@ export type UserCreateInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
-  usages?: Prisma.UsageCreateNestedManyWithoutUserInput
   analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -283,10 +283,10 @@ export type UserUncheckedCreateInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
-  usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
   analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -297,10 +297,10 @@ export type UserUpdateInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
-  usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
   analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -311,10 +311,10 @@ export type UserUncheckedUpdateInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
-  usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
   analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -462,9 +462,9 @@ export type UserCreateWithoutResumesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
+  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
-  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -475,9 +475,9 @@ export type UserUncheckedCreateWithoutResumesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
+  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
-  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -504,9 +504,9 @@ export type UserUpdateWithoutResumesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
-  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -517,9 +517,9 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
-  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAnalysesInput = {
@@ -530,8 +530,8 @@ export type UserCreateWithoutAnalysesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
 }
 
@@ -543,8 +543,8 @@ export type UserUncheckedCreateWithoutAnalysesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -572,8 +572,8 @@ export type UserUpdateWithoutAnalysesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
 }
 
@@ -585,8 +585,8 @@ export type UserUncheckedUpdateWithoutAnalysesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -598,9 +598,9 @@ export type UserCreateWithoutUsagesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUsagesInput = {
@@ -611,9 +611,9 @@ export type UserUncheckedCreateWithoutUsagesInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUsagesInput = {
@@ -640,9 +640,9 @@ export type UserUpdateWithoutUsagesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUsagesInput = {
@@ -653,9 +653,9 @@ export type UserUncheckedUpdateWithoutUsagesInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionsInput = {
@@ -666,9 +666,9 @@ export type UserCreateWithoutSubscriptionsInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
+  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
-  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -679,9 +679,9 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   country?: string | null
   role?: $Enums.UserRole
   createdAt?: Date | string
+  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
-  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -708,9 +708,9 @@ export type UserUpdateWithoutSubscriptionsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
-  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -721,9 +721,9 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
-  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -732,17 +732,17 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
  */
 
 export type UserCountOutputType = {
-  subscriptions: number
-  resumes: number
-  usages: number
   analyses: number
+  resumes: number
+  subscriptions: number
+  usages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
-  resumes?: boolean | UserCountOutputTypeCountResumesArgs
-  usages?: boolean | UserCountOutputTypeCountUsagesArgs
   analyses?: boolean | UserCountOutputTypeCountAnalysesArgs
+  resumes?: boolean | UserCountOutputTypeCountResumesArgs
+  subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+  usages?: boolean | UserCountOutputTypeCountUsagesArgs
 }
 
 /**
@@ -758,8 +758,8 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SubscriptionWhereInput
+export type UserCountOutputTypeCountAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnalysisWhereInput
 }
 
 /**
@@ -772,15 +772,15 @@ export type UserCountOutputTypeCountResumesArgs<ExtArgs extends runtime.Types.Ex
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UsageWhereInput
+export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubscriptionWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AnalysisWhereInput
+export type UserCountOutputTypeCountUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsageWhereInput
 }
 
 
@@ -792,10 +792,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   country?: boolean
   role?: boolean
   createdAt?: boolean
-  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
-  resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
-  usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
   analyses?: boolean | Prisma.User$analysesArgs<ExtArgs>
+  resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -831,10 +831,10 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "image" | "country" | "role" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
-  resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
-  usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
   analyses?: boolean | Prisma.User$analysesArgs<ExtArgs>
+  resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -843,10 +843,10 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
-    resumes: Prisma.$ResumePayload<ExtArgs>[]
-    usages: Prisma.$UsagePayload<ExtArgs>[]
     analyses: Prisma.$AnalysisPayload<ExtArgs>[]
+    resumes: Prisma.$ResumePayload<ExtArgs>[]
+    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    usages: Prisma.$UsagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1250,10 +1250,10 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  resumes<T extends Prisma.User$resumesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resumesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  usages<T extends Prisma.User$usagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   analyses<T extends Prisma.User$analysesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$analysesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resumes<T extends Prisma.User$resumesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resumesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usages<T extends Prisma.User$usagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1678,27 +1678,27 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.subscriptions
+ * User.analyses
  */
-export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$analysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Subscription
+   * Select specific fields to fetch from the Analysis
    */
-  select?: Prisma.SubscriptionSelect<ExtArgs> | null
+  select?: Prisma.AnalysisSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Subscription
+   * Omit specific fields from the Analysis
    */
-  omit?: Prisma.SubscriptionOmit<ExtArgs> | null
+  omit?: Prisma.AnalysisOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SubscriptionInclude<ExtArgs> | null
-  where?: Prisma.SubscriptionWhereInput
-  orderBy?: Prisma.SubscriptionOrderByWithRelationInput | Prisma.SubscriptionOrderByWithRelationInput[]
-  cursor?: Prisma.SubscriptionWhereUniqueInput
+  include?: Prisma.AnalysisInclude<ExtArgs> | null
+  where?: Prisma.AnalysisWhereInput
+  orderBy?: Prisma.AnalysisOrderByWithRelationInput | Prisma.AnalysisOrderByWithRelationInput[]
+  cursor?: Prisma.AnalysisWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+  distinct?: Prisma.AnalysisScalarFieldEnum | Prisma.AnalysisScalarFieldEnum[]
 }
 
 /**
@@ -1726,6 +1726,30 @@ export type User$resumesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
+ * User.subscriptions
+ */
+export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Subscription
+   */
+  select?: Prisma.SubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Subscription
+   */
+  omit?: Prisma.SubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubscriptionInclude<ExtArgs> | null
+  where?: Prisma.SubscriptionWhereInput
+  orderBy?: Prisma.SubscriptionOrderByWithRelationInput | Prisma.SubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
  * User.usages
  */
 export type User$usagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1747,30 +1771,6 @@ export type User$usagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.UsageScalarFieldEnum | Prisma.UsageScalarFieldEnum[]
-}
-
-/**
- * User.analyses
- */
-export type User$analysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Analysis
-   */
-  select?: Prisma.AnalysisSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Analysis
-   */
-  omit?: Prisma.AnalysisOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AnalysisInclude<ExtArgs> | null
-  where?: Prisma.AnalysisWhereInput
-  orderBy?: Prisma.AnalysisOrderByWithRelationInput | Prisma.AnalysisOrderByWithRelationInput[]
-  cursor?: Prisma.AnalysisWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AnalysisScalarFieldEnum | Prisma.AnalysisScalarFieldEnum[]
 }
 
 /**

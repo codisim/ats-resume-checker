@@ -1,6 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server"
 
-import prisma from "@/lib/prisma"
+import { upsertClerkUser } from "@/lib/clerk-user"
 
 export async function getOrCreateDbUser() {
   const clerkUser = await currentUser()
@@ -15,22 +15,17 @@ export async function getOrCreateDbUser() {
     throw new Error("No email address available for the signed-in user.")
   }
 
-  const name = [clerkUser.firstName, clerkUser.lastName]
-    .filter(Boolean)
-    .join(" ")
-
-  return prisma.user.upsert({
-    where: { email },
-    create: {
+  try {
+    return await upsertClerkUser({
       email,
-      name: name || null,
-      image: clerkUser.imageUrl || null,
-    },
-    update: {
-      name: name || null,
-      image: clerkUser.imageUrl || null,
-    },
-  })
+      firstName: clerkUser.firstName,
+      lastName: clerkUser.lastName,
+      imageUrl: clerkUser.imageUrl,
+    })
+  } catch (error) {
+    console.warn("Could not sync Clerk user to Prisma; continuing without DB user.", error)
+    return null
+  }
 }
 
 export function getWeekStart(date = new Date()) {

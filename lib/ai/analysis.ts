@@ -208,65 +208,91 @@ export async function generateAiRewrite(args: {
     } satisfies AiRewriteResult
   }
 
-  const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey,
-      },
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [
-            {
-              text: "You rewrite resumes for ATS optimization. Return JSON only.",
-            },
-          ],
+  try {
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey,
         },
-        contents: [
-          {
+        body: JSON.stringify({
+          system_instruction: {
             parts: [
               {
-                text: buildPrompt(args),
+                text: "You rewrite resumes for ATS optimization. Return JSON only.",
               },
             ],
           },
-        ],
-      }),
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error(`Gemini request failed with status ${response.status}`)
-  }
-
-  const payload = (await response.json()) as {
-    candidates?: Array<{
-      content?: {
-        parts?: Array<{ text?: string }>
+          contents: [
+            {
+              parts: [
+                {
+                  text: buildPrompt(args),
+                },
+              ],
+            },
+          ],
+        }),
       }
-    }>
+    )
+
+    if (!response.ok) {
+      console.warn(
+        `Gemini request failed with status ${response.status}; falling back to local rewrite.`
+      )
+      return fallbackRewrite(args)
+    }
+
+    const payload = (await response.json()) as {
+      candidates?: Array<{
+        content?: {
+          parts?: Array<{ text?: string }>
+        }
+      }>
+    }
+
+    const rawText = payload.candidates?.[0]?.content?.parts?.[0]?.text ?? ""
+    const jsonText = extractJsonCandidate(rawText) ?? rawText
+
+    try {
+      const parsed = JSON.parse(jsonText) as Partial<AiRewriteResult>
+      return {
+        improvedSummary:
+          parsed.improvedSummary ?? args.analysis.improvedSummary,
+        bulletPoints: parsed.bulletPoints ?? [],
+        recruiterSuggestions:
+          parsed.recruiterSuggestions ?? args.analysis.suggestions,
+        atsOptimizedRewrite: parsed.atsOptimizedRewrite ?? args.resumeText,
+      } satisfies AiRewriteResult
+    } catch {
+      return {
+        improvedSummary: rawText || args.analysis.improvedSummary,
+        bulletPoints: [],
+        recruiterSuggestions: args.analysis.suggestions,
+        atsOptimizedRewrite: args.resumeText,
+      } satisfies AiRewriteResult
+    }
+  } catch (error) {
+    console.warn("Gemini rewrite failed; using local fallback.", error)
+    return fallbackRewrite(args)
   }
+}
 
-  const rawText = payload.candidates?.[0]?.content?.parts?.[0]?.text ?? ""
-  const jsonText = extractJsonCandidate(rawText) ?? rawText
-
-  try {
-    const parsed = JSON.parse(jsonText) as Partial<AiRewriteResult>
-    return {
-      improvedSummary:
-        parsed.improvedSummary ?? args.analysis.improvedSummary,
-      bulletPoints: parsed.bulletPoints ?? [],
-      recruiterSuggestions: parsed.recruiterSuggestions ?? args.analysis.suggestions,
-      atsOptimizedRewrite: parsed.atsOptimizedRewrite ?? args.resumeText,
-    } satisfies AiRewriteResult
-  } catch {
-    return {
-      improvedSummary: rawText || args.analysis.improvedSummary,
-      bulletPoints: [],
-      recruiterSuggestions: args.analysis.suggestions,
-      atsOptimizedRewrite: args.resumeText,
-    } satisfies AiRewriteResult
+function fallbackRewrite(args: {
+  resumeText: string
+  jobDescription: string
+  analysis: LocalAnalysis
+}): AiRewriteResult {
+  return {
+    improvedSummary: args.analysis.improvedSummary,
+    bulletPoints: [
+      "Refine your summary to include the target role and stack.",
+      "Add measurable impact to 2-3 bullets.",
+      "Keep the most relevant skills near the top.",
+    ],
+    recruiterSuggestions: args.analysis.suggestions,
+    atsOptimizedRewrite: args.resumeText,
   }
 }

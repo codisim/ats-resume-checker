@@ -26,9 +26,6 @@ function cleanText(value: string) {
 export async function POST(req: Request) {
   try {
     const dbUser = await getOrCreateDbUser()
-    if (!dbUser) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
 
     const body = (await req.json()) as AnalyzeBody
     const resumeId = body.resumeId?.trim() || null
@@ -52,39 +49,21 @@ export async function POST(req: Request) {
       )
     }
 
-    const resume =
-      resumeId
-        ? await prisma.resume.findFirst({
-            where: {
-              id: resumeId,
-              userId: dbUser.id,
-            },
-          })
-        : null
-
-    const ensuredResume =
-      resume ??
-      (await prisma.resume.create({
-        data: {
-          userId: dbUser.id,
-          fileUrl: "local://uploaded",
-          fileName: body.jobTitle ? `${body.jobTitle}.pdf` : "uploaded-resume.pdf",
-          rawText: effectiveResumeText,
-        },
-      }))
-
-    const weeklyLimit = await getWeeklyLimit(dbUser.id)
-    const currentWeekStart = getWeekStart()
-    const usage = await prisma.usage.findFirst({
-      where: {
-        userId: dbUser.id,
-        weekStart: currentWeekStart,
-      },
-    })
+    const canPersist = Boolean(dbUser)
+    const weeklyLimit = canPersist ? await getWeeklyLimit(dbUser!.id) : DEFAULT_WEEKLY_LIMIT
+    const currentWeekStart = canPersist ? getWeekStart() : null
+    const usage = canPersist
+      ? await prisma.usage.findFirst({
+          where: {
+            userId: dbUser!.id,
+            weekStart: currentWeekStart!,
+          },
+        })
+      : null
 
     const usedCount = usage?.count ?? 0
 
-    if (usedCount >= weeklyLimit) {
+    if (canPersist && usedCount >= weeklyLimit) {
       return NextResponse.json(
         {
           error: "Weekly usage limit reached.",
@@ -100,58 +79,73 @@ export async function POST(req: Request) {
       jobDescription,
     })
 
-    const job = await prisma.jobDescription.create({
-      data: {
-        userId: dbUser.id,
-        title: jobTitle,
-        company,
-        description: jobDescription,
-      },
-    })
-
     const aiRewrite = await generateAiRewrite({
       resumeText: effectiveResumeText,
       jobDescription,
       analysis,
     })
 
-    const record = await prisma.analysis.create({
-      data: {
-        userId: dbUser.id,
-        resumeId: ensuredResume.id,
-        jobId: job.id,
-        atsScore: analysis.atsScore,
-        matchPercent: analysis.matchPercent,
-        missingSkills: analysis.missingSkills,
-        strengths: analysis.matchedSkills,
-        weaknesses: analysis.weaknesses,
-        suggestions: aiRewrite.recruiterSuggestions,
-        improvedSummary: aiRewrite.improvedSummary,
-      },
-    })
+    const ensuredResume = canPersist
+      ? await ensureResumeRecord({
+          dbUserId: dbUser!.id,
+          resumeId,
+          fileName: body.jobTitle ? `${body.jobTitle}.pdf` : "uploaded-resume.pdf",
+          extractedText: effectiveResumeText,
+        })
+      : null
 
-    if (usage) {
-      await prisma.usage.update({
-        where: { id: usage.id },
-        data: {
-          count: usedCount + 1,
-          weekStart: currentWeekStart,
-        },
-      })
-    } else {
-      await prisma.usage.create({
-        data: {
-          userId: dbUser.id,
-          count: usedCount + 1,
-          weekStart: currentWeekStart,
-        },
-      })
+    const job = canPersist
+      ? await prisma.jobDescription.create({
+          data: {
+            userId: dbUser!.id,
+            title: jobTitle,
+            company,
+            description: jobDescription,
+          },
+        })
+      : null
+
+    const record = canPersist
+      ? await prisma.analysis.create({
+          data: {
+            userId: dbUser!.id,
+            resumeId: ensuredResume!.id,
+            jobId: job!.id,
+            atsScore: analysis.atsScore,
+            matchPercent: analysis.matchPercent,
+            missingSkills: analysis.missingSkills,
+            strengths: analysis.matchedSkills,
+            weaknesses: analysis.weaknesses,
+            suggestions: aiRewrite.recruiterSuggestions,
+            improvedSummary: aiRewrite.improvedSummary,
+          },
+        })
+      : null
+
+    if (canPersist) {
+      if (usage) {
+        await prisma.usage.update({
+          where: { id: usage.id },
+          data: {
+            count: usedCount + 1,
+            weekStart: currentWeekStart!,
+          },
+        })
+      } else {
+        await prisma.usage.create({
+          data: {
+            userId: dbUser!.id,
+            count: usedCount + 1,
+            weekStart: currentWeekStart!,
+          },
+        })
+      }
     }
 
     return NextResponse.json({
-      analysisId: record.id,
-      resumeId: ensuredResume.id,
-      jobId: job.id,
+      analysisId: record?.id ?? "",
+      resumeId: ensuredResume?.id ?? resumeId ?? "",
+      jobId: job?.id ?? "",
       atsScore: analysis.atsScore,
       matchPercent: analysis.matchPercent,
       matchedSkills: analysis.matchedSkills,
@@ -163,7 +157,7 @@ export async function POST(req: Request) {
       atsOptimizedRewrite: aiRewrite.atsOptimizedRewrite,
       bulletPoints: aiRewrite.bulletPoints,
       weeklyUsage: {
-        used: usedCount + 1,
+        used: canPersist ? usedCount + 1 : usedCount,
         limit: weeklyLimit,
       },
     })
@@ -191,4 +185,38 @@ async function getWeeklyLimit(userId: string) {
   })
 
   return subscription?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT
+}
+
+async function ensureResumeRecord({
+  dbUserId,
+  resumeId,
+  fileName,
+  extractedText,
+}: {
+  dbUserId: string
+  resumeId: string | null
+  fileName: string
+  extractedText: string
+}) {
+  const resume =
+    resumeId
+      ? await prisma.resume.findFirst({
+          where: {
+            id: resumeId,
+            userId: dbUserId,
+          },
+        })
+      : null
+
+  return (
+    resume ??
+    (await prisma.resume.create({
+      data: {
+        userId: dbUserId,
+        fileUrl: "local://uploaded",
+        fileName,
+        rawText: extractedText,
+      },
+    }))
+  )
 }
