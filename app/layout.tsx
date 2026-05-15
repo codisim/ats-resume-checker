@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ActiveThemeProvider } from "@/components/active-theme";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default async function RootLayout({
           >
             <ActiveThemeProvider initialTheme={activeThemeValue}>
               {children}
+              <GoogleAnalytics gaId="G-F4EP5EY515" />
               <Toaster position="top-left" />
             </ActiveThemeProvider>
           </ThemeProvider>
