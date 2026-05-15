@@ -8,7 +8,7 @@ const WorldMap = dynamic(() => import("./WorldMap"), { ssr: false });
 export default function GlobalMap() {
     return (
         <section id="map" className="bg-[#0A0F0D] py-24 px-4">
-            <div className="max-w-5xl mx-auto">
+            <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
 
                 {/* Header */}
                 <div className="flex flex-col items-center text-center mb-10">
@@ -18,10 +18,10 @@ export default function GlobalMap() {
                             Live — updating in real time
                         </span>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl 2xl:text-5xl mb-3">
                         Used in <span className="text-[#00C896]">10+ countries</span>
                     </h2>
-                    <p className="text-[14px] text-white/40 max-w-sm">
+                    <p className="max-w-sm text-[14px] text-white/40 lg:text-[15px]">
                         Real job seekers from around the world — and growing every day.
                     </p>
                 </div>

@@ -25,7 +25,7 @@ const STATS = [
 
 export default function HeroAnalysis() {
     return (
-        <div className="relative z-10 w-full max-w-[560px] mx-auto mt-14">
+        <div className="relative z-10 mx-auto mt-14 w-full max-w-[560px] xl:mx-0 xl:mt-0 xl:max-w-[620px]">
 
             {/* ATS result card */}
             <motion.div

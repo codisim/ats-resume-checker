@@ -31,10 +31,10 @@ const SOCIALS = [
 export default function Footer() {
     return (
         <footer className="bg-[#0A0F0D] border-t border-white/8">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+            <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8 2xl:px-10">
 
                 {/* Top row */}
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
+                <div className="mb-12 grid grid-cols-2 gap-10 md:grid-cols-5">
 
                     {/* Brand col */}
                     <div className="col-span-2 md:col-span-2">
@@ -51,7 +51,7 @@ export default function Footer() {
                             </span>
                         </Link>
 
-                        <p className="text-[13px] text-white/40 leading-relaxed max-w-[220px] mb-5">
+                        <p className="mb-5 max-w-[220px] text-[13px] leading-relaxed text-white/40">
                             AI-powered resume analyzer that helps you pass ATS and land more interviews — globally.
                         </p>
 

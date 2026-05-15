@@ -6,7 +6,7 @@ import { FEATURES } from "./features.data";
 
 export default function FeatureGrid() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
             {FEATURES.map((f, i) => (
                 <motion.div
                     key={f.title}

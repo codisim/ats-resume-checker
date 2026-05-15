@@ -52,7 +52,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative min-h-screen bg-[#0A0F0D] flex flex-col items-center px-4 pt-28 pb-20 overflow-hidden">
+        <section className="relative min-h-screen overflow-hidden bg-[#0A0F0D] px-4 pt-28 pb-20">
 
             {/* Star background */}
             <canvas
@@ -71,8 +71,10 @@ export default function Hero() {
                 aria-hidden="true"
             />
 
-            <HeroContent />
-            <HeroAnalysis />
+            <div className="container relative z-10 mx-auto grid items-center gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:gap-10 2xl:gap-16">
+                <HeroContent />
+                <HeroAnalysis />
+            </div>
 
         </section>
     );

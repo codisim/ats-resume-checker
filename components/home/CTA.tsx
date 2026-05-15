@@ -21,13 +21,13 @@ const TRUST = [
 export default function CTA() {
   return (
     <section className="bg-[#0A0F0D] py-24 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative bg-[#111816] border border-white/9 rounded-3xl px-6 py-16 text-center overflow-hidden"
+          className="relative overflow-hidden rounded-3xl border border-white/9 bg-[#111816] px-6 py-16 text-center lg:px-10 lg:py-20"
         >
           {/* Glow effects */}
           <div
@@ -61,7 +61,7 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.15] mb-4"
+            className="mb-4 text-3xl font-bold tracking-tight leading-[1.12] text-white sm:text-4xl lg:text-5xl 2xl:text-6xl"
           >
             Your next job starts with
             <br />a <span className="text-[#00C896]">better resume</span>

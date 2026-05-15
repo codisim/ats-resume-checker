@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Dashboard", href: "/ai", icon: LayoutDashboard },
     { label: "Profile", href: "/profile", icon: UserCircle },
     { label: "Settings", href: "/settings", icon: Settings },
 ];

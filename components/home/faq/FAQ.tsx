@@ -8,7 +8,7 @@ import { FAQS } from "./faq.data";
 export default function FAQ() {
     return (
         <section id="faq" className="bg-[#0A0F0D] py-24 px-4">
-            <div className="max-w-2xl mx-auto">
+            <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
 
                 {/* Header */}
                 <div className="flex flex-col items-center text-center mb-12">
@@ -16,10 +16,10 @@ export default function FAQ() {
                         <span className="size-1.5 rounded-full bg-[#00C896]" />
                         <span className="text-[11px] font-medium text-[#00C896] tracking-wide">FAQ</span>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl 2xl:text-5xl mb-3">
                         Questions? <span className="text-[#00C896]">Answered.</span>
                     </h2>
-                    <p className="text-[14px] text-white/40 leading-relaxed">
+                    <p className="max-w-xl text-[14px] leading-relaxed text-white/40 lg:text-[15px]">
                         Everything you need to know before you start.
                     </p>
                 </div>

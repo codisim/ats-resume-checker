@@ -11,7 +11,7 @@ const fade = (delay = 0) => ({
 
 export default function HeroContent() {
     return (
-        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-none">
 
             <motion.div {...fade(0.1)}>
                 <div className="inline-flex items-center gap-2 bg-[#00C896]/10 border border-[#00C896]/25 rounded-full px-4 py-1.5 mb-7">
@@ -24,7 +24,7 @@ export default function HeroContent() {
 
             <motion.h1
                 {...fade(0.2)}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.12] tracking-tight mb-5"
+                className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-5"
             >
                 Your resume is getting{" "}
                 <span className="text-[#EF4444]">rejected</span> before
@@ -34,7 +34,7 @@ export default function HeroContent() {
 
             <motion.p
                 {...fade(0.3)}
-                className="text-[15px] text-white/50 leading-relaxed max-w-lg mb-8"
+                className="max-w-xl text-[15px] leading-relaxed text-white/50 lg:text-base lg:leading-8 mb-8"
             >
                 75% of resumes never reach a recruiter. Our AI scans, scores, and
                 rewrites your resume to pass any ATS — in seconds.
@@ -42,7 +42,7 @@ export default function HeroContent() {
 
             <motion.div
                 {...fade(0.4)}
-                className="flex items-center gap-3 mb-6 flex-wrap justify-center"
+                className="mb-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
             >
                 <Link
                     href="/sign-up"
@@ -63,7 +63,7 @@ export default function HeroContent() {
 
             <motion.div
                 {...fade(0.5)}
-                className="flex items-center justify-center gap-4 flex-wrap"
+                className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
                 {["No credit card", "12 free scans/week", "Results in 10 seconds"].map((text) => (
                     <div key={text} className="flex items-center gap-1.5 text-[12px] text-white/35">

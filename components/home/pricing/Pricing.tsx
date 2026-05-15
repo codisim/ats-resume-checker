@@ -7,7 +7,7 @@ import { PLANS } from "./pricing.data";
 export default function Pricing() {
     return (
         <section id="pricing" className="bg-[#0A0F0D] py-24 px-4">
-            <div className="max-w-5xl mx-auto">
+            <div className="container mx-auto px-0 sm:px-2 lg:px-4 2xl:px-6">
 
                 {/* Header */}
                 <div className="flex flex-col items-center text-center mb-14">
@@ -17,17 +17,17 @@ export default function Pricing() {
                             Simple pricing
                         </span>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl 2xl:text-5xl mb-3">
                         Start free. Upgrade when{" "}
                         <span className="text-[#00C896]">ready.</span>
                     </h2>
-                    <p className="text-[14px] text-white/40 leading-relaxed">
+                    <p className="max-w-xl text-[14px] leading-relaxed text-white/40 lg:text-[15px]">
                         No hidden fees. No credit card needed to start.
                     </p>
                 </div>
 
                 {/* Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
                     {PLANS.map((plan, i) => (
                         <motion.div
                             key={plan.id}

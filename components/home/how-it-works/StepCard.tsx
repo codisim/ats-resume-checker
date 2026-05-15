@@ -33,7 +33,7 @@ export default function StepCard({ step, icon: Icon, title, desc, color, isLast 
             </div>
 
             <h3 className="text-[16px] font-semibold text-white mb-2.5">{title}</h3>
-            <p className="text-[13px] text-white/45 leading-relaxed max-w-[220px]">{desc}</p>
+            <p className="max-w-[240px] text-[13px] leading-relaxed text-white/45 lg:max-w-[260px] lg:text-[14px]">{desc}</p>
 
         </div>
     );
