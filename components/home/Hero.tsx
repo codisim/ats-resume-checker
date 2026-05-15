@@ -71,7 +71,7 @@ export default function Hero() {
                 aria-hidden="true"
             />
 
-            <div className="container relative z-10 mx-auto grid items-center gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:gap-10 2xl:gap-16">
+            <div className="container relative z-10 mx-auto grid items-center gap- lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:gap-10 2xl:gap-16">
                 <HeroContent />
                 <HeroAnalysis />
             </div>

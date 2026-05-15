@@ -11,7 +11,7 @@ const fade = (delay = 0) => ({
 
 export default function HeroContent() {
     return (
-        <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-none">
+        <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-none lg:ml-12">
 
             <motion.div {...fade(0.1)}>
                 <div className="inline-flex items-center gap-2 bg-[#00C896]/10 border border-[#00C896]/25 rounded-full px-4 py-1.5 mb-7">
@@ -24,7 +24,7 @@ export default function HeroContent() {
 
             <motion.h1
                 {...fade(0.2)}
-                className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-5"
+                className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-[67px] font-bold text-white leading-[1.08] tracking-tight mb-5"
             >
                 Your resume is getting{" "}
                 <span className="text-[#EF4444]">rejected</span> before

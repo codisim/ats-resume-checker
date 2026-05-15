@@ -11,7 +11,7 @@ export default function NavLogo() {
         </svg>
       </div>
       <span className="font-semibold text-[15px] text-white tracking-tight">
-        resume<span className="text-[#00C896]">.</span>codisim
+        atsResume
       </span>
     </Link>
   );
