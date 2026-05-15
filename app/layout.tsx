@@ -7,27 +7,11 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ActiveThemeProvider } from "@/components/active-theme";
 
-import { DM_Sans, Syne } from "next/font/google";
-
 
 export const metadata: Metadata = {
   title: "ATS Resume Checker",
   description: "AI-powered resume analysis that helps job seekers identify missing skills, improve ATS compatibility, and optimize resumes for real job descriptions.",
 };
-
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
-});
-
-
-
 
 export default async function RootLayout({
   children,
@@ -40,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <ClerkProvider>
-      <html lang="en" className={`${dmSans.variable} ${syne.variable}`} suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
             "bg-background overscroll-none font-sans antialiased",
