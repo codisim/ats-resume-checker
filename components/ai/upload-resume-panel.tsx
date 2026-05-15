@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { SectionShell } from "./section-shell"
 
 type ExtractResponse = {
-  resumeId: string
+  resumeId: string | null
   fileName: string
   mimeType: string
   text: string
@@ -17,7 +17,7 @@ type ExtractResponse = {
 }
 
 export type ExtractedResume = {
-  resumeId: string
+  resumeId: string | null
   fileName: string
   sizeLabel: string
   text: string
@@ -138,11 +138,11 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
                   <div className="grid size-10 place-items-center rounded-xl bg-red-50 text-red-500">
                     <FileText className="size-5" />
                   </div>
-                <div>
-                  <p className="font-medium text-slate-900">{fileInfo.name}</p>
-                  <p className="text-sm text-slate-500">{fileInfo.sizeLabel}</p>
+                  <div>
+                    <p className="font-medium text-slate-900">{fileInfo.name}</p>
+                    <p className="text-sm text-slate-500">{fileInfo.sizeLabel}</p>
+                  </div>
                 </div>
-              </div>
                 <CircleCheckBig className="size-5 text-emerald-500" />
               </div>
             )}

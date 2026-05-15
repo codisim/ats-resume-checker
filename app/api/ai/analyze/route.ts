@@ -12,7 +12,7 @@ export const runtime = "nodejs"
 const DEFAULT_WEEKLY_LIMIT = 7
 
 type AnalyzeBody = {
-  resumeId: string
+  resumeId?: string | null
   resumeText?: string
   jobDescription: string
   jobTitle?: string
@@ -31,30 +31,19 @@ export async function POST(req: Request) {
     }
 
     const body = (await req.json()) as AnalyzeBody
-    const resumeId = body.resumeId?.trim()
+    const resumeId = body.resumeId?.trim() || null
     const jobDescription = cleanText(body.jobDescription || "")
     const jobTitle = body.jobTitle?.trim() || null
     const company = body.company?.trim() || null
 
-    if (!resumeId || !jobDescription) {
+    if (!jobDescription) {
       return NextResponse.json(
-        { error: "Resume and job description are required." },
+        { error: "Job description is required." },
         { status: 400 }
       )
     }
 
-    const resume = await prisma.resume.findFirst({
-      where: {
-        id: resumeId,
-        userId: dbUser.id,
-      },
-    })
-
-    if (!resume) {
-      return NextResponse.json({ error: "Resume not found." }, { status: 404 })
-    }
-
-    const effectiveResumeText = cleanText(body.resumeText || resume.rawText || "")
+    const effectiveResumeText = cleanText(body.resumeText || "")
 
     if (!effectiveResumeText) {
       return NextResponse.json(
@@ -62,6 +51,27 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
+
+    const resume =
+      resumeId
+        ? await prisma.resume.findFirst({
+            where: {
+              id: resumeId,
+              userId: dbUser.id,
+            },
+          })
+        : null
+
+    const ensuredResume =
+      resume ??
+      (await prisma.resume.create({
+        data: {
+          userId: dbUser.id,
+          fileUrl: "local://uploaded",
+          fileName: body.jobTitle ? `${body.jobTitle}.pdf` : "uploaded-resume.pdf",
+          rawText: effectiveResumeText,
+        },
+      }))
 
     const weeklyLimit = await getWeeklyLimit(dbUser.id)
     const currentWeekStart = getWeekStart()
@@ -108,7 +118,7 @@ export async function POST(req: Request) {
     const record = await prisma.analysis.create({
       data: {
         userId: dbUser.id,
-        resumeId: resume.id,
+        resumeId: ensuredResume.id,
         jobId: job.id,
         atsScore: analysis.atsScore,
         matchPercent: analysis.matchPercent,
@@ -140,7 +150,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       analysisId: record.id,
-      resumeId: resume.id,
+      resumeId: ensuredResume.id,
       jobId: job.id,
       atsScore: analysis.atsScore,
       matchPercent: analysis.matchPercent,

@@ -20,11 +20,6 @@ function normalizeText(text: string) {
 
 export async function POST(req: Request) {
   try {
-    const dbUser = await getOrCreateDbUser()
-    if (!dbUser) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const formData = await req.formData()
     const file = formData.get("file")
 
@@ -47,13 +42,13 @@ export async function POST(req: Request) {
       const parser = new PDFParse({ data: buffer })
       const result = await parser.getText()
       const text = normalizeText(result.text || "")
+      const resumeId = await saveResume({
+        fileName: file.name,
+        extractedText: text,
+      })
 
       return NextResponse.json({
-        resumeId: await saveResume({
-          userId: dbUser.id,
-          fileName: file.name,
-          extractedText: text,
-        }),
+        resumeId,
         fileName: file.name,
         mimeType: "application/pdf",
         text,
@@ -67,13 +62,13 @@ export async function POST(req: Request) {
     ) {
       const result = await mammoth.extractRawText({ buffer })
       const text = normalizeText(result.value || "")
+      const resumeId = await saveResume({
+        fileName: file.name,
+        extractedText: text,
+      })
 
       return NextResponse.json({
-        resumeId: await saveResume({
-          userId: dbUser.id,
-          fileName: file.name,
-          extractedText: text,
-        }),
+        resumeId,
         fileName: file.name,
         mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         text,
@@ -96,22 +91,30 @@ export async function POST(req: Request) {
 }
 
 async function saveResume({
-  userId,
   fileName,
   extractedText,
 }: {
-  userId: string
   fileName: string
   extractedText: string
-}) {
-  const resume = await prisma.resume.create({
-    data: {
-      userId,
-      fileUrl: `local://${fileName}`,
-      fileName,
-      rawText: extractedText,
-    },
-  })
+}): Promise<string | null> {
+  try {
+    const dbUser = await getOrCreateDbUser()
+    if (!dbUser) {
+      return null
+    }
 
-  return resume.id
+    const resume = await prisma.resume.create({
+      data: {
+        userId: dbUser.id,
+        fileUrl: `local://${fileName}`,
+        fileName,
+        rawText: extractedText,
+      },
+    })
+
+    return resume.id
+  } catch (error) {
+    console.error("Resume save skipped:", error)
+    return null
+  }
 }
