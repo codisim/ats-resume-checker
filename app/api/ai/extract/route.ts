@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
+import { createRequire } from "node:module"
 import mammoth from "mammoth"
-import { PDFParse } from "pdf-parse"
 
 import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
@@ -8,8 +8,7 @@ import { getOrCreateDbUser } from "@/lib/auth-user"
 export const runtime = "nodejs"
 
 const MAX_BYTES = 10 * 1024 * 1024
-
-PDFParse.setWorker("/pdf.worker.mjs")
+const require = createRequire(import.meta.url)
 
 function getExtension(fileName: string) {
   const segments = fileName.toLowerCase().split(".")
@@ -18,6 +17,12 @@ function getExtension(fileName: string) {
 
 function normalizeText(text: string) {
   return text.replace(/\r\n/g, "\n").trim()
+}
+
+function loadPdfParser() {
+  return require("pdf-parse") as {
+    PDFParse: typeof import("pdf-parse").PDFParse
+  }
 }
 
 export async function POST(req: Request) {
@@ -41,6 +46,7 @@ export async function POST(req: Request) {
       mimeType === "application/pdf" ||
       extension === "pdf"
     ) {
+      const { PDFParse } = loadPdfParser()
       const parser = new PDFParse({ data: buffer })
       const result = await parser.getText()
       const text = normalizeText(result.text || "")
