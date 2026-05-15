@@ -123,7 +123,7 @@ export default function CTA() {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M7 1v12M1 7h12" stroke="#0A0F0D" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
-              Check my resume — it's free
+              Check my resume — it&apos;s free
             </Link>
             <a
               href="#pricing"
