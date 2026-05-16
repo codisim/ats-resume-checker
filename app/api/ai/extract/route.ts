@@ -164,7 +164,6 @@
 // }
 
 import { NextResponse } from "next/server"
-// import pdfParse from "pdf-parse-new"
 import { extractText } from "unpdf"
 import mammoth from "mammoth"
 
@@ -174,8 +173,6 @@ import { getOrCreateDbUser } from "@/lib/auth-user"
 export const runtime = "nodejs"
 
 const MAX_BYTES = 10 * 1024 * 1024
-
-
 
 function getExtension(fileName: string) {
   const parts = fileName.toLowerCase().split(".")
@@ -212,7 +209,8 @@ export async function POST(req: Request) {
     let text = ""
 
     if (mimeType === "application/pdf" || extension === "pdf") {
-      const { text: rawText } = await extractText(buffer, { mergePages: true })
+      const uint8Array = new Uint8Array(buffer)
+      const { text: rawText } = await extractText(uint8Array, { mergePages: true })
       text = normalizeText(rawText || "")
     } else if (
       mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
