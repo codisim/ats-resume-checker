@@ -18,6 +18,26 @@ export type DashboardAnalysis = {
   ring: "good" | "average" | "low"
 }
 
+export type AnalysisHistoryItem = {
+  id: string
+  title: string
+  company: string | null
+  resumeFileName: string | null
+  jobDescription: string
+  date: string
+  time: string
+  atsScore: number
+  matchPercent: number
+  label: string
+  tone: "good" | "average" | "low"
+  matchedSkills: string[]
+  missingSkills: string[]
+  strengths: string[]
+  weaknesses: string[]
+  suggestions: string[]
+  improvedSummary: string
+}
+
 export type DashboardStat = {
   label: string
   value: string
@@ -107,7 +127,7 @@ function toStringArray(value: unknown) {
   return value.filter((item): item is string => typeof item === "string")
 }
 
-function toHistoryItem(analysis: AnalysisRecord) {
+function toHistoryItem(analysis: AnalysisRecord): AnalysisHistoryItem {
   const createdAt = analysis.createdAt
   const jobTitle = analysis.job?.title || "Untitled Job"
 
@@ -274,6 +294,7 @@ export async function getAiAnalysisHistoryData() {
         subtitle: "Upload a resume to get real-time ATS feedback.",
         weeklyUsage: { used: 0, limit: DEFAULT_WEEKLY_LIMIT },
       },
+      navigation,
       analyses: [],
     }
   }
@@ -325,6 +346,7 @@ export async function getAiAnalysisHistoryData() {
         limit: weeklyLimit?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT,
       },
     },
+    navigation,
     analyses: analyses.map(toHistoryItem),
   }
 }
