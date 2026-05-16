@@ -26,6 +26,26 @@ export type DashboardStat = {
   iconTone: string
 }
 
+type AnalysisRecord = {
+  id: string
+  createdAt: Date
+  atsScore: number
+  matchPercent: number
+  missingSkills: unknown
+  strengths: unknown
+  weaknesses: unknown
+  suggestions: unknown
+  improvedSummary: string | null
+  job?: {
+    title: string | null
+    company: string | null
+    description: string
+  } | null
+  resume?: {
+    fileName: string
+  } | null
+}
+
 export type DashboardHeader = {
   userName: string
   subtitle: string
@@ -45,8 +65,8 @@ type DashboardDb = {
 const DEFAULT_WEEKLY_LIMIT = 7
 
 const navigation: DashboardNavigationItem[] = [
-  { label: "Dashboard", href: "#", active: true, iconKey: "dashboard" },
-  { label: "My Analyses", href: "#", iconKey: "analyses" },
+  { label: "Dashboard", href: "/ai", iconKey: "dashboard" },
+  { label: "History", href: "/ai/analyses", iconKey: "analyses" },
   { label: "Resumes", href: "#", iconKey: "resumes" },
   { label: "Saved Jobs", href: "#", iconKey: "saved_jobs" },
   { label: "Usage", href: "#", iconKey: "usage" },
@@ -80,6 +100,36 @@ function toLabel(score: number) {
   if (score >= 75) return "Good Match"
   if (score >= 50) return "Average Match"
   return "Needs Improvement"
+}
+
+function toStringArray(value: unknown) {
+  if (!Array.isArray(value)) return []
+  return value.filter((item): item is string => typeof item === "string")
+}
+
+function toHistoryItem(analysis: AnalysisRecord) {
+  const createdAt = analysis.createdAt
+  const jobTitle = analysis.job?.title || "Untitled Job"
+
+  return {
+    id: analysis.id,
+    title: jobTitle,
+    company: analysis.job?.company || null,
+    resumeFileName: analysis.resume?.fileName || null,
+    jobDescription: analysis.job?.description || "",
+    date: toDateLabel(createdAt),
+    time: toTimeLabel(createdAt),
+    atsScore: analysis.atsScore,
+    matchPercent: analysis.matchPercent,
+    label: toLabel(analysis.atsScore),
+    tone: toTone(analysis.atsScore),
+    matchedSkills: toStringArray(analysis.strengths),
+    missingSkills: toStringArray(analysis.missingSkills),
+    strengths: toStringArray(analysis.strengths),
+    weaknesses: toStringArray(analysis.weaknesses),
+    suggestions: toStringArray(analysis.suggestions),
+    improvedSummary: analysis.improvedSummary || "",
+  }
 }
 
 export async function getAiDashboardData(): Promise<DashboardDb> {
@@ -128,6 +178,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
       take: 5,
       include: {
         job: true,
+        resume: true,
       },
     }),
   ])
@@ -168,17 +219,16 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
     },
     navigation,
     previousAnalyses: analyses.map((analysis) => {
-      const createdAt = analysis.createdAt
-      const jobTitle = analysis.job?.title || "Untitled Job"
+      const historyItem = toHistoryItem(analysis)
 
       return {
-        score: analysis.atsScore,
-        title: jobTitle,
-        date: toDateLabel(createdAt),
-        time: toTimeLabel(createdAt),
-        label: toLabel(analysis.atsScore),
-        tone: toTone(analysis.atsScore),
-        ring: toTone(analysis.atsScore),
+        score: historyItem.atsScore,
+        title: historyItem.title,
+        date: historyItem.date,
+        time: historyItem.time,
+        label: historyItem.label,
+        tone: historyItem.tone,
+        ring: historyItem.tone,
       }
     }),
     stats: [
@@ -211,6 +261,71 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
         iconTone: "bg-amber-100 text-amber-600",
       },
     ],
+  }
+}
+
+export async function getAiAnalysisHistoryData() {
+  const dbUser = await getOrCreateDbUser()
+
+  if (!dbUser) {
+    return {
+      header: {
+        userName: "there",
+        subtitle: "Upload a resume to get real-time ATS feedback.",
+        weeklyUsage: { used: 0, limit: DEFAULT_WEEKLY_LIMIT },
+      },
+      analyses: [],
+    }
+  }
+
+  const currentWeekStart = getWeekStart()
+
+  const [user, usage, analyses, weeklyLimit] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: dbUser.id },
+      select: { name: true },
+    }),
+    prisma.usage.findFirst({
+      where: {
+        userId: dbUser.id,
+        weekStart: currentWeekStart,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.analysis.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        job: true,
+        resume: true,
+      },
+    }),
+    prisma.subscription.findFirst({
+      where: {
+        userId: dbUser.id,
+        status: "ACTIVE",
+      },
+      include: {
+        plan: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+  ])
+
+  return {
+    header: {
+      userName: user?.name || "there",
+      subtitle: "Browse all of your saved resume analyses and open any one for full details.",
+      weeklyUsage: {
+        used: usage?.count ?? 0,
+        limit: weeklyLimit?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT,
+      },
+    },
+    analyses: analyses.map(toHistoryItem),
   }
 }
 

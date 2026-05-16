@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import type { LucideIcon } from "lucide-react"
 import { Bot, Sparkles } from "lucide-react"
 
@@ -19,6 +22,8 @@ type AiSidebarProps = {
 }
 
 export function AiSidebar({ navigation }: AiSidebarProps) {
+  const pathname = usePathname()
+
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-72 flex-col bg-[#0b1220] text-slate-100 shadow-[20px_0_60px_rgba(15,23,42,0.18)] lg:flex">
       <div className="flex h-full flex-col gap-6 px-5 py-6">
@@ -35,13 +40,16 @@ export function AiSidebar({ navigation }: AiSidebarProps) {
         <nav className="space-y-2">
           {navigation.map((item) => {
             const Icon = item.icon
+            const isActive =
+              item.href !== "#" &&
+              (pathname === item.href || pathname.startsWith(`${item.href}/`))
             return (
               <Link
                 key={item.label}
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition",
-                  item.active
+                  isActive
                     ? "bg-gradient-to-r from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-500/25"
                     : "text-slate-300 hover:bg-white/5 hover:text-white"
                 )}
