@@ -18,6 +18,7 @@ type RecentAnalysisProps = {
   error?: string | null
 }
 
+
 export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
   if (error) {
     return (
@@ -56,14 +57,19 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
           <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm text-slate-500">ATS Score</p>
-              <p className="mt-1 text-3xl font-semibold text-slate-900">
+              <p className={`mt-1 text-3xl font-semibold ${analysis.atsScore < 40 ? "text-red-600" : "text-slate-900"}`}>
                 {analysis.atsScore}%
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm text-slate-500">Match Percent</p>
-              <p className="mt-1 text-3xl font-semibold text-slate-900">
-                {analysis.matchPercent}%
+              <p className={`mt-1 text-3xl font-semibold ${analysis.atsScore <= 40
+                  ? "text-red-600"
+                  : analysis.atsScore <= 70
+                    ? "text-amber-500"
+                    : "text-green-600"
+                }`}>
+                {analysis.atsScore}%
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
