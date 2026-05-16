@@ -106,7 +106,7 @@ export default function PricingCard(props: PricingCardProps) {
                     {comingSoon ? (
                         <button
                             onClick={() => setShowModal(true)}
-                            className="block w-full text-center py-2.5 rounded-full text-[13px] font-semibold transition-all border"
+                            className="block w-full text-center py-2.5 rounded-full text-[13px] font-semibold transition-all border coursor-pointer"
                             style={{
                                 background: `${color}12`,
                                 color,

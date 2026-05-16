@@ -120,7 +120,7 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                         <Button
                             onClick={handleSubmit}
                             disabled={loading}
-                            className="w-full rounded-full text-[13px] font-semibold"
+                            className="w-full rounded-full text-[13px] font-semibold coursor-pointer"
                             style={{ background: planColor, color: "#0A0F0D" }}
                         >
                             {loading ? "Joining..." : "Join Waitlist →"}
