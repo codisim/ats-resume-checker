@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import WaitlistModal from "./WaitlistModal";
+import WaitlistModal from "./Waitlistmodal";
 
 interface Feature {
     label: string;
