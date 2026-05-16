@@ -1,5 +1,5 @@
-import { readFile } from "node:fs/promises"
-import { join } from "node:path"
+import prisma from "@/lib/prisma"
+import { getOrCreateDbUser, getWeekStart } from "@/lib/auth-user"
 
 export type DashboardNavigationItem = {
   label: string
@@ -42,24 +42,176 @@ type DashboardDb = {
   stats: DashboardStat[]
 }
 
-async function readJson<T>(fileName: string): Promise<T> {
-  const filePath = join(process.cwd(), "app/ai/fakedb", fileName)
-  const contents = await readFile(filePath, "utf8")
-  return JSON.parse(contents) as T
+const DEFAULT_WEEKLY_LIMIT = 7
+
+const navigation: DashboardNavigationItem[] = [
+  { label: "Dashboard", href: "#", active: true, iconKey: "dashboard" },
+  { label: "My Analyses", href: "#", iconKey: "analyses" },
+  { label: "Resumes", href: "#", iconKey: "resumes" },
+  { label: "Saved Jobs", href: "#", iconKey: "saved_jobs" },
+  { label: "Usage", href: "#", iconKey: "usage" },
+  { label: "Settings", href: "#", iconKey: "settings" },
+  { label: "Billing", href: "#", iconKey: "billing" },
+]
+
+function toTimeLabel(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date)
+}
+
+function toDateLabel(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date)
+}
+
+function toTone(score: number): "good" | "average" | "low" {
+  if (score >= 75) return "good"
+  if (score >= 50) return "average"
+  return "low"
+}
+
+function toLabel(score: number) {
+  if (score >= 75) return "Good Match"
+  if (score >= 50) return "Average Match"
+  return "Needs Improvement"
 }
 
 export async function getAiDashboardData(): Promise<DashboardDb> {
-  const [header, navigation, previousAnalyses, stats] = await Promise.all([
-    readJson<DashboardHeader>("header.json"),
-    readJson<DashboardNavigationItem[]>("navigation.json"),
-    readJson<DashboardAnalysis[]>("analyses.json"),
-    readJson<DashboardStat[]>("stats.json"),
+  const dbUser = await getOrCreateDbUser()
+
+  if (!dbUser) {
+    return {
+      header: {
+        userName: "there",
+        subtitle: "Upload a resume to get real-time ATS feedback.",
+        weeklyUsage: { used: 0, limit: DEFAULT_WEEKLY_LIMIT },
+      },
+      navigation,
+      previousAnalyses: [],
+      stats: [],
+    }
+  }
+
+  const currentWeekStart = getWeekStart()
+
+  const [user, usage, analysisCount, resumeCount, analyses] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: dbUser.id },
+      select: {
+        name: true,
+      },
+    }),
+    prisma.usage.findFirst({
+      where: {
+        userId: dbUser.id,
+        weekStart: currentWeekStart,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.analysis.count({
+      where: { userId: dbUser.id },
+    }),
+    prisma.resume.count({
+      where: { userId: dbUser.id },
+    }),
+    prisma.analysis.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+      include: {
+        job: true,
+      },
+    }),
   ])
 
+  const averageScore =
+    analyses.length > 0
+      ? Math.round(
+          analyses.reduce((total, analysis) => total + analysis.atsScore, 0) /
+            analyses.length
+        )
+      : 0
+
+  const weeklyLimit =
+    (await prisma.subscription.findFirst({
+      where: {
+        userId: dbUser.id,
+        status: "ACTIVE",
+      },
+      include: {
+        plan: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }))?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT
+
   return {
-    header,
+    header: {
+      userName: user?.name || "there",
+      subtitle:
+        analyses.length > 0
+          ? "Your latest resume insights, history, and usage are loaded from the backend."
+          : "Upload a resume to generate your first analysis.",
+      weeklyUsage: {
+        used: usage?.count ?? 0,
+        limit: weeklyLimit,
+      },
+    },
     navigation,
-    previousAnalyses,
-    stats,
+    previousAnalyses: analyses.map((analysis) => {
+      const createdAt = analysis.createdAt
+      const jobTitle = analysis.job?.title || "Untitled Job"
+
+      return {
+        score: analysis.atsScore,
+        title: jobTitle,
+        date: toDateLabel(createdAt),
+        time: toTimeLabel(createdAt),
+        label: toLabel(analysis.atsScore),
+        tone: toTone(analysis.atsScore),
+        ring: toTone(analysis.atsScore),
+      }
+    }),
+    stats: [
+      {
+        label: "Total Analyses",
+        value: `${analysisCount}`,
+        note: "All time",
+        iconKey: "analyses",
+        iconTone: "bg-violet-100 text-violet-600",
+      },
+      {
+        label: "Average ATS Score",
+        value: `${averageScore}%`,
+        note: "Across all analyses",
+        iconKey: "average",
+        iconTone: "bg-emerald-100 text-emerald-600",
+      },
+      {
+        label: "Resumes Uploaded",
+        value: `${resumeCount}`,
+        note: "Stored in your account",
+        iconKey: "resumes",
+        iconTone: "bg-blue-100 text-blue-600",
+      },
+      {
+        label: "Weekly Usage",
+        value: `${usage?.count ?? 0} / ${weeklyLimit}`,
+        note: "Scans used this week",
+        iconKey: "weekly",
+        iconTone: "bg-amber-100 text-amber-600",
+      },
+    ],
   }
 }
+
+export type { DashboardDb }

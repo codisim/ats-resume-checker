@@ -16,6 +16,17 @@ type StatsGridProps = {
 }
 
 export function StatsGrid({ stats }: StatsGridProps) {
+  if (stats.length === 0) {
+    return (
+      <div className="rounded-3xl border border-dashed border-slate-200 bg-white/80 px-6 py-8 text-center shadow-[0_20px_60px_rgba(15,23,42,0.04)]">
+        <p className="text-sm font-medium text-slate-900">No stats yet</p>
+        <p className="mt-1 text-sm text-slate-500">
+          Generate your first analysis to unlock your dashboard metrics.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {stats.map((stat) => {

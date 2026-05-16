@@ -41,7 +41,17 @@ export function PreviousAnalyses({ analyses }: PreviousAnalysesProps) {
         </button>
       </CardHeader>
       <CardContent className="space-y-3 pt-4">
-        {analyses.map((item) => (
+        {analyses.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/70 px-4 py-8 text-center">
+            <p className="text-sm font-medium text-slate-900">
+              No analyses yet
+            </p>
+            <p className="mt-1 text-sm text-slate-500">
+              Upload your first resume and analyze it to see history here.
+            </p>
+          </div>
+        ) : (
+          analyses.map((item) => (
           <div
             key={item.title}
             className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm"
@@ -71,7 +81,8 @@ export function PreviousAnalyses({ analyses }: PreviousAnalysesProps) {
               <ChevronRight className="size-5 text-slate-400" />
             </div>
           </div>
-        ))}
+          ))
+        )}
       </CardContent>
     </Card>
   )

@@ -1,5 +1,10 @@
-import { CircleGauge, FileText } from "lucide-react"
+"use client"
 
+import { useState } from "react"
+import { CircleGauge, FileText } from "lucide-react"
+import { Check, Copy } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type RecentAnalysisProps = {
@@ -20,6 +25,24 @@ type RecentAnalysisProps = {
 
 
 export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
+  const [copiedKey, setCopiedKey] = useState<string | null>(null)
+
+  const copyText = async (text: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedKey(key)
+      window.setTimeout(() => {
+        setCopiedKey((current) => (current === key ? null : current))
+      }, 1400)
+    } catch {
+      setCopiedKey(null)
+    }
+  }
+
+  const copyList = async (items: string[], key: string) => {
+    await copyText(items.map((item) => `- ${item}`).join("\n"), key)
+  }
+
   if (error) {
     return (
       <Card className="border-rose-200 bg-white/95 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
@@ -41,6 +64,9 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
   }
 
   if (analysis) {
+    const improvedSummaryText = analysis.improvedSummary?.trim() || ""
+    const bulletPointsText = analysis.bulletPoints.join("\n")
+
     return (
       <Card className="border-slate-200/80 bg-white/95 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
         <CardHeader className="flex-row items-center justify-between border-b border-slate-100 pb-4">
@@ -63,13 +89,13 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm text-slate-500">Match Percent</p>
-              <p className={`mt-1 text-3xl font-semibold ${analysis.atsScore <= 40
+              <p className={`mt-1 text-3xl font-semibold ${analysis.matchPercent <= 40
                   ? "text-red-600"
-                  : analysis.atsScore <= 70
+                  : analysis.matchPercent <= 70
                     ? "text-amber-500"
                     : "text-green-600"
                 }`}>
-                {analysis.atsScore}%
+                {analysis.matchPercent}%
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -97,33 +123,91 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold text-slate-900">
-                Improved Summary
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-semibold text-slate-900">
+                  Improved Summary
+                </p>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 rounded-full px-3 text-slate-500 hover:bg-violet-50 hover:text-violet-700"
+                  onClick={() => copyText(improvedSummaryText, "summary")}
+                  disabled={!improvedSummaryText}
+                >
+                  <Copy className="mr-1.5 size-3.5" />
+                  {copiedKey === "summary" ? "Copied" : "Copy"}
+                </Button>
+              </div>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                {analysis.improvedSummary}
+                {improvedSummaryText || "No improved summary returned."}
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-900">
-                AI Suggestions
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-semibold text-slate-900">
+                  AI Suggestions
+                </p>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 rounded-full px-3 text-slate-500 hover:bg-violet-50 hover:text-violet-700"
+                  onClick={() => copyList(analysis.suggestions, "suggestions-all")}
+                  disabled={analysis.suggestions.length === 0}
+                >
+                  <Copy className="mr-1.5 size-3.5" />
+                  {copiedKey === "suggestions-all" ? "Copied" : "Copy all"}
+                </Button>
+              </div>
               <ul className="mt-2 space-y-2 text-sm leading-6 text-slate-600">
-                {analysis.suggestions.map((item) => (
-                  <li key={item} className="flex gap-2">
+                {analysis.suggestions.map((item, index) => (
+                  <li key={`${item}-${index}`} className="flex items-start gap-2 rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2">
                     <span className="mt-2 size-1.5 rounded-full bg-violet-500" />
-                    <span>{item}</span>
+                    <span className="flex-1">{item}</span>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="size-7 shrink-0 rounded-full text-slate-400 hover:bg-violet-50 hover:text-violet-700"
+                      onClick={() => copyText(item, `suggestion-${index}`)}
+                      aria-label={`Copy suggestion: ${item}`}
+                    >
+                      {copiedKey === `suggestion-${index}` ? (
+                        <Check className="size-3.5" />
+                      ) : (
+                        <Copy className="size-3.5" />
+                      )}
+                    </Button>
                   </li>
                 ))}
               </ul>
+              {analysis.suggestions.length === 0 && (
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  No AI suggestions returned.
+                </p>
+              )}
             </div>
           </div>
 
           {analysis.bulletPoints.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-slate-900">
-                Rewritten Bullet Points
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-sm font-semibold text-slate-900">
+                  Rewritten Bullet Points
+                </p>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 rounded-full px-3 text-slate-500 hover:bg-indigo-50 hover:text-indigo-700"
+                  onClick={() => copyText(bulletPointsText, "bullet-points")}
+                  disabled={!bulletPointsText}
+                >
+                  <Copy className="mr-1.5 size-3.5" />
+                  {copiedKey === "bullet-points" ? "Copied" : "Copy"}
+                </Button>
+              </div>
               <ul className="mt-2 space-y-2 text-sm leading-6 text-slate-600">
                 {analysis.bulletPoints.map((item) => (
                   <li key={item} className="flex gap-2">
