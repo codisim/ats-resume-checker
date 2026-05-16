@@ -164,7 +164,8 @@
 // }
 
 import { NextResponse } from "next/server"
-import pdfParse from "pdf-parse-new"
+// import pdfParse from "pdf-parse-new"
+import { extractText } from "unpdf"
 import mammoth from "mammoth"
 
 import prisma from "@/lib/prisma"
@@ -173,6 +174,8 @@ import { getOrCreateDbUser } from "@/lib/auth-user"
 export const runtime = "nodejs"
 
 const MAX_BYTES = 10 * 1024 * 1024
+
+
 
 function getExtension(fileName: string) {
   const parts = fileName.toLowerCase().split(".")
@@ -209,8 +212,8 @@ export async function POST(req: Request) {
     let text = ""
 
     if (mimeType === "application/pdf" || extension === "pdf") {
-      const parsed = await pdfParse(buffer)
-      text = normalizeText(parsed.text || "")
+      const { text: rawText } = await extractText(buffer, { mergePages: true })
+      text = normalizeText(rawText || "")
     } else if (
       mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
       extension === "docx"
