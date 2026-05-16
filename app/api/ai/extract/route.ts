@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
-import { createRequire } from "node:module"
 import mammoth from "mammoth"
+import { PDFParse } from "pdf-parse"
 
 import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
@@ -8,7 +8,6 @@ import { getOrCreateDbUser } from "@/lib/auth-user"
 export const runtime = "nodejs"
 
 const MAX_BYTES = 10 * 1024 * 1024
-const require = createRequire(import.meta.url)
 
 function getExtension(fileName: string) {
   const segments = fileName.toLowerCase().split(".")
@@ -38,13 +37,6 @@ function ensurePdfJsGlobals() {
   }
 }
 
-function loadPdfParser() {
-  ensurePdfJsGlobals()
-  return require("pdf-parse") as {
-    PDFParse: typeof import("pdf-parse").PDFParse
-  }
-}
-
 export async function POST(req: Request) {
   try {
     const formData = await req.formData()
@@ -66,10 +58,18 @@ export async function POST(req: Request) {
       mimeType === "application/pdf" ||
       extension === "pdf"
     ) {
-      const { PDFParse } = loadPdfParser()
+      ensurePdfJsGlobals()
+
       const parser = new PDFParse({ data: buffer })
-      const result = await parser.getText()
-      const text = normalizeText(result.text || "")
+      let result
+
+      try {
+        result = await parser.getText()
+      } finally {
+        await parser.destroy().catch(() => {})
+      }
+
+      const text = normalizeText(result?.text || "")
       const resumeId = await saveResume({
         fileName: file.name,
         extractedText: text,
@@ -109,7 +109,9 @@ export async function POST(req: Request) {
       { status: 415 }
     )
   } catch (error) {
-    console.error("Failed to extract resume text:", error)
+    console.error("Failed to extract resume text:", {
+      error,
+    })
 
     return NextResponse.json(
       { error: "Could not extract text from the uploaded file." },
@@ -126,7 +128,15 @@ async function saveResume({
   extractedText: string
 }): Promise<string | null> {
   try {
-    const dbUser = await getOrCreateDbUser()
+    let dbUser = null
+
+    try {
+      dbUser = await getOrCreateDbUser()
+    } catch (error) {
+      console.warn("Resume save skipped: unable to resolve authenticated user.", error)
+      return null
+    }
+
     if (!dbUser) {
       return null
     }
