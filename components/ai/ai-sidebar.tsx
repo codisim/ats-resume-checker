@@ -2,8 +2,18 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import {
+  Bot,
+  CircleCheckBig,
+  CircleGauge,
+  FileText,
+  LayoutDashboard,
+  ReceiptText,
+  ShieldCheck,
+  Sparkles,
+  WalletCards,
+} from "lucide-react"
 import type { LucideIcon } from "lucide-react"
-import { Bot, Sparkles } from "lucide-react"
 
 import UserMenu from "@/components/shared/navbar/Usermenu"
 import { Button } from "@/components/ui/button"
@@ -14,11 +24,21 @@ type SidebarItem = {
   label: string
   href: string
   active?: boolean
-  icon: LucideIcon
+  iconKey: string
 }
 
 type AiSidebarProps = {
   navigation: SidebarItem[]
+}
+
+const sidebarIcons: Record<string, LucideIcon> = {
+  dashboard: LayoutDashboard,
+  analyses: CircleGauge,
+  resumes: FileText,
+  saved_jobs: ReceiptText,
+  usage: CircleCheckBig,
+  settings: ShieldCheck,
+  billing: WalletCards,
 }
 
 export function AiSidebar({ navigation }: AiSidebarProps) {
@@ -39,7 +59,7 @@ export function AiSidebar({ navigation }: AiSidebarProps) {
 
         <nav className="space-y-2">
           {navigation.map((item) => {
-            const Icon = item.icon
+            const Icon = sidebarIcons[item.iconKey] ?? LayoutDashboard
             const isActive =
               item.href !== "#" &&
               (pathname === item.href || pathname.startsWith(`${item.href}/`))
