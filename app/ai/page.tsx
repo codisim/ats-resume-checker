@@ -12,6 +12,7 @@ import { AnalysisComposer } from "@/components/ai/analysis-composer"
 import { PreviousAnalyses } from "@/components/ai/previous-analyses"
 import { StatsGrid } from "@/components/ai/stats-grid"
 import { type DashboardAnalysis, getAiDashboardData } from "./lib/dashboard-data"
+import { getOrCreateDbUser } from "@/lib/auth-user"
 
 const statIcons = {
   analyses: Bot,
@@ -32,6 +33,11 @@ function withAnalysisPresentation(items: DashboardAnalysis[]) {
 }
 
 export default async function Page() {
+
+  const dbUser = await getOrCreateDbUser();
+
+  console.log("Dashboard DB User:", dbUser)
+
   const dashboard = await getAiDashboardData()
 
   const stats = dashboard.stats.map((item) => ({
