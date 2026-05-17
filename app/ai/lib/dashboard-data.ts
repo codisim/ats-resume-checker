@@ -153,7 +153,9 @@ function toHistoryItem(analysis: AnalysisRecord): AnalysisHistoryItem {
 }
 
 export async function getAiDashboardData(): Promise<DashboardDb> {
-  const dbUser = await getOrCreateDbUser()
+  const dbUser = await getOrCreateDbUser();
+
+  console.log("Dashboard DB User:", dbUser)
 
   if (!dbUser) {
     return {
