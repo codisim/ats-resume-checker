@@ -11,13 +11,10 @@ import {
   Users,
 } from "lucide-react"
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
   Cell,
-  LabelList,
-  XAxis,
-  YAxis,
+  Pie,
+  PieChart,
+  PolarRadiusAxis,
 } from "recharts"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -79,7 +76,7 @@ const metricChartConfig = {
   },
 }
 
-const metricBarColors = [
+const metricChartColors = [
   "var(--chart-1)",
   "var(--chart-2)",
   "var(--chart-3)",
@@ -133,6 +130,24 @@ function formatCompact(value: number) {
   }).format(value)
 }
 
+function getVisiblePages(currentPage: number, totalPages: number) {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1)
+  }
+
+  const pages = new Set<number>([1, totalPages])
+
+  for (
+    let page = Math.max(2, currentPage - 1);
+    page <= Math.min(totalPages - 1, currentPage + 1);
+    page += 1
+  ) {
+    pages.add(page)
+  }
+
+  return Array.from(pages).sort((a, b) => a - b)
+}
+
 export function AdminDashboard({ data }: AdminDashboardProps) {
   const pageSize = 10
   const [page, setPage] = useState(1)
@@ -141,6 +156,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
   const currentPage = Math.min(page, totalPages)
   const start = (currentPage - 1) * pageSize
   const visibleUsers = data.users.slice(start, start + pageSize)
+  const visiblePages = getVisiblePages(currentPage, totalPages)
 
   const totalsChartData = useMemo(
     () => [
@@ -167,6 +183,18 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
     ],
     [data.newUsers, data.totalAnalyses, data.totalResumes, data.totalUsers]
   )
+
+  const totalsPieData = useMemo(
+    () =>
+      totalsChartData.map((item, index) => ({
+        ...item,
+        fill: metricChartColors[index] ?? metricChartColors[0],
+      })),
+    [totalsChartData]
+  )
+
+  const grandTotal =
+    data.totalUsers + data.newUsers + data.totalResumes + data.totalAnalyses
 
   return (
     <div className="space-y-6">
@@ -229,60 +257,62 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
         <Card className="overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <CardHeader className="border-b border-white/60 bg-white/35 pb-4">
             <CardTitle className="text-xl text-slate-900">
-              Platform totals chart
+              Platform totals pie chart
             </CardTitle>
             <CardDescription className="text-slate-600">
-              A simple shadcn-style snapshot of the current totals.
+              A glassmorphism donut view of the current totals.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-5 sm:p-6">
-            <ChartContainer
-              config={metricChartConfig}
-              className="min-h-[360px] w-full"
-            >
-              <BarChart
-                data={totalsChartData}
-                layout="vertical"
-                margin={{ top: 8, right: 24, bottom: 8, left: 8 }}
+            <div className="relative mx-auto max-w-[420px]">
+              <ChartContainer
+                config={metricChartConfig}
+                className="min-h-[360px] w-full"
               >
-                <CartesianGrid
-                  horizontal={false}
-                  strokeDasharray="4 4"
-                  opacity={0.35}
-                />
-                <XAxis
-                  type="number"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={12}
-                />
-                <YAxis
-                  type="category"
-                  dataKey="label"
-                  tickLine={false}
-                  axisLine={false}
-                  width={90}
-                />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                <Bar dataKey="value" radius={[0, 14, 14, 0]}>
-                  {totalsChartData.map((entry, index) => (
-                    <Cell
-                      key={entry.key}
-                      fill={metricBarColors[index] ?? metricBarColors[0]}
-                    />
-                  ))}
-                  <LabelList
-                    dataKey="value"
-                    position="right"
-                    className="fill-slate-700 text-xs font-medium"
-                    formatter={(value: number) => formatCompact(value)}
+                <PieChart>
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent nameKey="key" labelKey="label" />}
                   />
-                </Bar>
-              </BarChart>
-            </ChartContainer>
+                  <Pie
+                    data={totalsPieData}
+                    dataKey="value"
+                    nameKey="key"
+                    innerRadius={82}
+                    outerRadius={130}
+                    paddingAngle={3}
+                    stroke="rgba(255,255,255,0.8)"
+                    strokeWidth={2}
+                  >
+                    {totalsPieData.map((entry) => (
+                      <Cell key={entry.key} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <PolarRadiusAxis
+                    tick={false}
+                    axisLine={false}
+                    orientation="inside"
+                  />
+                </PieChart>
+              </ChartContainer>
+
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="rounded-full border border-white/70 bg-white/70 px-6 py-5 text-center shadow-lg backdrop-blur-xl">
+                  <p className="text-xs uppercase tracking-[0.22em] text-slate-500">
+                    Total data
+                  </p>
+                  <p className="mt-1 text-3xl font-semibold tracking-tight text-slate-900">
+                    {formatCompact(grandTotal)}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Users + resumes + analyses
+                  </p>
+                </div>
+              </div>
+            </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {totalsChartData.map((item, index) => (
+              {totalsPieData.map((item) => (
                 <div
                   key={item.key}
                   className="rounded-2xl border border-white/60 bg-white/55 px-4 py-3 backdrop-blur-xl"
@@ -298,7 +328,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                     </div>
                     <span
                       className="size-3 rounded-full"
-                      style={{ backgroundColor: metricBarColors[index] }}
+                      style={{ backgroundColor: item.fill }}
                     />
                   </div>
                 </div>
@@ -317,10 +347,10 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 p-5 sm:p-6">
-              {[
-                {
-                  label: "Total users",
-                  value: data.totalUsers,
+            {[
+              {
+                label: "Total users",
+                value: data.totalUsers,
                 tone: "bg-sky-100 text-sky-700",
               },
               {
@@ -338,28 +368,28 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                 value: data.totalAnalyses,
                 tone: "bg-amber-100 text-amber-700",
               },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl border border-white/60 bg-white/50 p-4 backdrop-blur-xl"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-slate-600">
-                        {item.label}
-                      </p>
-                      <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
-                        {item.value}
-                      </p>
-                    </div>
-                    <Badge
-                      variant="outline"
-                      className={cn("border-0 shadow-none", item.tone)}
-                    >
-                      Live
-                    </Badge>
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="rounded-2xl border border-white/60 bg-white/50 p-4 backdrop-blur-xl"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-medium text-slate-600">
+                      {item.label}
+                    </p>
+                    <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
+                      {item.value}
+                    </p>
                   </div>
+                  <Badge
+                    variant="outline"
+                    className={cn("border-0 shadow-none", item.tone)}
+                  >
+                    Live
+                  </Badge>
                 </div>
+              </div>
             ))}
           </CardContent>
         </Card>
@@ -379,23 +409,23 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
         </CardHeader>
 
         <CardContent className="p-0">
-          <div className="overflow-hidden rounded-b-[1.75rem]">
-            <Table>
+          <div className="overflow-hidden rounded-b-[1.75rem] border-t border-white/60">
+            <Table className="border-separate border-spacing-0">
               <TableHeader>
-                <TableRow className="border-white/60 hover:bg-transparent">
-                  <TableHead className="bg-white/35 pl-6 text-slate-600">
+                <TableRow className="border-slate-200/80 bg-slate-50/80 hover:bg-transparent">
+                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 pl-6 text-slate-600">
                     User
                   </TableHead>
-                  <TableHead className="bg-white/35 text-slate-600">
+                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-slate-600">
                     Email
                   </TableHead>
-                  <TableHead className="bg-white/35 text-slate-600">
+                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-slate-600">
                     Joined
                   </TableHead>
-                  <TableHead className="bg-white/35 text-right text-slate-600">
+                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-right text-slate-600">
                     Resumes
                   </TableHead>
-                  <TableHead className="bg-white/35 pr-6 text-right text-slate-600">
+                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 pr-6 text-right text-slate-600">
                     Analyses
                   </TableHead>
                 </TableRow>
@@ -414,9 +444,9 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                     return (
                       <TableRow
                         key={user.id}
-                        className="border-white/50 hover:bg-white/45"
+                        className="border-slate-200/70 bg-white/45 hover:bg-white/70"
                       >
-                        <TableCell className="pl-6">
+                        <TableCell className="border-b border-r border-slate-200/70 pl-6">
                           <div className="flex items-center gap-3">
                             <Avatar className="size-9 ring-1 ring-white/70">
                               <AvatarImage
@@ -437,16 +467,16 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="max-w-[260px] truncate text-slate-600">
+                        <TableCell className="max-w-[260px] border-b border-r border-slate-200/70 truncate text-slate-600">
                           {user.email}
                         </TableCell>
-                        <TableCell className="text-slate-600">
+                        <TableCell className="border-b border-r border-slate-200/70 text-slate-600">
                           {user.createdAt}
                         </TableCell>
-                        <TableCell className="text-right font-medium text-slate-900">
+                        <TableCell className="border-b border-r border-slate-200/70 text-right font-medium text-slate-900">
                           {user.resumes}
                         </TableCell>
-                        <TableCell className="pr-6 text-right font-medium text-slate-900">
+                        <TableCell className="border-b border-slate-200/70 pr-6 text-right font-medium text-slate-900">
                           {user.analyses}
                         </TableCell>
                       </TableRow>
@@ -454,10 +484,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell
-                      colSpan={5}
-                      className="py-10 text-center text-slate-500"
-                    >
+                    <TableCell colSpan={5} className="py-10 text-center text-slate-500">
                       No users found.
                     </TableCell>
                   </TableRow>
@@ -466,32 +493,57 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
             </Table>
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-white/60 bg-white/35 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 border-t border-white/60 bg-white/35 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-slate-600">
               {data.users.length > 0
                 ? `Showing ${start + 1}-${Math.min(
                     start + pageSize,
                     data.users.length
-                  )} of ${data.users.length} users`
+                )} of ${data.users.length} users`
                 : "No users available"}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 disabled={currentPage === 1}
                 onClick={() => setPage((value) => Math.max(1, value - 1))}
-                className="gap-2 border-white/70 bg-white/70 backdrop-blur-xl"
+                className="gap-2 rounded-full border-slate-200/80 bg-white/80 px-4 shadow-sm backdrop-blur-xl hover:bg-slate-50"
               >
                 <ChevronLeft className="size-4" />
                 Previous
               </Button>
+
+              <div className="flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/70 p-1 shadow-sm backdrop-blur-xl">
+                {visiblePages.map((pageNumber) => {
+                  const isActive = pageNumber === currentPage
+
+                  return (
+                    <Button
+                      key={pageNumber}
+                      type="button"
+                      variant={isActive ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setPage(pageNumber)}
+                      className={cn(
+                        "h-8 min-w-8 rounded-full px-3",
+                        isActive
+                          ? "bg-slate-900 text-white hover:bg-slate-800"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                      )}
+                    >
+                      {pageNumber}
+                    </Button>
+                  )
+                })}
+              </div>
+
               <Button
                 variant="outline"
                 size="sm"
                 disabled={currentPage === totalPages}
                 onClick={() => setPage((value) => Math.min(totalPages, value + 1))}
-                className="gap-2 border-white/70 bg-white/70 backdrop-blur-xl"
+                className="gap-2 rounded-full border-slate-200/80 bg-white/80 px-4 shadow-sm backdrop-blur-xl hover:bg-slate-50"
               >
                 Next
                 <ChevronRight className="size-4" />
