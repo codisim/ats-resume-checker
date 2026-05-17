@@ -10,12 +10,16 @@ import {
     Settings,
     LogOut,
 } from "lucide-react";
+import { getOrCreateDbUser } from "@/lib/auth-user";
 
 const menuItems = [
     { label: "Dashboard", href: "/ai", icon: LayoutDashboard },
     { label: "Profile", href: "/profile", icon: UserCircle },
     { label: "Settings", href: "/settings", icon: Settings },
 ];
+
+ const dbUser = await getOrCreateDbUser();
+    console.log("Dashboard DB User:", dbUser)
 
 export default function UserMenu() {
     const { user } = useUser();
