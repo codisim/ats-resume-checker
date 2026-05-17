@@ -84,7 +84,7 @@ type DashboardDb = {
 
 const DEFAULT_WEEKLY_LIMIT = 7
 
-const navigation: DashboardNavigationItem[] = [
+export const dashboardNavigation: DashboardNavigationItem[] = [
   { label: "Dashboard", href: "/ai", iconKey: "dashboard" },
   { label: "History", href: "/ai/analyses", iconKey: "analyses" },
   { label: "Resumes", href: "#", iconKey: "resumes" },
@@ -162,7 +162,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
         subtitle: "Upload a resume to get real-time ATS feedback.",
         weeklyUsage: { used: 0, limit: DEFAULT_WEEKLY_LIMIT },
       },
-      navigation,
+      navigation: dashboardNavigation,
       previousAnalyses: [],
       stats: [],
     }
@@ -237,7 +237,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
         limit: weeklyLimit,
       },
     },
-    navigation,
+    navigation: dashboardNavigation,
     previousAnalyses: analyses.map((analysis) => {
       const historyItem = toHistoryItem(analysis)
 
@@ -294,7 +294,7 @@ export async function getAiAnalysisHistoryData() {
         subtitle: "Upload a resume to get real-time ATS feedback.",
         weeklyUsage: { used: 0, limit: DEFAULT_WEEKLY_LIMIT },
       },
-      navigation,
+      navigation: dashboardNavigation,
       analyses: [],
     }
   }
@@ -346,7 +346,7 @@ export async function getAiAnalysisHistoryData() {
         limit: weeklyLimit?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT,
       },
     },
-    navigation,
+    navigation: dashboardNavigation,
     analyses: analyses.map(toHistoryItem),
   }
 }
