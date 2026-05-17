@@ -23,7 +23,7 @@ export default function UserMenu() {
     const ref = useRef<HTMLDivElement>(null);
 
 
-    // console.log("UserMenu rendered, user:", user);
+    console.log("UserMenu rendered, user:", user);
 
     useEffect(() => {
         const handler = (e: MouseEvent) => {
