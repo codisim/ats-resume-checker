@@ -12,8 +12,6 @@ import { AnalysisComposer } from "@/components/ai/analysis-composer"
 import { PreviousAnalyses } from "@/components/ai/previous-analyses"
 import { StatsGrid } from "@/components/ai/stats-grid"
 import { type DashboardAnalysis, getAiDashboardData } from "./lib/dashboard-data"
-import { getOrCreateDbUser } from "@/lib/auth-user"
-import { toast } from "sonner"
 
 const statIcons = {
   analyses: Bot,
@@ -34,15 +32,6 @@ function withAnalysisPresentation(items: DashboardAnalysis[]) {
 }
 
 export default async function Page() {
-
-  const dbUser = await getOrCreateDbUser();
-
-  if(dbUser?.role == "ADMIN"){
-    toast.success("Welcome back, Admin! You have full access to all features.")
-  }
-
-  console.log("Dashboard DB User:", dbUser)
-
   const dashboard = await getAiDashboardData()
 
   const stats = dashboard.stats.map((item) => ({
@@ -60,7 +49,6 @@ export default async function Page() {
         <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.08),transparent_35%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.08),transparent_28%)]" />
 
         <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 py-6 sm:px-6 lg:px-8">
-          <h1>OK MAN</h1>
           <AiHeader
             userName={dashboard.header.userName}
             subtitle={dashboard.header.subtitle}
