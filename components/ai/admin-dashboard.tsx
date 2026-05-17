@@ -291,7 +291,6 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   <PolarRadiusAxis
                     tick={false}
                     axisLine={false}
-                    orientation="inside"
                   />
                 </PieChart>
               </ChartContainer>
