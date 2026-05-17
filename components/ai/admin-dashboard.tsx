@@ -12,9 +12,12 @@ import {
 } from "lucide-react"
 import {
   Cell,
-  Pie,
-  PieChart,
-  PolarRadiusAxis,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
 } from "recharts"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -184,7 +187,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
     [data.newUsers, data.totalAnalyses, data.totalResumes, data.totalUsers]
   )
 
-  const totalsPieData = useMemo(
+  const totalsBarData = useMemo(
     () =>
       totalsChartData.map((item, index) => ({
         ...item,
@@ -192,9 +195,6 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
       })),
     [totalsChartData]
   )
-
-  const grandTotal =
-    data.totalUsers + data.newUsers + data.totalResumes + data.totalAnalyses
 
   return (
     <div className="space-y-6">
@@ -257,61 +257,57 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
         <Card className="overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
           <CardHeader className="border-b border-white/60 bg-white/35 pb-4">
             <CardTitle className="text-xl text-slate-900">
-              Platform totals pie chart
+              Platform totals chart
             </CardTitle>
             <CardDescription className="text-slate-600">
-              A glassmorphism donut view of the current totals.
+              A simple shadcn-style snapshot of the current totals.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-5 sm:p-6">
-            <div className="relative mx-auto max-w-[420px]">
-              <ChartContainer
-                config={metricChartConfig}
-                className="min-h-[360px] w-full"
+            <ChartContainer
+              config={metricChartConfig}
+              className="min-h-[360px] w-full"
+            >
+              <BarChart
+                data={totalsBarData}
+                layout="vertical"
+                margin={{ top: 8, right: 24, bottom: 8, left: 8 }}
               >
-                <PieChart>
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent nameKey="key" labelKey="label" />}
-                  />
-                  <Pie
-                    data={totalsPieData}
+                <CartesianGrid
+                  horizontal={false}
+                  strokeDasharray="4 4"
+                  opacity={0.35}
+                />
+                <XAxis
+                  type="number"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={12}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="label"
+                  tickLine={false}
+                  axisLine={false}
+                  width={90}
+                />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                <Bar dataKey="value" radius={[0, 14, 14, 0]}>
+                  {totalsBarData.map((entry) => (
+                    <Cell key={entry.key} fill={entry.fill} />
+                  ))}
+                  <LabelList
                     dataKey="value"
-                    nameKey="key"
-                    innerRadius={82}
-                    outerRadius={130}
-                    paddingAngle={3}
-                    stroke="rgba(255,255,255,0.8)"
-                    strokeWidth={2}
-                  >
-                    {totalsPieData.map((entry) => (
-                      <Cell key={entry.key} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                  <PolarRadiusAxis
-                    tick={false}
-                    axisLine={false}
+                    position="right"
+                    className="fill-slate-700 text-xs font-medium"
+                    formatter={(value: number) => formatCompact(value)}
                   />
-                </PieChart>
-              </ChartContainer>
-
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="rounded-full border border-white/70 bg-white/70 px-6 py-5 text-center shadow-lg backdrop-blur-xl">
-                  <p className="text-xs uppercase tracking-[0.22em] text-slate-500">
-                    Total data
-                  </p>
-                  <p className="mt-1 text-3xl font-semibold tracking-tight text-slate-900">
-                    {formatCompact(grandTotal)}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Users + resumes + analyses
-                  </p>
-                </div>
-              </div>
-            </div>
+                </Bar>
+              </BarChart>
+            </ChartContainer>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {totalsPieData.map((item) => (
+              {totalsBarData.map((item) => (
                 <div
                   key={item.key}
                   className="rounded-2xl border border-white/60 bg-white/55 px-4 py-3 backdrop-blur-xl"
