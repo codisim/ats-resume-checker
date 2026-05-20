@@ -19,7 +19,7 @@ export default function NavActions() {
             <Button
                 size="sm"
                 asChild
-                className="bg-[#00C896] hover:bg-[#00A87E] text-[#0A0F0D] font-medium rounded-full px-5"
+                className="bg-[#00C896] hover:bg-[#00A87E] text-[#0A0F0D text-white font-medium rounded-full px-5"
             >
                 <Link href="/ai">Dashboard</Link>
             </Button>
