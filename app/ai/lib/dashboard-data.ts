@@ -79,6 +79,7 @@ type DashboardDb = {
   header: DashboardHeader
   navigation: DashboardNavigationItem[]
   previousAnalyses: DashboardAnalysis[]
+  historyAnalyses: AnalysisHistoryItem[]
   stats: DashboardStat[]
 }
 
@@ -164,13 +165,21 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
       },
       navigation: dashboardNavigation,
       previousAnalyses: [],
+      historyAnalyses: [],
       stats: [],
     }
   }
 
   const currentWeekStart = getWeekStart()
 
-  const [user, usage, analysisCount, resumeCount, analyses] = await Promise.all([
+  const [
+    user,
+    usage,
+    analysisCount,
+    resumeCount,
+    recentAnalyses,
+    historyAnalyses,
+  ] = await Promise.all([
     prisma.user.findUnique({
       where: { id: dbUser.id },
       select: {
@@ -201,13 +210,21 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
         resume: true,
       },
     }),
+    prisma.analysis.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        job: true,
+        resume: true,
+      },
+    }),
   ])
 
   const averageScore =
-    analyses.length > 0
+    recentAnalyses.length > 0
       ? Math.round(
-          analyses.reduce((total, analysis) => total + analysis.atsScore, 0) /
-            analyses.length
+          recentAnalyses.reduce((total, analysis) => total + analysis.atsScore, 0) /
+            recentAnalyses.length
         )
       : 0
 
@@ -229,7 +246,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
     header: {
       userName: user?.name || "there",
       subtitle:
-        analyses.length > 0
+        recentAnalyses.length > 0
           ? "Your latest resume insights, history, and usage are loaded from the backend."
           : "Upload a resume to generate your first analysis.",
       weeklyUsage: {
@@ -238,7 +255,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
       },
     },
     navigation: dashboardNavigation,
-    previousAnalyses: analyses.map((analysis) => {
+    previousAnalyses: recentAnalyses.map((analysis) => {
       const historyItem = toHistoryItem(analysis)
 
       return {
@@ -251,6 +268,7 @@ export async function getAiDashboardData(): Promise<DashboardDb> {
         ring: historyItem.tone,
       }
     }),
+    historyAnalyses: historyAnalyses.map(toHistoryItem),
     stats: [
       {
         label: "Total Analyses",

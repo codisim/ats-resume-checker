@@ -50,7 +50,10 @@ export default async function Page() {
 
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <AiSidebar navigation={dashboardNavigation} />
+        <AiSidebar
+          navigation={dashboardNavigation}
+          historyAnalyses={[]}
+        />
 
         <main className="relative lg:pl-72">
           <div
@@ -80,7 +83,10 @@ export default async function Page() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <AiSidebar navigation={dashboard.navigation} />
+      <AiSidebar
+        navigation={dashboard.navigation}
+        historyAnalyses={dashboard.historyAnalyses}
+      />
 
       <main className="relative lg:pl-72">
         <div
