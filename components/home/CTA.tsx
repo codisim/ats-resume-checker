@@ -4,11 +4,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const AVATARS = [
-  { letter: "A", bg: "#1A2420", color: "#00C896" },
-  { letter: "J", bg: "#1A1A2E", color: "#7B61FF" },
-  { letter: "M", bg: "#1E1A12", color: "#F59E0B" },
-  { letter: "R", bg: "#1A2420", color: "#00C896" },
-  { letter: "S", bg: "#1A1A2E", color: "#7B61FF" },
+  { letter: "A", bg: "#ECFDF5", color: "#059669" },
+  { letter: "J", bg: "#EEF2FF", color: "#6366F1" },
+  { letter: "M", bg: "#FFFBEB", color: "#D97706" },
+  { letter: "R", bg: "#ECFDF5", color: "#059669" },
+  { letter: "S", bg: "#EEF2FF", color: "#6366F1" },
 ];
 
 const TRUST = [
@@ -20,14 +20,14 @@ const TRUST = [
 
 export default function CTA() {
   return (
-    <section className="bg-[#0A0F0D] py-24 px-4">
+    <section className="bg-[#F8FAFC] py-24 px-4">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-3xl border border-white/9 bg-[#111816] px-6 py-16 text-center lg:px-10 lg:py-20"
+          className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm lg:px-10 lg:py-20"
         >
           {/* Glow effects */}
           <div
@@ -47,10 +47,10 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 bg-[#00C896]/10 border border-[#00C896]/20 rounded-full px-4 py-1.5 mb-6"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 mb-6"
           >
             <span className="size-1.5 rounded-full bg-[#00C896] animate-pulse" />
-            <span className="text-[11px] font-medium text-[#00C896] tracking-wide">
+            <span className="text-[11px] font-medium text-emerald-700 tracking-wide">
               370+ job seekers already started
             </span>
           </motion.div>
@@ -61,7 +61,7 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-            className="mb-4 text-3xl font-bold tracking-tight leading-[1.12] text-white sm:text-4xl lg:text-5xl 2xl:text-6xl"
+            className="mb-4 text-3xl font-bold tracking-tight leading-[1.12] text-slate-900 sm:text-4xl lg:text-5xl 2xl:text-6xl"
           >
             Your next job starts with
             <br />a <span className="text-[#00C896]">better resume</span>
@@ -73,7 +73,7 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="text-[14px] text-white/40 leading-relaxed max-w-sm mx-auto mb-8"
+            className="text-[14px] text-slate-600 leading-relaxed max-w-sm mx-auto mb-8"
           >
             Free forever. No credit card. 12 analyses every week — enough to
             apply confidently and land the interview.
@@ -91,7 +91,7 @@ export default function CTA() {
               {AVATARS.map((av, i) => (
                 <div
                   key={i}
-                  className="size-8 rounded-full border-2 border-[#111816] grid place-items-center text-[11px] font-semibold"
+                  className="size-8 rounded-full border-2 border-white grid place-items-center text-[11px] font-semibold shadow-sm"
                   style={{
                     background: av.bg,
                     color: av.color,
@@ -103,7 +103,7 @@ export default function CTA() {
                 </div>
               ))}
             </div>
-            <span className="text-[12px] text-white/35 ml-3">
+            <span className="text-[12px] text-slate-500 ml-3">
               +8 others this week
             </span>
           </motion.div>
@@ -118,16 +118,16 @@ export default function CTA() {
           >
             <Link
               href="/sign-up"
-              className="flex items-center gap-2 text-[14px] font-semibold text-[#0A0F0D] bg-[#00C896] hover:bg-[#00A87E] px-7 py-3 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#00C896]/20"
+              className="flex items-center gap-2 text-[14px] font-semibold text-white bg-slate-900 hover:bg-slate-800 px-7 py-3 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-900/10"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1v12M1 7h12" stroke="#0A0F0D" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M7 1v12M1 7h12" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
               Check my resume — it&apos;s free
             </Link>
             <a
               href="#pricing"
-              className="text-[14px] text-white/45 hover:text-white border border-white/12 hover:border-white/25 px-6 py-3 rounded-full transition-all"
+              className="text-[14px] text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-slate-300 px-6 py-3 rounded-full transition-all bg-white"
             >
               See pricing →
             </a>
@@ -142,8 +142,8 @@ export default function CTA() {
             className="flex items-center justify-center gap-4 flex-wrap"
           >
             {TRUST.map((t, i) => (
-              <div key={i} className="flex items-center gap-1.5 text-[12px] text-white/30">
-                <div className="size-[14px] rounded-full bg-[#00C896]/12 grid place-items-center flex-shrink-0">
+              <div key={i} className="flex items-center gap-1.5 text-[12px] text-slate-500">
+                <div className="size-[14px] rounded-full bg-emerald-100 grid place-items-center flex-shrink-0">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
                     <path d="M1 4l2 2 4-4" stroke="#00C896" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

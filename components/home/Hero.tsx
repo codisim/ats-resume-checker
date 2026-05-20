@@ -38,7 +38,7 @@ export default function Hero() {
                 const alpha = 0.2 + 0.6 * Math.abs(Math.sin(t * s.speed * 60 + s.phase));
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+                ctx.fillStyle = `rgba(148,163,184,${alpha * 0.85})`;
                 ctx.fill();
             }
             animId = requestAnimationFrame(draw);
@@ -52,7 +52,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A0F0D] px-4 py-28 lg:py-32">
+        <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#F8FAFC] px-4 py-28 lg:py-32">
 
             {/* Star background */}
             <canvas
@@ -66,7 +66,7 @@ export default function Hero() {
                 className="absolute inset-0 pointer-events-none"
                 style={{
                     background:
-                        "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(0,200,150,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(16,185,129,0.06) 0%, transparent 70%)",
                 }}
                 aria-hidden="true"
             />

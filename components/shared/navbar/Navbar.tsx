@@ -19,7 +19,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-lg border-b border-border py-3"
+          ? "bg-white/85 backdrop-blur-lg border-b border-slate-200 py-3 shadow-sm"
           : "py-5"
       }`}
     >

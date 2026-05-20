@@ -53,12 +53,12 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
             />
 
             {/* Modal */}
-            <div className="relative w-full max-w-sm bg-[#111816] border border-white/10 rounded-2xl p-6 z-10">
+            <div className="relative z-10 w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/10">
 
                 {/* Close */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors"
+                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors"
                 >
                     <X size={16} />
                 </button>
@@ -71,10 +71,10 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                         >
                             <span className="text-2xl">🎉</span>
                         </div>
-                        <h3 className="text-white font-semibold text-base mb-2">
+                        <h3 className="text-slate-900 font-semibold text-base mb-2">
                             You&apos;re on the list!
                         </h3>
-                        <p className="text-[13px] text-white/45 leading-relaxed">
+                        <p className="text-[13px] text-slate-600 leading-relaxed">
                             We&apos;ll notify you when {planName} launches — with an early access discount.
                         </p>
                         <Button
@@ -95,10 +95,10 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                             >
                                 {planName.toUpperCase()} — COMING SOON
                             </span>
-                            <h3 className="text-white font-semibold text-base mt-1">
+                            <h3 className="text-slate-900 font-semibold text-base mt-1">
                                 Join the waitlist
                             </h3>
-                            <p className="text-[12px] text-white/40 mt-1 leading-relaxed">
+                            <p className="text-[12px] text-slate-600 mt-1 leading-relaxed">
                                 Be first to know when {planName} launches. Early access members get a discount.
                             </p>
                         </div>
@@ -110,7 +110,7 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                            className="bg-white/5 border-white/10 text-white placeholder:text-white/25 rounded-xl mb-3 focus:border-white/25"
+                            className="rounded-xl border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 mb-3 focus:border-slate-300"
                         />
 
                         {error && (
@@ -120,15 +120,15 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                         <Button
                             onClick={handleSubmit}
                             disabled={loading}
-                            className="w-full rounded-full text-[13px] font-semibold coursor-pointer"
+                            className="w-full rounded-full text-[13px] font-semibold cursor-pointer"
                             style={{ background: planColor, color: "#0A0F0D" }}
                         >
                             {loading ? "Joining..." : "Join Waitlist →"}
                         </Button>
 
-                        <p className="text-[11px] text-white/20 text-center mt-3">
-                            No spam. Unsubscribe anytime.
-                        </p>
+                            <p className="text-[11px] text-slate-400 text-center mt-3">
+                                No spam. Unsubscribe anytime.
+                            </p>
                     </>
                 )}
             </div>

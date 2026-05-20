@@ -15,7 +15,7 @@ export default function StepCard({ step, icon: Icon, title, desc, color, isLast 
 
             {/* Connector line — hidden on last */}
             {!isLast && (
-                <div className="hidden lg:block absolute top-10 left-[calc(50%+48px)] w-[calc(100%-96px)] h-px bg-gradient-to-r from-white/10 to-white/5" />
+                <div className="hidden lg:block absolute top-10 left-[calc(50%+48px)] w-[calc(100%-96px)] h-px bg-gradient-to-r from-slate-200 to-slate-100" />
             )}
 
             {/* Icon circle */}
@@ -32,8 +32,8 @@ export default function StepCard({ step, icon: Icon, title, desc, color, isLast 
                 </span>
             </div>
 
-            <h3 className="text-[16px] font-semibold text-white mb-2.5">{title}</h3>
-            <p className="max-w-[240px] text-[13px] leading-relaxed text-white/45 lg:max-w-[260px] lg:text-[14px]">{desc}</p>
+            <h3 className="text-[16px] font-semibold text-slate-900 mb-2.5">{title}</h3>
+            <p className="max-w-[240px] text-[13px] leading-relaxed text-slate-600 lg:max-w-[260px] lg:text-[14px]">{desc}</p>
 
         </div>
     );

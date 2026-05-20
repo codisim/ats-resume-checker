@@ -10,7 +10,7 @@ export default function NavLogo() {
           <path d="M12 11l.8.8 1.5-1.5" stroke="#00C896" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
-      <span className="font-semibold text-[15px] text-white tracking-tight">
+      <span className="font-semibold text-[15px] text-slate-900 tracking-tight">
         atsResume
       </span>
     </Link>

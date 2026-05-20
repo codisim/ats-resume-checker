@@ -5,7 +5,7 @@ import BottomFooter from "./BottomFooter";
 
 export default function Footer() {
     return (
-        <footer className="bg-[#0A0F0D] border-t border-white/8">
+        <footer className="border-t border-slate-200 bg-white">
             <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-12">
 
                 {/* Top row */}
@@ -14,19 +14,19 @@ export default function Footer() {
                     {/* Brand col */}
                     <div className="col-span-2 md:col-span-2">
                         <Link href="/" className="flex items-center gap-2 mb-4">
-                            <div className="size-8 rounded-lg bg-gradient-to-br from-[#00C896] to-[#7B61FF] grid place-items-center flex-shrink-0">
+                            <div className="size-8 rounded-lg bg-gradient-to-br from-emerald-500 to-sky-400 grid place-items-center flex-shrink-0">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M3 5h10M3 8h6M3 11h8" stroke="#0A0F0D" strokeWidth="1.8" strokeLinecap="round" />
-                                    <circle cx="13" cy="11" r="3" fill="#0A0F0D" />
-                                    <path d="M12 11l.8.8 1.5-1.5" stroke="#00C896" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M3 5h10M3 8h6M3 11h8" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+                                    <circle cx="13" cy="11" r="3" fill="#ffffff" />
+                                    <path d="M12 11l.8.8 1.5-1.5" stroke="#0f766e" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
-                            <span className="font-semibold text-[15px] text-white tracking-tight">
-                                resume<span className="text-[#00C896]">.</span>codisim
+                            <span className="font-semibold text-[15px] text-slate-900 tracking-tight">
+                                resume<span className="text-emerald-600">.</span>codisim
                             </span>
                         </Link>
 
-                        <p className="mb-5 max-w-[220px] text-[13px] leading-relaxed text-white/40">
+                        <p className="mb-5 max-w-[220px] text-[13px] leading-relaxed text-slate-600">
                             AI-powered resume analyzer that helps you pass ATS and land more interviews — globally.
                         </p>
 
@@ -39,7 +39,7 @@ export default function Footer() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={label}
-                                    className="size-8 rounded-lg border border-white/10 grid place-items-center text-white/40 hover:text-white hover:border-white/25 transition-colors"
+                                    className="size-8 rounded-lg border border-slate-200 grid place-items-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-colors"
                                 >
                                     <Icon size={14} />
                                 </a>
@@ -50,7 +50,7 @@ export default function Footer() {
                     {/* Link cols */}
                     {Object.entries(LINKS).map(([group, items]) => (
                         <div key={group}>
-                            <p className="text-[11px] font-medium text-white/30 tracking-widest uppercase mb-4">
+                            <p className="text-[11px] font-medium text-slate-500 tracking-widest uppercase mb-4">
                                 {group}
                             </p>
                             <ul className="flex flex-col gap-2.5">
@@ -58,7 +58,7 @@ export default function Footer() {
                                     <li key={item.label}>
                                         <Link
                                             href={item.href}
-                                            className="text-[13px] text-white/50 hover:text-white transition-colors"
+                                            className="text-[13px] text-slate-600 hover:text-slate-900 transition-colors"
                                         >
                                             {item.label}
                                         </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
                     ))}
                 </div>
 
-                <Separator className="bg-white/8 mb-6" />
+                <Separator className="bg-slate-200 mb-6" />
 
                 {/* Bottom row */}
                 <BottomFooter />
