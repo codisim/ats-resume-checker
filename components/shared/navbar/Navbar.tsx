@@ -17,13 +17,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-3 inset-x-0 z-50 px-4 transition-all duration-300 sm:top-4 sm:px-6 lg:px-8 ${
         scrolled
-          ? "bg-white/85 backdrop-blur-lg border-b border-slate-200 py-3 shadow-sm"
-          : "py-5"
+          ? "py-0"
+          : "py-0"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between gap-8 px-4 sm:px-6 lg:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-white/45 bg-white/60 px-4 py-3 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl supports-[backdrop-filter]:bg-white/45 dark:border-white/10 dark:bg-slate-950/35 sm:px-5">
         <NavLogo />
         <NavLinks />
         <div className="flex items-center gap-2">

@@ -6,19 +6,19 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <nav className="hidden md:flex items-center gap-1 mx-auto">
+    <nav className="mx-auto hidden items-center gap-1 md:flex">
       {links.map((l) => (
         <a
           key={l.href}
           href={l.href}
-          className="text-sm text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-full hover:bg-slate-100 transition-colors"
+          className="rounded-full px-3 py-1.5 text-sm text-slate-600 transition-colors hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
         >
           {l.label}
         </a>
       ))}
       <a
         href="#map"
-        className="flex items-center gap-1.5 text-sm text-emerald-700 px-3 py-1.5 rounded-full hover:bg-emerald-50 transition-colors"
+        className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-emerald-700 transition-colors hover:bg-emerald-50/80 dark:text-emerald-300 dark:hover:bg-emerald-500/10"
       >
         <span className="size-1.5 rounded-full bg-[#00C896] animate-pulse" />
         Live users

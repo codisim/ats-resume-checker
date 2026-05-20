@@ -23,7 +23,7 @@ export default function MobileMenu() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="text-slate-600 hover:bg-slate-100 hover:text-slate-900 md:hidden"
+                    className="text-slate-600 hover:bg-white/70 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white md:hidden"
                 >
                     <Menu className="size-5" />
                 </Button>
@@ -31,10 +31,10 @@ export default function MobileMenu() {
 
             <SheetContent
                 side="right"
-                className="flex w-72 flex-col border-slate-200 bg-white pt-10"
+                className="flex w-72 flex-col border-white/30 bg-white/75 pt-10 shadow-xl backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/70"
             >
                 <div className="mb-5 flex items-center justify-between">
-                    <p className="text-sm font-medium text-slate-500">Appearance</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-300">Theme</p>
                     <ThemeSwitcher />
                 </div>
 
@@ -43,7 +43,7 @@ export default function MobileMenu() {
                         <a
                             key={l.href}
                             href={l.href}
-                            className="rounded-lg px-3 py-2.5 text-lg font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                            className="rounded-lg px-3 py-2.5 text-lg font-medium text-slate-600 transition-colors hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
                         >
                             {l.label}
                         </a>
@@ -53,32 +53,32 @@ export default function MobileMenu() {
                 <div className="flex flex-col gap-2 mt-auto pb-4">
                     {isSignedIn ? (
                         <>
-                            <div className="mb-2 flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">
+                            <div className="mb-2 flex items-center gap-3 rounded-xl border border-white/35 bg-white/55 px-3 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-white/10">
                                 <div className="size-8 rounded-full bg-gradient-to-br from-emerald-500 to-sky-400 grid place-items-center text-xs font-semibold text-white">
                                     {user?.firstName?.[0] ?? "U"}
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-slate-900">{user?.firstName}</p>
-                                    <p className="max-w-[160px] truncate text-xs text-slate-500">
+                                    <p className="text-sm font-medium text-slate-900 dark:text-white">{user?.firstName}</p>
+                                    <p className="max-w-[160px] truncate text-xs text-slate-500 dark:text-slate-300">
                                         {user?.emailAddresses[0]?.emailAddress}
                                     </p>
                                 </div>
                             </div>
-                            <Button asChild className="rounded-full bg-slate-900 text-white hover:bg-slate-800">
+                            <Button asChild className="rounded-full border border-white/35 bg-white/65 text-slate-900 shadow-sm backdrop-blur-xl hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15">
                                 <Link href="/dashboard">Dashboard</Link>
                             </Button>
                             <SignOutButton>
-                            <Button variant="ghost" className="text-red-500 hover:bg-red-50 hover:text-red-600">
-                                Sign out
-                            </Button>
+                                <Button variant="ghost" className="text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10">
+                                    Sign out
+                                </Button>
                             </SignOutButton>
                         </>
                     ) : (
                         <>
-                            <Button variant="ghost" asChild className="text-slate-600 hover:bg-slate-100 hover:text-slate-900">
+                            <Button variant="ghost" asChild className="text-slate-600 hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white">
                                 <Link href="/sign-in">Sign in</Link>
                             </Button>
-                            <Button asChild className="rounded-full bg-slate-900 font-medium text-white hover:bg-slate-800">
+                            <Button asChild className="rounded-full border border-white/35 bg-white/65 font-medium text-slate-900 shadow-sm backdrop-blur-xl hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15">
                                 <Link href="/sign-up">Get Started →</Link>
                             </Button>
                         </>
