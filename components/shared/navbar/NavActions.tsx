@@ -9,7 +9,7 @@ export default function NavActions() {
     const { isLoaded, isSignedIn } = useUser();
 
     if (!isLoaded) {
-        return <div className="hidden md:block size-[34px] animate-pulse rounded-full bg-white/40 dark:bg-white/10" />;
+        return <div className="hidden size-[34px] animate-pulse rounded-full bg-muted md:block" />;
     }
 
     if (isSignedIn) {
@@ -20,7 +20,7 @@ export default function NavActions() {
                 <Button
                     size="sm"
                     asChild
-                    className="rounded-full border border-white/35 bg-white/65 px-5 font-medium text-slate-900 shadow-sm backdrop-blur-xl hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+                    className="rounded-full border border-border bg-card px-5 font-medium text-foreground shadow-sm backdrop-blur-xl hover:bg-secondary"
                 >
                     <Link href="/ai">Dashboard</Link>
                 </Button>
@@ -35,14 +35,14 @@ export default function NavActions() {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="rounded-full text-slate-600 hover:bg-white/70 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+                className="rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground"
             >
                 <Link href="/sign-in">Sign in</Link>
             </Button>
             <Button
                 size="sm"
                 asChild
-                className="rounded-full border border-white/35 bg-white/65 px-5 font-medium text-slate-900 shadow-sm backdrop-blur-xl hover:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+                className="rounded-full border border-border bg-card px-5 font-medium text-foreground shadow-sm backdrop-blur-xl hover:bg-secondary"
             >
                 <Link href="/sign-up">Get Started →</Link>
             </Button>

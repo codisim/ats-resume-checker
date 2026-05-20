@@ -87,10 +87,10 @@ const metricChartColors = [
 ]
 
 const accentGlows = [
-  "from-sky-500/25 via-sky-500/10 to-transparent",
-  "from-emerald-500/25 via-emerald-500/10 to-transparent",
-  "from-violet-500/25 via-violet-500/10 to-transparent",
-  "from-amber-500/25 via-amber-500/10 to-transparent",
+  "from-primary/20 via-primary/8 to-transparent",
+  "from-success/20 via-success/8 to-transparent",
+  "from-warning/25 via-warning/10 to-transparent",
+  "from-danger/20 via-danger/8 to-transparent",
 ]
 
 function MetricCard({
@@ -103,7 +103,7 @@ function MetricCard({
   const Icon = metricIcons[metric.label as keyof typeof metricIcons] ?? BarChart3
 
   return (
-    <Card className="group relative overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-transform duration-300 hover:-translate-y-1 hover:bg-white/70">
+    <Card className="group relative overflow-hidden border-border/70 bg-card/80 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-transform duration-300 hover:-translate-y-1 hover:bg-card">
       <div
         className={cn(
           "pointer-events-none absolute inset-0 bg-gradient-to-br opacity-70 transition-opacity group-hover:opacity-100",
@@ -111,15 +111,15 @@ function MetricCard({
         )}
       />
       <CardContent className="relative flex items-start gap-4 p-5">
-        <div className={cn("grid size-11 place-items-center rounded-2xl border border-white/60 bg-white/60 shadow-sm backdrop-blur-xl", metric.iconTone)}>
+        <div className={cn("grid size-11 place-items-center rounded-2xl border border-border/70 bg-card/70 shadow-sm backdrop-blur-xl", metric.iconTone)}>
           <Icon className="size-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-slate-500">{metric.label}</p>
-          <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
+          <p className="text-sm font-medium text-muted-foreground">{metric.label}</p>
+          <p className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
             {metric.value}
           </p>
-          <p className="mt-1 text-sm text-slate-500">{metric.note}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{metric.note}</p>
         </div>
       </CardContent>
     </Card>
@@ -198,22 +198,28 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
 
   return (
     <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white/55 px-6 py-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:px-8">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_32%),radial-gradient(circle_at_top_right,rgba(168,85,247,0.15),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.12),transparent_25%)]" />
+      <section className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-card/70 px-6 py-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:px-8">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle_at_top_left,color-mix(in oklab, var(--primary) 18%, transparent),transparent 32%),radial-gradient(circle_at_top_right,color-mix(in oklab, var(--warning) 16%, transparent),transparent 28%),radial-gradient(circle_at_bottom_right,color-mix(in oklab, var(--success) 14%, transparent),transparent 25%)",
+          }}
+        />
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <Badge
               variant="outline"
-              className="mb-4 border-sky-200/70 bg-white/70 px-3 py-1 text-sky-700 backdrop-blur-xl"
+              className="mb-4 border-primary/20 bg-card/70 px-3 py-1 text-primary backdrop-blur-xl"
             >
               Admin only
             </Badge>
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               User overview and system analytics
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
               This dashboard is available only to{" "}
-              <span className="font-medium text-slate-900">
+              <span className="font-medium text-foreground">
                 waliullah9099@gmail.com
               </span>
               . It keeps the logic untouched while presenting a cleaner glass
@@ -229,12 +235,12 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border border-white/60 bg-white/55 px-4 py-3 text-left shadow-sm backdrop-blur-xl"
+                className="rounded-2xl border border-border/70 bg-card/70 px-4 py-3 text-left shadow-sm backdrop-blur-xl"
               >
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {item.label}
                 </p>
-                <p className="mt-1 text-xl font-semibold text-slate-900">
+                <p className="mt-1 text-xl font-semibold text-foreground">
                   {formatCompact(item.value)}
                 </p>
               </div>
@@ -254,12 +260,12 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
-        <Card className="overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
-          <CardHeader className="border-b border-white/60 bg-white/35 pb-4">
-            <CardTitle className="text-xl text-slate-900">
+        <Card className="overflow-hidden border-border/70 bg-card/70 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <CardHeader className="border-b border-border/70 bg-card/40 pb-4">
+            <CardTitle className="text-xl text-foreground">
               Platform totals chart
             </CardTitle>
-            <CardDescription className="text-slate-600">
+            <CardDescription className="text-muted-foreground">
               A simple shadcn-style snapshot of the current totals.
             </CardDescription>
           </CardHeader>
@@ -299,7 +305,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   <LabelList
                     dataKey="value"
                     position="right"
-                    className="fill-slate-700 text-xs font-medium"
+                    className="fill-foreground text-xs font-medium"
                     formatter={(value: number) => formatCompact(value)}
                   />
                 </Bar>
@@ -310,14 +316,14 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
               {totalsBarData.map((item) => (
                 <div
                   key={item.key}
-                  className="rounded-2xl border border-white/60 bg-white/55 px-4 py-3 backdrop-blur-xl"
+                  className="rounded-2xl border border-border/70 bg-card/70 px-4 py-3 backdrop-blur-xl"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                         {item.label}
                       </p>
-                      <p className="mt-1 text-lg font-semibold text-slate-900">
+                      <p className="mt-1 text-lg font-semibold text-foreground">
                         {formatCompact(item.value)}
                       </p>
                     </div>
@@ -332,12 +338,12 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
           </CardContent>
         </Card>
 
-        <Card className="overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
-          <CardHeader className="border-b border-white/60 bg-white/35 pb-4">
-            <CardTitle className="text-xl text-slate-900">
+        <Card className="overflow-hidden border-border/70 bg-card/70 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+          <CardHeader className="border-b border-border/70 bg-card/40 pb-4">
+            <CardTitle className="text-xl text-foreground">
               Data snapshot
             </CardTitle>
-            <CardDescription className="text-slate-600">
+            <CardDescription className="text-muted-foreground">
               Quick read of the current production totals.
             </CardDescription>
           </CardHeader>
@@ -346,34 +352,34 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
               {
                 label: "Total users",
                 value: data.totalUsers,
-                tone: "bg-sky-100 text-sky-700",
+                tone: "bg-primary/10 text-primary",
               },
               {
                 label: "New users",
                 value: data.newUsers,
-                tone: "bg-emerald-100 text-emerald-700",
+                tone: "bg-success/10 text-success",
               },
               {
                 label: "Total resumes",
                 value: data.totalResumes,
-                tone: "bg-violet-100 text-violet-700",
+                tone: "bg-primary/10 text-primary",
               },
               {
                 label: "Total analyses",
                 value: data.totalAnalyses,
-                tone: "bg-amber-100 text-amber-700",
+                tone: "bg-warning/15 text-warning-foreground",
               },
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border border-white/60 bg-white/50 p-4 backdrop-blur-xl"
+                className="rounded-2xl border border-border/70 bg-card/60 p-4 backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-slate-600">
+                    <p className="text-sm font-medium text-muted-foreground">
                       {item.label}
                     </p>
-                    <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
+                    <p className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
                       {item.value}
                     </p>
                   </div>
@@ -390,37 +396,37 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
         </Card>
       </section>
 
-      <Card className="overflow-hidden border-white/50 bg-white/60 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
-        <CardHeader className="flex flex-col gap-2 border-b border-white/60 bg-white/35 pb-4 sm:flex-row sm:items-end sm:justify-between">
+      <Card className="overflow-hidden border-border/70 bg-card/70 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+        <CardHeader className="flex flex-col gap-2 border-b border-border/70 bg-card/40 pb-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <CardTitle className="text-xl text-slate-900">All users</CardTitle>
-            <CardDescription className="text-slate-600">
+            <CardTitle className="text-xl text-foreground">All users</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Sorted by newest sign-up first in a shadcn-style table.
             </CardDescription>
           </div>
-          <div className="text-sm text-slate-600">
+          <div className="text-sm text-muted-foreground">
             Page {currentPage} of {totalPages}
           </div>
         </CardHeader>
 
         <CardContent className="p-0">
-          <div className="overflow-hidden rounded-b-[1.75rem] border-t border-white/60">
+          <div className="overflow-hidden rounded-b-[1.75rem] border-t border-border/70">
             <Table className="border-separate border-spacing-0">
               <TableHeader>
-                <TableRow className="border-slate-200/80 bg-slate-50/80 hover:bg-transparent">
-                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 pl-6 text-slate-600">
+                <TableRow className="border-border/70 bg-secondary/80 hover:bg-transparent">
+                  <TableHead className="border-b border-border/70 bg-secondary/80 pl-6 text-muted-foreground">
                     User
                   </TableHead>
-                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-slate-600">
+                  <TableHead className="border-b border-border/70 bg-secondary/80 text-muted-foreground">
                     Email
                   </TableHead>
-                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-slate-600">
+                  <TableHead className="border-b border-border/70 bg-secondary/80 text-muted-foreground">
                     Joined
                   </TableHead>
-                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 text-right text-slate-600">
+                  <TableHead className="border-b border-border/70 bg-secondary/80 text-right text-muted-foreground">
                     Resumes
                   </TableHead>
-                  <TableHead className="border-b border-slate-200/80 bg-slate-50/80 pr-6 text-right text-slate-600">
+                  <TableHead className="border-b border-border/70 bg-secondary/80 pr-6 text-right text-muted-foreground">
                     Analyses
                   </TableHead>
                 </TableRow>
@@ -439,39 +445,39 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                     return (
                       <TableRow
                         key={user.id}
-                        className="border-slate-200/70 bg-white/45 hover:bg-white/70"
+                        className="border-border/70 bg-card/45 hover:bg-card/70"
                       >
-                        <TableCell className="border-b border-r border-slate-200/70 pl-6">
+                        <TableCell className="border-b border-r border-border/70 pl-6">
                           <div className="flex items-center gap-3">
-                            <Avatar className="size-9 ring-1 ring-white/70">
+                            <Avatar className="size-9 ring-1 ring-border/70">
                               <AvatarImage
                                 src={user.image ?? undefined}
                                 alt={user.name ?? user.email}
                               />
-                              <AvatarFallback className="bg-slate-200 text-xs font-medium text-slate-700">
+                              <AvatarFallback className="bg-secondary text-xs font-medium text-foreground">
                                 {initials || "U"}
                               </AvatarFallback>
                             </Avatar>
                             <div className="min-w-0">
-                              <p className="truncate font-medium text-slate-900">
+                              <p className="truncate font-medium text-foreground">
                                 {user.name || "Unnamed user"}
                               </p>
-                              <p className="truncate text-xs text-slate-500">
+                              <p className="truncate text-xs text-muted-foreground">
                                 {user.id}
                               </p>
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="max-w-[260px] border-b border-r border-slate-200/70 truncate text-slate-600">
+                        <TableCell className="max-w-[260px] border-b border-r border-border/70 truncate text-muted-foreground">
                           {user.email}
                         </TableCell>
-                        <TableCell className="border-b border-r border-slate-200/70 text-slate-600">
+                        <TableCell className="border-b border-r border-border/70 text-muted-foreground">
                           {user.createdAt}
                         </TableCell>
-                        <TableCell className="border-b border-r border-slate-200/70 text-right font-medium text-slate-900">
+                        <TableCell className="border-b border-r border-border/70 text-right font-medium text-foreground">
                           {user.resumes}
                         </TableCell>
-                        <TableCell className="border-b border-slate-200/70 pr-6 text-right font-medium text-slate-900">
+                        <TableCell className="border-b border-border/70 pr-6 text-right font-medium text-foreground">
                           {user.analyses}
                         </TableCell>
                       </TableRow>
@@ -479,7 +485,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} className="py-10 text-center text-slate-500">
+                    <TableCell colSpan={5} className="py-10 text-center text-muted-foreground">
                       No users found.
                     </TableCell>
                   </TableRow>
@@ -488,8 +494,8 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
             </Table>
           </div>
 
-          <div className="flex flex-col gap-4 border-t border-white/60 bg-white/35 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-600">
+          <div className="flex flex-col gap-4 border-t border-border/70 bg-card/40 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted-foreground">
               {data.users.length > 0
                 ? `Showing ${start + 1}-${Math.min(
                     start + pageSize,
@@ -503,13 +509,13 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                 size="sm"
                 disabled={currentPage === 1}
                 onClick={() => setPage((value) => Math.max(1, value - 1))}
-                className="gap-2 rounded-full border-slate-200/80 bg-white/80 px-4 shadow-sm backdrop-blur-xl hover:bg-slate-50"
+                className="gap-2 rounded-full border-border bg-card px-4 shadow-sm backdrop-blur-xl hover:bg-secondary"
               >
                 <ChevronLeft className="size-4" />
                 Previous
               </Button>
 
-              <div className="flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/70 p-1 shadow-sm backdrop-blur-xl">
+              <div className="flex items-center gap-1 rounded-full border border-border/70 bg-card/70 p-1 shadow-sm backdrop-blur-xl">
                 {visiblePages.map((pageNumber) => {
                   const isActive = pageNumber === currentPage
 
@@ -523,8 +529,8 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                       className={cn(
                         "h-8 min-w-8 rounded-full px-3",
                         isActive
-                          ? "bg-slate-900 text-white hover:bg-slate-800"
-                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                          ? "bg-primary text-primary-foreground hover:brightness-95"
+                          : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                       )}
                     >
                       {pageNumber}
@@ -538,7 +544,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                 size="sm"
                 disabled={currentPage === totalPages}
                 onClick={() => setPage((value) => Math.min(totalPages, value + 1))}
-                className="gap-2 rounded-full border-slate-200/80 bg-white/80 px-4 shadow-sm backdrop-blur-xl hover:bg-slate-50"
+                className="gap-2 rounded-full border-border bg-card px-4 shadow-sm backdrop-blur-xl hover:bg-secondary"
               >
                 Next
                 <ChevronRight className="size-4" />

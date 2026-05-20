@@ -3,6 +3,7 @@ import { Bell, Sparkles } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import ThemeSwitcher from "@/components/shared/navbar/ThemeSwitcher"
 
 type AiHeaderProps = {
   userName: string
@@ -62,6 +63,8 @@ export function AiHeader({
         >
           <Bell className="size-4" />
         </Button>
+
+        <ThemeSwitcher />
 
         <Button className="h-11 w-full rounded-xl bg-primary px-4 text-primary-foreground shadow-sm hover:brightness-95 sm:w-auto">
           <span className="flex items-center gap-2">
