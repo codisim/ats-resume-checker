@@ -50,7 +50,7 @@ export function JobDescriptionPanel({
             type="button"
             onClick={() => onAnalyze(jobDescription)}
             disabled={!hasResume || isAnalyzing || !jobDescription.trim()}
-            className="h-11 rounded-xl bg-primary px-6 text-primary-foreground shadow-lg shadow-primary/20 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-11 cursor-pointer rounded-xl bg-primary px-6 text-primary-foreground shadow-lg shadow-primary/20 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
           >
             <span className="flex items-center gap-2">
               <Sparkles className="size-4" />

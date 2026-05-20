@@ -4,6 +4,7 @@ import { Bell, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ThemeSwitcher from "@/components/shared/navbar/ThemeSwitcher"
+import UserMenu from "../shared/navbar/Usermenu"
 
 type AiHeaderProps = {
   userName: string
@@ -66,6 +67,7 @@ export function AiHeader({
           </Button>
 
           <ThemeSwitcher />
+          {/* <UserMenu /> */}
 
           <Button className="h-11 w-full rounded-xl bg-primary px-4 text-primary-foreground shadow-sm hover:brightness-95">
             <span className="flex items-center gap-2">
