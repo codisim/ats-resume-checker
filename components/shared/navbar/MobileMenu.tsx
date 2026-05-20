@@ -5,6 +5,7 @@ import { useUser, SignOutButton } from "@clerk/nextjs";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const links = [
     { label: "Features", href: "#features" },
@@ -32,6 +33,11 @@ export default function MobileMenu() {
                 side="right"
                 className="flex w-72 flex-col border-slate-200 bg-white pt-10"
             >
+                <div className="mb-5 flex items-center justify-between">
+                    <p className="text-sm font-medium text-slate-500">Appearance</p>
+                    <ThemeSwitcher />
+                </div>
+
                 <nav className="flex flex-col gap-1">
                     {links.map((l) => (
                         <a

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function NavActions() {
     const { isLoaded, isSignedIn } = useUser();
@@ -14,6 +15,7 @@ export default function NavActions() {
     if (isSignedIn) {
         return (
             <div className="hidden md:flex items-center gap-2">
+                <ThemeSwitcher />
                 {/* <UserMenu /> */}
                 <Button
                     size="sm"
@@ -28,6 +30,7 @@ export default function NavActions() {
 
     return (
         <div className="hidden md:flex items-center gap-2">
+            <ThemeSwitcher />
             <Button
                 variant="ghost"
                 size="sm"
