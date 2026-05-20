@@ -7,7 +7,7 @@ export default function Features() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-12">
 
                 {/* Header */}
-                <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+                <div className="mx-auto flex max-w- flex-col items-center text-center">
                     <SectionBadge label="Features" />
                     <h2 className="text-3xl font-bold tracking-tight leading-tight text-white sm:text-4xl 2xl:text-5xl mb-4">
                         Everything you need to{" "}
