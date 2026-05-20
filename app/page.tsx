@@ -5,7 +5,7 @@ import Hero from "@/components/home/Hero";
 import HowItWorks from "@/components/home/how-it-works/HowItWorks";
 import GlobalMap from "@/components/home/map/GlobalMap";
 import Pricing from "@/components/home/pricing/Pricing";
-import Footer from "@/components/shared/navbar/Footer";
+import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
 
 export default function Home() {

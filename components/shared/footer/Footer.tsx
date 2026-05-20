@@ -1,33 +1,7 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { LINKS, SOCIALS } from "./FooterLink";
 import BottomFooter from "./BottomFooter";
-
-const LINKS = {
-    Product: [
-        { label: "Features", href: "#features" },
-        { label: "How it works", href: "#how-it-works" },
-        { label: "Pricing", href: "#pricing" },
-        { label: "Live users", href: "#map" },
-    ],
-    Resources: [
-        { label: "Blog", href: "/blog" },
-        { label: "ATS guide", href: "/blog/ats-guide" },
-        { label: "Resume tips", href: "/blog/resume-tips" },
-        { label: "Changelog", href: "/changelog" },
-    ],
-    Legal: [
-        { label: "Privacy policy", href: "/privacy" },
-        { label: "Terms of service", href: "/terms" },
-        { label: "Cookie policy", href: "/cookies" },
-    ],
-};
-
-const SOCIALS = [
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-];
 
 export default function Footer() {
     return (
