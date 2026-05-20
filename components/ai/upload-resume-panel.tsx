@@ -120,7 +120,7 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
               type="button"
               onClick={openPicker}
               disabled={isUploading}
-              className="mt-4 rounded-xl bg-primary px-6 text-primary-foreground hover:brightness-95"
+              className="mt-4 rounded-xl bg-primary px-6 text-primary-foreground hover:brightness-95 cursor-pointer"
             >
               {isUploading ? "Extracting..." : "Choose File"}
             </Button>
