@@ -36,10 +36,10 @@ export function AiHeader({
 
       <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center xl:w-auto xl:justify-end">
         <Card className="w-full border-slate-200/80 bg-white/90 shadow-sm sm:w-[235px]">
-          <CardContent className="space-y-2.5 p-">
+          <CardContent className="space-y-2.5 p-4">
             <div className="flex items-start justify-between gap-3 text-sm">
               <div className="flex items-center gap-2 font-medium text-slate-600">
-                <Icon className="size-4 shrink-0 text-violet-600" />
+                <Icon className="size-4 shrink-0 text-slate-700" />
                 <span>Weekly Usage</span>
               </div>
               <span className="text-right text-slate-400">
@@ -48,7 +48,7 @@ export function AiHeader({
             </div>
             <div className="h-1.5 rounded-full bg-slate-200">
               <div
-                className="h-1.5 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500"
+                className="h-1.5 rounded-full bg-gradient-to-r from-slate-700 to-slate-500"
                 style={{ width: `${usagePercent}%` }}
               />
             </div>
@@ -63,7 +63,7 @@ export function AiHeader({
           <Bell className="size-4" />
         </Button>
 
-        <Button className="h-11 w-full rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 px-4 text-white shadow-lg shadow-violet-500/20 hover:from-violet-400 hover:to-indigo-500 sm:w-auto">
+        <Button className="h-11 w-full rounded-xl bg-slate-900 px-4 text-white shadow-sm hover:bg-slate-800 sm:w-auto">
           <span className="flex items-center gap-2">
             <span className="text-base">👑</span>
             Upgrade to Pro

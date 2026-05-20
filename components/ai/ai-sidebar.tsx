@@ -45,15 +45,15 @@ export function AiSidebar({ navigation }: AiSidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-72 flex-col bg-[#0b1220] text-slate-100 shadow-[20px_0_60px_rgba(15,23,42,0.18)] lg:flex">
+    <aside className="fixed inset-y-0 left-0 hidden w-72 flex-col border-r border-slate-200 bg-white text-slate-900 shadow-sm lg:flex">
       <div className="flex h-full flex-col gap-6 px-5 py-6">
-        <div className="flex items-center gap-4 rounded-3xl bg-white/5 px-4 py-4 ring-1 ring-white/10">
-          <div className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30">
+        <div className="flex items-center gap-4 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-4">
+          <div className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-slate-900 to-slate-700 shadow-sm">
             <Bot className="size-6 text-white" />
           </div>
           <div>
             <p className="text-xl font-semibold leading-tight">Codisim</p>
-            <p className="text-sm text-slate-300">ATS Checker</p>
+            <p className="text-sm text-slate-500">ATS Checker</p>
           </div>
         </div>
 
@@ -70,8 +70,8 @@ export function AiSidebar({ navigation }: AiSidebarProps) {
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition",
                   isActive
-                    ? "bg-gradient-to-r from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-500/25"
-                    : "text-slate-300 hover:bg-white/5 hover:text-white"
+                    ? "bg-slate-900 text-white shadow-sm"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 )}
               >
                 <Icon className="size-5 shrink-0" />
@@ -82,16 +82,16 @@ export function AiSidebar({ navigation }: AiSidebarProps) {
         </nav>
 
         <div className="mt-auto space-y-6">
-          <Card className="border-white/10 bg-white/5 text-white shadow-none">
+          <Card className="border-slate-200 bg-slate-50 text-slate-900 shadow-none">
             <CardContent className="space-y-4 p-5">
-              <div className="flex items-center gap-2 text-amber-300">
+              <div className="flex items-center gap-2 text-slate-900">
                 <Sparkles className="size-5" />
                 <span className="font-semibold">Upgrade to Pro</span>
               </div>
-              <p className="text-sm leading-6 text-slate-300">
+              <p className="text-sm leading-6 text-slate-600">
                 Get unlimited scans, advanced insights & more.
               </p>
-              <Button className="w-full bg-gradient-to-r from-violet-500 to-indigo-600 text-white hover:from-violet-400 hover:to-indigo-500">
+              <Button className="w-full bg-slate-900 text-white hover:bg-slate-800">
                 Upgrade Now
               </Button>
             </CardContent>
