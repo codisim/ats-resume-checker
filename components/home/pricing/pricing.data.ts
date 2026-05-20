@@ -10,7 +10,7 @@ export const PLANS = [
     comingSoon: false,
     btnLabel: "Get started free",
     btnNote: "No credit card required",
-    color: "rgba(255,255,255,0.4)",
+    color: "var(--muted-foreground)",
     features: [
       { label: "12 analyses per week", included: true },
       { label: "ATS score + match %", included: true },
@@ -31,7 +31,7 @@ export const PLANS = [
     comingSoon: true,
     btnLabel: "Join Waitlist →",
     btnNote: "Get early access + discount",
-    color: "#00C896",
+    color: "var(--primary)",
     features: [
       { label: "Unlimited analyses", included: true },
       { label: "ATS score + match %", included: true },
@@ -52,7 +52,7 @@ export const PLANS = [
     comingSoon: true,
     btnLabel: "Join Waitlist →",
     btnNote: "Be first to know",
-    color: "#F59E0B",
+    color: "var(--warning)",
     features: [
       { label: "Everything in Pro", included: true },
       { label: "LinkedIn optimizer", included: true },

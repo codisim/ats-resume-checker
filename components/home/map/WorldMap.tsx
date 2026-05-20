@@ -8,7 +8,7 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 
 export default function WorldMap() {
     return (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+        <div className="overflow-hidden rounded-2xl border border-border bg-secondary">
             <ComposableMap
                 projection="geoNaturalEarth1"
                 projectionConfig={{ scale: 153, center: [0, 10] }}
@@ -20,12 +20,12 @@ export default function WorldMap() {
                             <Geography
                                 key={geo.rsmKey}
                                 geography={geo}
-                                fill="#E2E8F0"
-                                stroke="#FFFFFF"
+                                fill="var(--border)"
+                                stroke="var(--background)"
                                 strokeWidth={0.5}
                                 style={{
                                     default: { outline: "none" },
-                                    hover: { outline: "none", fill: "#CBD5E1" },
+                                    hover: { outline: "none", fill: "var(--muted-foreground)" },
                                     pressed: { outline: "none" },
                                 }}
                             />

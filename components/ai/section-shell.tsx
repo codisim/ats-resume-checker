@@ -16,13 +16,13 @@ export function SectionShell({
   children,
 }: SectionShellProps) {
   return (
-    <Card className="border-slate-200/80 bg-white/95 shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between gap-4 border-b border-slate-100 pb-4">
+    <Card className="border-border/80 bg-card/95 shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between gap-4 border-b border-border/70 pb-4">
         <div className="flex items-center gap-3">
-          <span className="grid size-7 place-items-center rounded-full bg-violet-600 text-sm font-semibold text-white">
+          <span className="grid size-7 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
             {badge}
           </span>
-          <CardTitle className="text-base font-semibold text-slate-900">
+          <CardTitle className="text-base font-semibold text-foreground">
             {title}
           </CardTitle>
         </div>

@@ -96,7 +96,7 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
     <SectionShell
       badge="1"
       title="Upload Your Resume"
-      action={<span className="text-sm text-slate-400">PDF / DOCX</span>}
+      action={<span className="text-sm text-muted-foreground">PDF / DOCX</span>}
     >
       <div className="grid gap-4">
         <input
@@ -107,24 +107,24 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
           onChange={handleFileChange}
         />
 
-        <div className="rounded-3xl border-2 border-dashed border-violet-200 bg-violet-50/40 px-5 py-8">
+        <div className="rounded-3xl border-2 border-dashed border-primary/20 bg-primary/5 px-5 py-8">
           <div className="mx-auto flex max-w-md flex-col items-center text-center">
-            <div className="grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-500/25">
+            <div className="grid size-16 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
               <Upload className="size-8" />
             </div>
-            <p className="mt-5 text-lg font-semibold text-slate-900">
+            <p className="mt-5 text-lg font-semibold text-foreground">
               Drag & drop your resume here
             </p>
-            <p className="mt-1 text-sm text-slate-500">or</p>
+            <p className="mt-1 text-sm text-muted-foreground">or</p>
             <Button
               type="button"
               onClick={openPicker}
               disabled={isUploading}
-              className="mt-4 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 px-6 text-white hover:from-violet-400 hover:to-indigo-500"
+              className="mt-4 rounded-xl bg-primary px-6 text-primary-foreground hover:brightness-95"
             >
               {isUploading ? "Extracting..." : "Choose File"}
             </Button>
-            <p className="mt-4 text-sm text-slate-500">
+            <p className="mt-4 text-sm text-muted-foreground">
               Supports: PDF, DOCX (Max 10MB)
             </p>
           </div>
@@ -133,32 +133,32 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
         {(fileInfo || extracted || error) && (
           <div className="grid gap-3">
             {fileInfo && (
-              <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4">
+              <div className="flex items-center justify-between rounded-2xl border border-border bg-secondary/50 px-4 py-4">
                 <div className="flex items-center gap-3">
-                  <div className="grid size-10 place-items-center rounded-xl bg-red-50 text-red-500">
+                  <div className="grid size-10 place-items-center rounded-xl bg-danger/10 text-danger">
                     <FileText className="size-5" />
                   </div>
                   <div>
-                    <p className="font-medium text-slate-900">{fileInfo.name}</p>
-                    <p className="text-sm text-slate-500">{fileInfo.sizeLabel}</p>
+                    <p className="font-medium text-foreground">{fileInfo.name}</p>
+                    <p className="text-sm text-muted-foreground">{fileInfo.sizeLabel}</p>
                   </div>
                 </div>
-                <CircleCheckBig className="size-5 text-emerald-500" />
+                <CircleCheckBig className="size-5 text-success" />
               </div>
             )}
 
             {extracted && (
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
+              <div className="rounded-2xl border border-border bg-card p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-900">
+                    <p className="text-sm font-semibold text-foreground">
                       Extracted Text
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-muted-foreground">
                       {extracted.fileName} • {extracted.characterCount} chars
                     </p>
                   </div>
-                  <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700">
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                     {extracted.mimeType}
                   </span>
                 </div>
@@ -166,13 +166,13 @@ export function UploadResumePanel({ onResumeReady }: UploadResumePanelProps) {
                 <textarea
                   readOnly
                   value={extracted.text}
-                  className="mt-3 min-h-[220px] w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm leading-6 text-slate-700 outline-none"
+                  className="mt-3 min-h-[220px] w-full rounded-xl border border-border bg-background px-3 py-3 text-sm leading-6 text-foreground outline-none"
                 />
               </div>
             )}
 
             {error && (
-              <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+              <div className="rounded-2xl border border-danger/20 bg-danger/10 px-4 py-3 text-sm text-danger">
                 {error}
               </div>
             )}

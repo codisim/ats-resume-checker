@@ -11,10 +11,10 @@ const fade = (delay = 0) => ({
 const MISSING_SKILLS = ["React.js", "TypeScript", "REST APIs", "Agile / Scrum"];
 
 const STRENGTHS = [
-    { label: "Python skills", color: "bg-[#00C896]" },
-    { label: "3 yrs experience", color: "bg-[#00C896]" },
-    { label: "Education match", color: "bg-amber-400" },
-    { label: "Soft skills", color: "bg-amber-400" },
+    { label: "Python skills", color: "bg-primary" },
+    { label: "3 yrs experience", color: "bg-primary" },
+    { label: "Education match", color: "bg-warning" },
+    { label: "Soft skills", color: "bg-warning" },
 ];
 
 const STATS = [
@@ -32,29 +32,29 @@ export default function HeroAnalysis() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
-                className="w-full rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm"
+                className="w-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
             >
                 {/* Header */}
-                <div className="px-5 py-4 border-b border-slate-200">
+                <div className="border-b border-border px-5 py-4">
                     <div className="flex items-center justify-between mb-3">
-                        <span className="text-[10px] font-medium text-slate-400 tracking-widest">
+                        <span className="text-[10px] font-medium tracking-widest text-muted-foreground">
                             ATS ANALYSIS RESULT
                         </span>
-                        <div className="flex items-center gap-1.5 bg-rose-50 border border-rose-200 rounded-full px-3 py-1">
-                            <span className="text-[12px] font-bold text-rose-500">38</span>
-                            <span className="text-[10px] text-rose-500/70">/ 100 · Before</span>
+                        <div className="flex items-center gap-1.5 rounded-full border border-danger/20 bg-danger/10 px-3 py-1">
+                            <span className="text-[12px] font-bold text-danger">38</span>
+                            <span className="text-[10px] text-danger/70">/ 100 · Before</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: "38%" }}
                                 transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-                                className="h-full bg-rose-500 rounded-full"
+                                className="h-full rounded-full bg-danger"
                             />
                         </div>
-                        <span className="text-[11px] text-slate-400">38%</span>
+                        <span className="text-[11px] text-muted-foreground">38%</span>
                     </div>
                 </div>
 
@@ -62,27 +62,27 @@ export default function HeroAnalysis() {
                 <div className="p-5">
                     <div className="grid grid-cols-2 gap-3 mb-3">
 
-                        <div className="rounded-xl bg-slate-50 p-3.5">
-                            <p className="text-[10px] font-medium text-slate-400 tracking-widest mb-2.5">
+                        <div className="rounded-xl bg-secondary p-3.5">
+                            <p className="mb-2.5 text-[10px] font-medium tracking-widest text-muted-foreground">
                                 MISSING SKILLS
                             </p>
                             <div className="flex flex-col gap-1.5">
                                 {MISSING_SKILLS.map((s) => (
-                                    <div key={s} className="flex items-center gap-2 text-[11px] text-slate-600">
-                                        <span className="size-1 rounded-full bg-rose-500 flex-shrink-0" />
+                                    <div key={s} className="flex items-center gap-2 text-[11px] text-foreground">
+                                        <span className="size-1 flex-shrink-0 rounded-full bg-danger" />
                                         {s}
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="rounded-xl bg-slate-50 p-3.5">
-                            <p className="text-[10px] font-medium text-slate-400 tracking-widest mb-2.5">
+                        <div className="rounded-xl bg-secondary p-3.5">
+                            <p className="mb-2.5 text-[10px] font-medium tracking-widest text-muted-foreground">
                                 STRENGTHS
                             </p>
                             <div className="flex flex-col gap-1.5">
                                 {STRENGTHS.map((s) => (
-                                    <div key={s.label} className="flex items-center gap-2 text-[11px] text-slate-600">
+                                    <div key={s.label} className="flex items-center gap-2 text-[11px] text-foreground">
                                         <span className={`size-1 rounded-full flex-shrink-0 ${s.color}`} />
                                         {s.label}
                                     </div>
@@ -93,29 +93,29 @@ export default function HeroAnalysis() {
                     </div>
 
                     {/* AI rewrite */}
-                    <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                        <p className="text-[10px] font-medium text-emerald-700 tracking-widest mb-2">
+                    <div className="rounded-xl border border-success/20 bg-success/10 p-4">
+                        <p className="mb-2 text-[10px] font-medium tracking-widest text-success">
                             AI REWRITTEN SUMMARY
                         </p>
-                        <p className="text-[11px] text-slate-600 leading-relaxed mb-3">
-                            <span className="text-slate-900 font-medium">Results-driven software engineer</span> with
+                        <p className="mb-3 text-[11px] leading-relaxed text-muted-foreground">
+                            <span className="font-medium text-foreground">Results-driven software engineer</span> with
                             3+ years building scalable web apps using{" "}
-                            <span className="text-slate-900 font-medium">React.js, TypeScript</span> and REST APIs.
+                            <span className="font-medium text-foreground">React.js, TypeScript</span> and REST APIs.
                             Delivered 4 production features in Agile sprints, reducing load time by 40%...
                         </p>
-                        <div className="flex items-center justify-between rounded-lg bg-white px-4 py-2.5">
+                        <div className="flex items-center justify-between rounded-lg bg-card px-4 py-2.5">
                             <div>
                                 <motion.span
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1.6, ease: "easeOut" }}
-                                    className="text-xl font-bold text-[#00C896]"
+                                    className="text-xl font-bold text-primary"
                                 >
                                     87 / 100
                                 </motion.span>
-                                <p className="text-[10px] text-emerald-600 mt-0.5">ATS score after rewrite</p>
+                                <p className="mt-0.5 text-[10px] text-success">ATS score after rewrite</p>
                             </div>
-                            <span className="text-[11px] text-slate-400">+49 pts →</span>
+                            <span className="text-[11px] text-muted-foreground">+49 pts →</span>
                         </div>
                     </div>
                 </div>
@@ -124,15 +124,15 @@ export default function HeroAnalysis() {
             {/* Stats */}
             <motion.div
                 {...fade(0.7)}
-                className="flex items-center mt-6 rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm"
+                className="mt-6 flex items-center overflow-hidden rounded-xl border border-border bg-card shadow-sm"
             >
                 {STATS.map((s, i) => (
                     <div
                         key={s.value}
-                        className={`flex-1 py-4 text-center ${i < STATS.length - 1 ? "border-r border-slate-200" : ""}`}
+                        className={`flex-1 py-4 text-center ${i < STATS.length - 1 ? "border-r border-border" : ""}`}
                     >
-                        <span className="block text-lg font-bold text-slate-900">{s.value}</span>
-                        <span className="block text-[10px] text-slate-400 mt-0.5">{s.label}</span>
+                        <span className="block text-lg font-bold text-foreground">{s.value}</span>
+                        <span className="mt-0.5 block text-[10px] text-muted-foreground">{s.label}</span>
                     </div>
                 ))}
             </motion.div>

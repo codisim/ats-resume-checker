@@ -7,21 +7,21 @@ import { FAQS } from "./faq.data";
 
 export default function FAQ() {
     return (
-        <section id="faq" className="bg-[#F8FAFC] py-24 px-4">
+        <section id="faq" className="bg-background px-4 py-24">
             <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-12">
 
                 {/* Header */}
                 <div className="mx-auto mb-12 flex max-w- flex-col items-center text-center">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 mb-5">
-                        <span className="size-1.5 rounded-full bg-[#00C896]" />
-                        <span className="text-[11px] font-medium text-emerald-700 tracking-wide">FAQ</span>
+                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5">
+                        <span className="size-1.5 rounded-full bg-primary" />
+                        <span className="text-[11px] font-medium tracking-wide text-primary">FAQ</span>
                     </div>
-                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl 2xl:text-5xl mb-3">
+                    <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl 2xl:text-5xl">
                         Quick answers
                         {/* <br className="hidden sm:block" /> */}
-                        <span className="text-[#00C896]"> - No long scroll.</span>
+                        <span className="text-primary"> - No long scroll.</span>
                     </h2>
-                    <p className="max-w-lg text-[14px] leading-relaxed text-slate-600 lg:text-[15px]">
+                    <p className="max-w-lg text-[14px] leading-relaxed text-muted-foreground lg:text-[15px]">
                         Short answers to the questions people usually ask before trying it.
                     </p>
                 </div>

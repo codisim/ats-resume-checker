@@ -34,13 +34,18 @@ export default function Hero() {
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             t += 0.012;
+            const primaryColor =
+                getComputedStyle(document.body).getPropertyValue("--primary").trim() ||
+                "oklch(0.58 0.15 180)";
             for (const s of stars) {
                 const alpha = 0.2 + 0.6 * Math.abs(Math.sin(t * s.speed * 60 + s.phase));
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(148,163,184,${alpha * 0.85})`;
+                ctx.globalAlpha = alpha * 0.85;
+                ctx.fillStyle = primaryColor;
                 ctx.fill();
             }
+            ctx.globalAlpha = 1;
             animId = requestAnimationFrame(draw);
         };
         draw();
@@ -52,21 +57,21 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#F8FAFC] px-4 py-28 lg:py-32">
+        <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-background px-4 py-28 lg:py-32">
 
             {/* Star background */}
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 w-full h-full pointer-events-none"
+                className="pointer-events-none absolute inset-0 h-full w-full"
                 aria-hidden="true"
             />
 
             {/* Teal glow */}
             <div
-                className="absolute inset-0 pointer-events-none"
+                className="pointer-events-none absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(ellipse 70% 50% at 50% 40%, rgba(16,185,129,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 70% 50% at 50% 40%, color-mix(in oklab, var(--primary) 10%, transparent) 0%, transparent 70%)",
                 }}
                 aria-hidden="true"
             />

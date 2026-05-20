@@ -28,27 +28,27 @@ export function AiHeader({
   return (
     <header className="mb-6 flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
       <div className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           Welcome back, {userName} 👋
         </h1>
-        <p className="mt-2 text-sm text-slate-500 sm:text-base">{subtitle}</p>
+        <p className="mt-2 text-sm text-muted-foreground sm:text-base">{subtitle}</p>
       </div>
 
       <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center xl:w-auto xl:justify-end">
-        <Card className="w-full border-slate-200/80 bg-white/90 shadow-sm sm:w-[235px]">
+        <Card className="w-full border-border/80 bg-card/90 shadow-sm sm:w-[235px]">
           <CardContent className="space-y-2.5 p-4">
             <div className="flex items-start justify-between gap-3 text-sm">
-              <div className="flex items-center gap-2 font-medium text-slate-600">
-                <Icon className="size-4 shrink-0 text-slate-700" />
+              <div className="flex items-center gap-2 font-medium text-foreground/80">
+                <Icon className="size-4 shrink-0 text-foreground" />
                 <span>Weekly Usage</span>
               </div>
-              <span className="text-right text-slate-400">
+              <span className="text-right text-muted-foreground">
                 {weeklyUsage.used} / {weeklyUsage.limit} scans used
               </span>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-200">
+            <div className="h-1.5 rounded-full bg-muted">
               <div
-                className="h-1.5 rounded-full bg-gradient-to-r from-slate-700 to-slate-500"
+                className="h-1.5 rounded-full bg-gradient-to-r from-primary to-primary/70"
                 style={{ width: `${usagePercent}%` }}
               />
             </div>
@@ -58,12 +58,12 @@ export function AiHeader({
         <Button
           variant="outline"
           size="icon"
-          className="size-10 shrink-0 rounded-xl border-slate-200 bg-white/90 shadow-sm"
+          className="size-10 shrink-0 rounded-xl border-border bg-card/90 shadow-sm"
         >
           <Bell className="size-4" />
         </Button>
 
-        <Button className="h-11 w-full rounded-xl bg-slate-900 px-4 text-white shadow-sm hover:bg-slate-800 sm:w-auto">
+        <Button className="h-11 w-full rounded-xl bg-primary px-4 text-primary-foreground shadow-sm hover:brightness-95 sm:w-auto">
           <span className="flex items-center gap-2">
             <span className="text-base">👑</span>
             Upgrade to Pro

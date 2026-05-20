@@ -4,14 +4,14 @@
     "value": "3",
     "note": "All time",
     "iconKey": "analyses",
-    "iconTone": "bg-violet-100 text-violet-600"
+    "iconTone": "bg-primary/10 text-primary"
   },
   {
     "label": "Average ATS Score",
     "value": "72%",
     "note": "Across all analyses",
     "iconKey": "average",
-    "iconTone": "bg-emerald-100 text-emerald-600"
+    "iconTone": "bg-success/10 text-success"
   },
   {
     "label": "Resumes Uploaded",
@@ -25,6 +25,6 @@
     "value": "3 / 10",
     "note": "Scans used this week",
     "iconKey": "weekly",
-    "iconTone": "bg-amber-100 text-amber-600"
+    "iconTone": "bg-warning/15 text-warning-foreground"
   }
 ]

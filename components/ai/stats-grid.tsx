@@ -18,9 +18,9 @@ type StatsGridProps = {
 export function StatsGrid({ stats }: StatsGridProps) {
   if (stats.length === 0) {
     return (
-      <div className="rounded-3xl border border-dashed border-slate-200 bg-white/80 px-6 py-8 text-center shadow-[0_20px_60px_rgba(15,23,42,0.04)]">
-        <p className="text-sm font-medium text-slate-900">No stats yet</p>
-        <p className="mt-1 text-sm text-slate-500">
+      <div className="rounded-3xl border border-dashed border-border bg-card/80 px-6 py-8 text-center shadow-[0_20px_60px_rgba(15,23,42,0.04)]">
+        <p className="text-sm font-medium text-foreground">No stats yet</p>
+        <p className="mt-1 text-sm text-muted-foreground">
           Generate your first analysis to unlock your dashboard metrics.
         </p>
       </div>
@@ -34,7 +34,7 @@ export function StatsGrid({ stats }: StatsGridProps) {
         return (
           <Card
             key={stat.label}
-            className="border-slate-200/80 bg-white/95 shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
+            className="border-border/80 bg-card/95 shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
           >
             <CardContent className="flex items-start gap-4 p-5">
               <div
@@ -46,11 +46,11 @@ export function StatsGrid({ stats }: StatsGridProps) {
                 <Icon className="size-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">{stat.label}</p>
-                <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
+                <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-sm text-slate-500">{stat.note}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{stat.note}</p>
               </div>
             </CardContent>
           </Card>

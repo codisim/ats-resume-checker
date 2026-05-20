@@ -4,11 +4,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const AVATARS = [
-  { letter: "A", bg: "#ECFDF5", color: "#059669" },
-  { letter: "J", bg: "#EEF2FF", color: "#6366F1" },
-  { letter: "M", bg: "#FFFBEB", color: "#D97706" },
-  { letter: "R", bg: "#ECFDF5", color: "#059669" },
-  { letter: "S", bg: "#EEF2FF", color: "#6366F1" },
+  { letter: "A", bg: "var(--success)", color: "var(--success)" },
+  { letter: "J", bg: "var(--primary)", color: "var(--primary)" },
+  { letter: "M", bg: "var(--warning)", color: "var(--warning)" },
+  { letter: "R", bg: "var(--success)", color: "var(--success)" },
+  { letter: "S", bg: "var(--primary)", color: "var(--primary)" },
 ];
 
 const TRUST = [
@@ -20,24 +20,24 @@ const TRUST = [
 
 export default function CTA() {
   return (
-    <section className="bg-[#F8FAFC] py-24 px-4">
+    <section className="bg-background px-4 py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-16 text-center shadow-sm lg:px-10 lg:py-20"
+          className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-16 text-center shadow-sm lg:px-10 lg:py-20"
         >
           {/* Glow effects */}
           <div
-            className="absolute -top-16 left-1/2 -translate-x-1/2 w-[400px] h-[200px] rounded-full pointer-events-none"
-            style={{ background: "rgba(0,200,150,0.06)" }}
+            className="pointer-events-none absolute -top-16 left-1/2 h-[200px] w-[400px] -translate-x-1/2 rounded-full"
+            style={{ background: "color-mix(in oklab, var(--primary) 10%, transparent)" }}
             aria-hidden="true"
           />
           <div
-            className="absolute -bottom-20 -right-16 w-[300px] h-[300px] rounded-full pointer-events-none"
-            style={{ background: "rgba(123,97,255,0.04)" }}
+            className="pointer-events-none absolute -bottom-20 -right-16 h-[300px] w-[300px] rounded-full"
+            style={{ background: "color-mix(in oklab, var(--warning) 8%, transparent)" }}
             aria-hidden="true"
           />
 
@@ -47,10 +47,10 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 mb-6"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5"
           >
-            <span className="size-1.5 rounded-full bg-[#00C896] animate-pulse" />
-            <span className="text-[11px] font-medium text-emerald-700 tracking-wide">
+            <span className="size-1.5 animate-pulse rounded-full bg-primary" />
+            <span className="text-[11px] font-medium tracking-wide text-primary">
               370+ job seekers already started
             </span>
           </motion.div>
@@ -61,10 +61,10 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-            className="mb-4 text-3xl font-bold tracking-tight leading-[1.12] text-slate-900 sm:text-4xl lg:text-5xl 2xl:text-6xl"
+            className="mb-4 text-3xl font-bold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-5xl 2xl:text-6xl"
           >
             Your next job starts with
-            <br />a <span className="text-[#00C896]">better resume</span>
+            <br />a <span className="text-primary">better resume</span>
           </motion.h2>
 
           {/* Sub */}
@@ -73,7 +73,7 @@ export default function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="text-[14px] text-slate-600 leading-relaxed max-w-sm mx-auto mb-8"
+            className="mx-auto mb-8 max-w-sm text-[14px] leading-relaxed text-muted-foreground"
           >
             Free forever. No credit card. 12 analyses every week — enough to
             apply confidently and land the interview.
@@ -91,9 +91,9 @@ export default function CTA() {
               {AVATARS.map((av, i) => (
                 <div
                   key={i}
-                  className="size-8 rounded-full border-2 border-white grid place-items-center text-[11px] font-semibold shadow-sm"
+                  className="grid size-8 place-items-center rounded-full border-2 border-card text-[11px] font-semibold shadow-sm"
                   style={{
-                    background: av.bg,
+                    background: `color-mix(in oklab, ${av.bg} 14%, transparent)`,
                     color: av.color,
                     marginLeft: i === 0 ? 0 : -8,
                     zIndex: AVATARS.length - i,
@@ -103,7 +103,7 @@ export default function CTA() {
                 </div>
               ))}
             </div>
-            <span className="text-[12px] text-slate-500 ml-3">
+            <span className="ml-3 text-[12px] text-muted-foreground">
               +8 others this week
             </span>
           </motion.div>
@@ -118,16 +118,16 @@ export default function CTA() {
           >
             <Link
               href="/sign-up"
-              className="flex items-center gap-2 text-[14px] font-semibold text-white bg-slate-900 hover:bg-slate-800 px-7 py-3 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-900/10"
+              className="flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-[14px] font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1v12M1 7h12" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
               Check my resume — it&apos;s free
             </Link>
             <a
               href="#pricing"
-              className="text-[14px] text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-slate-300 px-6 py-3 rounded-full transition-all bg-white"
+              className="rounded-full border border-border bg-background px-6 py-3 text-[14px] text-muted-foreground transition-all hover:border-primary/30 hover:text-foreground"
             >
               See pricing →
             </a>
@@ -142,10 +142,10 @@ export default function CTA() {
             className="flex items-center justify-center gap-4 flex-wrap"
           >
             {TRUST.map((t, i) => (
-              <div key={i} className="flex items-center gap-1.5 text-[12px] text-slate-500">
-                <div className="size-[14px] rounded-full bg-emerald-100 grid place-items-center flex-shrink-0">
+              <div key={i} className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+                <div className="grid size-[14px] flex-shrink-0 place-items-center rounded-full bg-success/15">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                    <path d="M1 4l2 2 4-4" stroke="#00C896" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M1 4l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
                 {t}

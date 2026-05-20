@@ -29,19 +29,21 @@ interface PricingCardProps {
 export default function PricingCard(props: PricingCardProps) {
     const { id, name, price, period, note, desc, featured, comingSoon, btnLabel, btnNote, color, features } = props;
     const [showModal, setShowModal] = useState(false);
+    const colorTint = `color-mix(in oklab, ${color} 12%, transparent)`;
+    const colorTintStrong = `color-mix(in oklab, ${color} 24%, transparent)`;
 
     return (
         <>
             <div
                 className={cn(
-                    "relative flex flex-col gap-5 rounded-2xl border bg-white p-6 h-full shadow-sm",
-                    featured ? "border-emerald-300" : "border-slate-200",
+                    "relative flex h-full flex-col gap-5 rounded-2xl border bg-card p-6 shadow-sm",
+                    featured ? "border-primary/30" : "border-border",
                     comingSoon && "opacity-90"
                 )}
             >
                 {/* Most popular badge */}
                 {featured && !comingSoon && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-wider text-primary-foreground">
                         MOST POPULAR
                     </span>
                 )}
@@ -49,11 +51,11 @@ export default function PricingCard(props: PricingCardProps) {
                 {/* Coming soon badge */}
                 {comingSoon && (
                     <span
-                        className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-bold px-3 py-1 rounded-full tracking-wider border"
+                        className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-wider"
                         style={{
-                            background: `${color}18`,
+                            background: colorTint,
                             color,
-                            borderColor: `${color}35`,
+                            borderColor: colorTintStrong,
                         }}
                     >
                         COMING SOON
@@ -62,18 +64,18 @@ export default function PricingCard(props: PricingCardProps) {
 
                 {/* Header */}
                 <div>
-                    <p className="text-[11px] font-semibold tracking-widest mb-2" style={{ color }}>
+                    <p className="mb-2 text-[11px] font-semibold tracking-widest" style={{ color }}>
                         {name}
                     </p>
                     <div className="flex items-baseline gap-1">
-                        <span className="text-[32px] font-bold text-slate-900">{price}</span>
-                        <span className="text-[12px] text-slate-400">{period}</span>
+                        <span className="text-[32px] font-bold text-foreground">{price}</span>
+                        <span className="text-[12px] text-muted-foreground">{period}</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-1">{note}</p>
-                    <p className="text-[12px] text-slate-600 leading-relaxed mt-2">{desc}</p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{note}</p>
+                    <p className="mt-2 text-[12px] leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
 
-                <div className="h-px bg-slate-200" />
+                <div className="h-px bg-border" />
 
                 {/* Features */}
                 <ul className="flex flex-col gap-2.5">
@@ -82,18 +84,18 @@ export default function PricingCard(props: PricingCardProps) {
                             key={f.label}
                             className={cn(
                                 "flex items-center gap-2 text-[12px]",
-                                f.included ? "text-slate-700" : "text-slate-400"
+                                f.included ? "text-foreground" : "text-muted-foreground"
                             )}
                         >
                             <span
                                 className={cn(
                                     "size-[13px] rounded-full grid place-items-center flex-shrink-0",
-                                    f.included ? "bg-emerald-100" : "bg-slate-100"
+                                    f.included ? "bg-success/15" : "bg-muted"
                                 )}
                             >
                                 {f.included
-                                    ? <Check size={8} className="text-emerald-600" strokeWidth={3} />
-                                    : <X size={8} className="text-slate-400" strokeWidth={3} />
+                                    ? <Check size={8} className="text-success" strokeWidth={3} />
+                                    : <X size={8} className="text-muted-foreground" strokeWidth={3} />
                                 }
                             </span>
                             {f.label}
@@ -106,11 +108,11 @@ export default function PricingCard(props: PricingCardProps) {
                     {comingSoon ? (
                         <button
                             onClick={() => setShowModal(true)}
-                            className="block w-full text-center py-2.5 rounded-full text-[13px] font-semibold transition-all border cursor-pointer"
+                            className="block w-full cursor-pointer rounded-full border py-2.5 text-center text-[13px] font-semibold transition-all"
                             style={{
-                                background: `${color}12`,
+                                background: colorTint,
                                 color,
-                                borderColor: `${color}30`,
+                                borderColor: colorTintStrong,
                             }}
                         >
                             {btnLabel}
@@ -119,14 +121,14 @@ export default function PricingCard(props: PricingCardProps) {
                         <Link
                             href="/sign-up"
                             className={cn(
-                                "block w-full text-center py-2.5 rounded-full text-[13px] font-semibold transition-all bg-slate-900 text-white hover:bg-slate-800",
-                                id === "free" && "bg-slate-100 text-slate-900 hover:bg-slate-200",
+                                "block w-full rounded-full bg-primary px-0 py-2.5 text-center text-[13px] font-semibold text-primary-foreground transition-all hover:brightness-95",
+                                id === "free" && "bg-secondary text-foreground hover:bg-secondary/80",
                             )}
                         >
                             {btnLabel}
                         </Link>
                     )}
-                    <p className="text-[10px] text-slate-400 text-center mt-2">{btnNote}</p>
+                    <p className="mt-2 text-center text-[10px] text-muted-foreground">{btnNote}</p>
                 </div>
             </div>
 

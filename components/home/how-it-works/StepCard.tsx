@@ -10,6 +10,9 @@ interface StepCardProps {
 }
 
 export default function StepCard({ step, icon: Icon, title, desc, color, isLast }: StepCardProps) {
+    const ringBackground = `color-mix(in oklab, ${color} 12%, transparent)`;
+    const ringBorder = `color-mix(in oklab, ${color} 24%, transparent)`;
+
     return (
         <div className="flex flex-col items-center text-center relative">
 
@@ -20,20 +23,20 @@ export default function StepCard({ step, icon: Icon, title, desc, color, isLast 
 
             {/* Icon circle */}
             <div
-                className="relative size-20 rounded-2xl grid place-items-center mb-6 flex-shrink-0"
-                style={{ background: `${color}12`, border: `1px solid ${color}25` }}
+                className="relative mb-6 grid size-20 flex-shrink-0 place-items-center rounded-2xl border"
+                style={{ background: ringBackground, borderColor: ringBorder }}
             >
                 <Icon size={28} style={{ color }} strokeWidth={1.6} />
                 <span
-                    className="absolute -top-2.5 -right-2.5 size-6 rounded-full grid place-items-center text-[10px] font-bold"
-                    style={{ background: color, color: "#0A0F0D" }}
+                    className="absolute -right-2.5 -top-2.5 grid size-6 place-items-center rounded-full text-[10px] font-bold"
+                    style={{ background: color, color: "var(--primary-foreground)" }}
                 >
                     {step}
                 </span>
             </div>
 
-            <h3 className="text-[16px] font-semibold text-slate-900 mb-2.5">{title}</h3>
-            <p className="max-w-[240px] text-[13px] leading-relaxed text-slate-600 lg:max-w-[260px] lg:text-[14px]">{desc}</p>
+            <h3 className="mb-2.5 text-[16px] font-semibold text-foreground">{title}</h3>
+            <p className="max-w-[240px] text-[13px] leading-relaxed text-muted-foreground lg:max-w-[260px] lg:text-[14px]">{desc}</p>
 
         </div>
     );
