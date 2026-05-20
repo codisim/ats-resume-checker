@@ -104,7 +104,7 @@ export default function CTA() {
               ))}
             </div>
             <span className="text-[12px] text-white/35 ml-3">
-              +365 others this week
+              +8 others this week
             </span>
           </motion.div>
 
