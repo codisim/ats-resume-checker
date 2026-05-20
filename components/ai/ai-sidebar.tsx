@@ -63,11 +63,7 @@ export function AiSidebar({
     event: MouseEvent<HTMLAnchorElement>,
     item: SidebarItem
   ) => {
-    if (
-      item.href === "/ai/analyses" &&
-      pathname !== "/ai/analyses" &&
-      historyAnalyses.length > 0
-    ) {
+    if (item.href === "/ai/analyses") {
       event.preventDefault()
       setHistoryOpen(true)
     }

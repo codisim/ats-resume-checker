@@ -13,7 +13,7 @@ const AVATARS = [
 
 const TRUST = [
   "No credit card",
-  "12 free scans/week",
+  "7 free scans/week",
   "Results in 10 seconds",
   "Cancel anytime",
 ];

@@ -65,7 +65,7 @@ export default function HeroContent() {
                 {...fade(0.5)}
                 className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
-                {["No credit card", "12 free scans/week", "Results in 10 seconds"].map((text) => (
+                {["No credit card", "7 free scans/week", "Results in 10 seconds"].map((text) => (
                     <div key={text} className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
