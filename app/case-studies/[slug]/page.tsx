@@ -2,14 +2,15 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { ContentDetailPage } from "@/components/content/content-detail-page"
-import { getContentBySlug } from "@/lib/content"
+import { getContentBySlug } from "@/lib/content.server"
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const item = await getContentBySlug("CASE_STUDY", params.slug)
+  const { slug } = await params
+  const item = await getContentBySlug("CASE_STUDY", slug)
 
   if (!item || !item.published) {
     return {}
@@ -27,9 +28,10 @@ export async function generateMetadata({
 export default async function CaseStudyPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const item = await getContentBySlug("CASE_STUDY", params.slug)
+  const { slug } = await params
+  const item = await getContentBySlug("CASE_STUDY", slug)
 
   if (!item || !item.published) {
     notFound()

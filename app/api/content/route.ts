@@ -2,17 +2,19 @@ import { currentUser } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
 import { isAdminEmail } from "@/lib/admin"
-import { Prisma } from "@/src/generated/client"
-import prisma from "@/lib/prisma"
 import {
   contentInputSchema,
   contentKindSchema,
+  type ContentKind,
+} from "@/lib/content"
+import {
   createUniqueSlug,
   getContentBySlug,
   listContent,
   toContentSummary,
-  type ContentKind,
-} from "@/lib/content"
+} from "@/lib/content.server"
+import { Prisma } from "@/src/generated/client"
+import prisma from "@/lib/prisma"
 
 async function requireAdmin() {
   const clerkUser = await currentUser()

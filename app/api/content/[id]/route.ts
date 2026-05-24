@@ -2,14 +2,22 @@ import { currentUser } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
 import { isAdminEmail } from "@/lib/admin"
-import { Prisma } from "@/src/generated/client"
-import prisma from "@/lib/prisma"
 import {
   contentInputSchema,
+} from "@/lib/content"
+import {
   createUniqueSlug,
   getContentById,
   toContentSummary,
-} from "@/lib/content"
+} from "@/lib/content.server"
+import { Prisma } from "@/src/generated/client"
+import prisma from "@/lib/prisma"
+
+type RouteContext = {
+  params: Promise<{
+    id: string
+  }>
+}
 
 async function requireAdmin() {
   const clerkUser = await currentUser()
@@ -24,9 +32,9 @@ async function requireAdmin() {
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
-  const { id } = params
+  const { id } = await params
   const clerkUser = await currentUser()
   const email = clerkUser?.emailAddresses[0]?.emailAddress
   const isAdmin = isAdminEmail(email)
@@ -45,14 +53,14 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   const clerkUser = await requireAdmin()
   if (!clerkUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const { id } = params
+  const { id } = await params
   const body = await request.json().catch(() => null)
   const parsed = contentInputSchema.safeParse(body)
 
@@ -93,14 +101,14 @@ export async function PUT(
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   const clerkUser = await requireAdmin()
   if (!clerkUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const { id } = params
+  const { id } = await params
 
   await prisma.$executeRaw(Prisma.sql`
     DELETE FROM "Blog"

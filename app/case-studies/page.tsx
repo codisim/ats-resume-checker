@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { ContentIndexPage } from "@/components/content/content-index-page"
-import { listContent } from "@/lib/content"
+import { listContent } from "@/lib/content.server"
 
 export const metadata: Metadata = {
   title: "Case Studies | ATS Resume Checker",

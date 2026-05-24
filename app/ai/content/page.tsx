@@ -6,7 +6,7 @@ import { AiHeader } from "@/components/ai/ai-header"
 import { AiSidebar } from "@/components/ai/ai-sidebar"
 import { ContentManager } from "@/components/content/content-manager"
 import { isAdminEmail } from "@/lib/admin"
-import { listContent, toContentSummary } from "@/lib/content"
+import { listContent, toContentSummary } from "@/lib/content.server"
 import { adminNavigation } from "../lib/admin-navigation"
 
 export default async function ContentPage() {
