@@ -12,6 +12,7 @@ import {
   FileText,
   LayoutDashboard,
   ReceiptText,
+  Newspaper,
   ShieldCheck,
   Sparkles,
   WalletCards,
@@ -50,6 +51,7 @@ const sidebarIcons: Record<string, LucideIcon> = {
   usage: CircleCheckBig,
   settings: ShieldCheck,
   billing: WalletCards,
+  content: Newspaper,
 }
 
 export function AiSidebar({

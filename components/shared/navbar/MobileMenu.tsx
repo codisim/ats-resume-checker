@@ -11,6 +11,8 @@ const links = [
     { label: "Features", href: "#features" },
     { label: "How it works", href: "#how-it-works" },
     { label: "Pricing", href: "#pricing" },
+    { label: "Blog", href: "/blog" },
+    { label: "Case studies", href: "/case-studies" },
     { label: "Live users 🌍", href: "#map" },
 ];
 
@@ -39,15 +41,25 @@ export default function MobileMenu() {
                 </div>
 
                 <nav className="flex flex-col gap-1">
-                    {links.map((l) => (
-                        <a
-                            key={l.href}
-                            href={l.href}
-                            className="rounded-lg px-3 py-2.5 text-lg font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                        >
-                            {l.label}
-                        </a>
-                    ))}
+                    {links.map((l) =>
+                        l.href.startsWith("#") ? (
+                            <a
+                                key={l.href}
+                                href={l.href}
+                                className="rounded-lg px-3 py-2.5 text-lg font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                            >
+                                {l.label}
+                            </a>
+                        ) : (
+                            <Link
+                                key={l.href}
+                                href={l.href}
+                                className="rounded-lg px-3 py-2.5 text-lg font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                            >
+                                {l.label}
+                            </Link>
+                        )
+                    )}
                 </nav>
 
                 <div className="flex flex-col gap-2 mt-auto pb-4">

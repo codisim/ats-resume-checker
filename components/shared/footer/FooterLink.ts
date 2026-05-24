@@ -11,9 +11,9 @@ export const LINKS = {
     ],
     Resources: [
         { label: "Blog", href: "/blog" },
-        { label: "ATS guide", href: "/blog/ats-guide" },
-        { label: "Resume tips", href: "/blog/resume-tips" },
-        { label: "Changelog", href: "/changelog" },
+        { label: "Case studies", href: "/case-studies" },
+        { label: "Dashboard", href: "/ai" },
+        { label: "Sign in", href: "/sign-in" },
     ],
     Legal: [
         { label: "Privacy policy", href: "/privacy" },

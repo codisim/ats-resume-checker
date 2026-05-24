@@ -4,7 +4,6 @@ import { Bell, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import ThemeSwitcher from "@/components/shared/navbar/ThemeSwitcher"
-import UserMenu from "../shared/navbar/Usermenu"
 
 type AiHeaderProps = {
   userName: string

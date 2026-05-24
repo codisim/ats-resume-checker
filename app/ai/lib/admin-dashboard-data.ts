@@ -1,6 +1,4 @@
 import prisma from "@/lib/prisma"
-
-export const ADMIN_EMAIL = "waliullah9099@gmail.com"
 export const ADMIN_PAGE_SIZE = 10
 
 export type AdminDashboardMetric = {

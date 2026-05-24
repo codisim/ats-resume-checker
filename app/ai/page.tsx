@@ -13,12 +13,10 @@ import { AiSidebar } from "@/components/ai/ai-sidebar"
 import { AnalysisComposer } from "@/components/ai/analysis-composer"
 import { PreviousAnalyses } from "@/components/ai/previous-analyses"
 import { StatsGrid } from "@/components/ai/stats-grid"
+import { ADMIN_EMAIL } from "@/lib/admin"
+import { getAdminDashboardData } from "./lib/admin-dashboard-data"
+import { adminNavigation } from "./lib/admin-navigation"
 import {
-  ADMIN_EMAIL,
-  getAdminDashboardData,
-} from "./lib/admin-dashboard-data"
-import {
-  dashboardNavigation,
   type DashboardAnalysis,
   getAiDashboardData,
 } from "./lib/dashboard-data"
@@ -51,7 +49,7 @@ export default async function Page() {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <AiSidebar
-          navigation={dashboardNavigation}
+          navigation={adminNavigation}
           historyAnalyses={[]}
         />
 

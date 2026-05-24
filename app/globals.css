@@ -272,6 +272,46 @@
   }
 }
 
+.content-body h2 {
+  @apply mt-8 text-2xl font-semibold tracking-tight text-foreground;
+}
+
+.content-body h3 {
+  @apply mt-6 text-xl font-semibold tracking-tight text-foreground;
+}
+
+.content-body p {
+  @apply leading-8 text-foreground;
+}
+
+.content-body a {
+  @apply text-primary underline underline-offset-4;
+}
+
+.content-body ul {
+  @apply my-5 list-disc space-y-2 pl-6;
+}
+
+.content-body ol {
+  @apply my-5 list-decimal space-y-2 pl-6;
+}
+
+.content-body blockquote {
+  @apply my-6 border-l-4 border-primary/30 pl-4 italic text-muted-foreground;
+}
+
+.content-body pre {
+  @apply my-6 overflow-x-auto rounded-2xl border border-border bg-secondary/60 p-4 font-mono text-sm text-foreground;
+}
+
+.content-body code {
+  @apply rounded bg-secondary/70 px-1.5 py-0.5 font-mono text-sm text-foreground;
+}
+
+.content-body img {
+  @apply my-6 h-auto w-full rounded-2xl border border-border object-cover;
+}
+
 .theme-green,
 .theme-green-scaled {
   --background: oklch(0.985 0.01 155);
