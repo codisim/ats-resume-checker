@@ -1298,11 +1298,15 @@ export type WaitlistScalarFieldEnum = (typeof WaitlistScalarFieldEnum)[keyof typ
 
 export const BlogScalarFieldEnum = {
   id: 'id',
+  kind: 'kind',
   title: 'title',
   slug: 'slug',
+  excerpt: 'excerpt',
+  coverImage: 'coverImage',
   content: 'content',
   published: 'published',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
@@ -1453,6 +1457,20 @@ export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
  * Reference to a field of type 'SubscriptionStatus[]'
  */
 export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContentKind'
+ */
+export type EnumContentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentKind'>
+    
+
+
+/**
+ * Reference to a field of type 'ContentKind[]'
+ */
+export type ListEnumContentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentKind[]'>
     
 
 

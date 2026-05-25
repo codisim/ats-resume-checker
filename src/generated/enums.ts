@@ -24,3 +24,11 @@ export const SubscriptionStatus = {
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const ContentKind = {
+  BLOG: 'BLOG',
+  CASE_STUDY: 'CASE_STUDY'
+} as const
+
+export type ContentKind = (typeof ContentKind)[keyof typeof ContentKind]

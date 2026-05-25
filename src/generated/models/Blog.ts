@@ -26,58 +26,82 @@ export type AggregateBlog = {
 
 export type BlogMinAggregateOutputType = {
   id: string | null
+  kind: $Enums.ContentKind | null
   title: string | null
   slug: string | null
+  excerpt: string | null
+  coverImage: string | null
   content: string | null
   published: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BlogMaxAggregateOutputType = {
   id: string | null
+  kind: $Enums.ContentKind | null
   title: string | null
   slug: string | null
+  excerpt: string | null
+  coverImage: string | null
   content: string | null
   published: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type BlogCountAggregateOutputType = {
   id: number
+  kind: number
   title: number
   slug: number
+  excerpt: number
+  coverImage: number
   content: number
   published: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type BlogMinAggregateInputType = {
   id?: true
+  kind?: true
   title?: true
   slug?: true
+  excerpt?: true
+  coverImage?: true
   content?: true
   published?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type BlogMaxAggregateInputType = {
   id?: true
+  kind?: true
   title?: true
   slug?: true
+  excerpt?: true
+  coverImage?: true
   content?: true
   published?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type BlogCountAggregateInputType = {
   id?: true
+  kind?: true
   title?: true
   slug?: true
+  excerpt?: true
+  coverImage?: true
   content?: true
   published?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -155,11 +179,15 @@ export type BlogGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type BlogGroupByOutputType = {
   id: string
+  kind: $Enums.ContentKind
   title: string
   slug: string
+  excerpt: string | null
+  coverImage: string | null
   content: string
   published: boolean
   createdAt: Date
+  updatedAt: Date
   _count: BlogCountAggregateOutputType | null
   _min: BlogMinAggregateOutputType | null
   _max: BlogMaxAggregateOutputType | null
@@ -185,20 +213,28 @@ export type BlogWhereInput = {
   OR?: Prisma.BlogWhereInput[]
   NOT?: Prisma.BlogWhereInput | Prisma.BlogWhereInput[]
   id?: Prisma.StringFilter<"Blog"> | string
+  kind?: Prisma.EnumContentKindFilter<"Blog"> | $Enums.ContentKind
   title?: Prisma.StringFilter<"Blog"> | string
   slug?: Prisma.StringFilter<"Blog"> | string
+  excerpt?: Prisma.StringNullableFilter<"Blog"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"Blog"> | string | null
   content?: Prisma.StringFilter<"Blog"> | string
   published?: Prisma.BoolFilter<"Blog"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
 }
 
 export type BlogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BlogWhereUniqueInput = Prisma.AtLeast<{
@@ -207,19 +243,27 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BlogWhereInput | Prisma.BlogWhereInput[]
   OR?: Prisma.BlogWhereInput[]
   NOT?: Prisma.BlogWhereInput | Prisma.BlogWhereInput[]
+  kind?: Prisma.EnumContentKindFilter<"Blog"> | $Enums.ContentKind
   title?: Prisma.StringFilter<"Blog"> | string
+  excerpt?: Prisma.StringNullableFilter<"Blog"> | string | null
+  coverImage?: Prisma.StringNullableFilter<"Blog"> | string | null
   content?: Prisma.StringFilter<"Blog"> | string
   published?: Prisma.BoolFilter<"Blog"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
 }, "id" | "slug">
 
 export type BlogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.BlogCountOrderByAggregateInput
   _max?: Prisma.BlogMaxOrderByAggregateInput
   _min?: Prisma.BlogMinOrderByAggregateInput
@@ -230,153 +274,221 @@ export type BlogScalarWhereWithAggregatesInput = {
   OR?: Prisma.BlogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BlogScalarWhereWithAggregatesInput | Prisma.BlogScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Blog"> | string
+  kind?: Prisma.EnumContentKindWithAggregatesFilter<"Blog"> | $Enums.ContentKind
   title?: Prisma.StringWithAggregatesFilter<"Blog"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Blog"> | string
+  excerpt?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
+  coverImage?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   content?: Prisma.StringWithAggregatesFilter<"Blog"> | string
   published?: Prisma.BoolWithAggregatesFilter<"Blog"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Blog"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Blog"> | Date | string
 }
 
 export type BlogCreateInput = {
   id?: string
+  kind?: $Enums.ContentKind
   title: string
   slug: string
+  excerpt?: string | null
+  coverImage?: string | null
   content: string
   published?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BlogUncheckedCreateInput = {
   id?: string
+  kind?: $Enums.ContentKind
   title: string
   slug: string
+  excerpt?: string | null
+  coverImage?: string | null
   content: string
   published?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BlogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.EnumContentKindFieldUpdateOperationsInput | $Enums.ContentKind
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BlogUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.EnumContentKindFieldUpdateOperationsInput | $Enums.ContentKind
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BlogCreateManyInput = {
   id?: string
+  kind?: $Enums.ContentKind
   title: string
   slug: string
+  excerpt?: string | null
+  coverImage?: string | null
   content: string
   published?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type BlogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.EnumContentKindFieldUpdateOperationsInput | $Enums.ContentKind
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BlogUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  kind?: Prisma.EnumContentKindFieldUpdateOperationsInput | $Enums.ContentKind
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   content?: Prisma.StringFieldUpdateOperationsInput | string
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BlogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  excerpt?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BlogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  excerpt?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type BlogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  excerpt?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type EnumContentKindFieldUpdateOperationsInput = {
+  set?: $Enums.ContentKind
 }
 
 
 
 export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  kind?: boolean
   title?: boolean
   slug?: boolean
+  excerpt?: boolean
+  coverImage?: boolean
   content?: boolean
   published?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  kind?: boolean
   title?: boolean
   slug?: boolean
+  excerpt?: boolean
+  coverImage?: boolean
   content?: boolean
   published?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  kind?: boolean
   title?: boolean
   slug?: boolean
+  excerpt?: boolean
+  coverImage?: boolean
   content?: boolean
   published?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["blog"]>
 
 export type BlogSelectScalar = {
   id?: boolean
+  kind?: boolean
   title?: boolean
   slug?: boolean
+  excerpt?: boolean
+  coverImage?: boolean
   content?: boolean
   published?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "content" | "published" | "createdAt", ExtArgs["result"]["blog"]>
+export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "kind" | "title" | "slug" | "excerpt" | "coverImage" | "content" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["blog"]>
 
 export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Blog"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    kind: $Enums.ContentKind
     title: string
     slug: string
+    excerpt: string | null
+    coverImage: string | null
     content: string
     published: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["blog"]>
   composites: {}
 }
@@ -801,11 +913,15 @@ export interface Prisma__BlogClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface BlogFieldRefs {
   readonly id: Prisma.FieldRef<"Blog", 'String'>
+  readonly kind: Prisma.FieldRef<"Blog", 'ContentKind'>
   readonly title: Prisma.FieldRef<"Blog", 'String'>
   readonly slug: Prisma.FieldRef<"Blog", 'String'>
+  readonly excerpt: Prisma.FieldRef<"Blog", 'String'>
+  readonly coverImage: Prisma.FieldRef<"Blog", 'String'>
   readonly content: Prisma.FieldRef<"Blog", 'String'>
   readonly published: Prisma.FieldRef<"Blog", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Blog", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Blog", 'DateTime'>
 }
     
 
