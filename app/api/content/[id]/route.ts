@@ -1,10 +1,8 @@
 import { currentUser } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
-import { isAdminEmail } from "@/lib/admin"
-import {
-  contentInputSchema,
-} from "@/lib/content"
+import { getClerkUserEmail, isAdminEmail } from "@/lib/admin"
+import { contentInputSchema } from "@/lib/content"
 import {
   createUniqueSlug,
   getContentById,
@@ -21,7 +19,7 @@ type RouteContext = {
 
 async function requireAdmin() {
   const clerkUser = await currentUser()
-  const email = clerkUser?.emailAddresses[0]?.emailAddress
+  const email = getClerkUserEmail(clerkUser)
 
   if (!isAdminEmail(email)) {
     return null
@@ -36,7 +34,7 @@ export async function GET(
 ) {
   const { id } = await params
   const clerkUser = await currentUser()
-  const email = clerkUser?.emailAddresses[0]?.emailAddress
+  const email = getClerkUserEmail(clerkUser)
   const isAdmin = isAdminEmail(email)
   const item = await getContentById(id)
 

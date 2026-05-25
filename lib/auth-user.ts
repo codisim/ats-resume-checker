@@ -1,5 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server"
 
+import { getClerkUserEmail } from "@/lib/admin"
 import { upsertClerkUser } from "@/lib/clerk-user"
 
 export async function getOrCreateDbUser() {
@@ -9,7 +10,7 @@ export async function getOrCreateDbUser() {
     return null
   }
 
-  const email = clerkUser.emailAddresses[0]?.emailAddress
+  const email = getClerkUserEmail(clerkUser)
 
   if (!email) {
     throw new Error("No email address available for the signed-in user.")

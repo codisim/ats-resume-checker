@@ -13,7 +13,9 @@ import { AiSidebar } from "@/components/ai/ai-sidebar"
 import { AnalysisComposer } from "@/components/ai/analysis-composer"
 import { PreviousAnalyses } from "@/components/ai/previous-analyses"
 import { StatsGrid } from "@/components/ai/stats-grid"
-import { ADMIN_EMAIL } from "@/lib/admin"
+import { ContentManager } from "@/components/content/content-manager"
+import { ADMIN_EMAIL, getClerkUserEmail } from "@/lib/admin"
+import { listContent, toContentSummary } from "@/lib/content.server"
 import { getAdminDashboardData } from "./lib/admin-dashboard-data"
 import { adminNavigation } from "./lib/admin-navigation"
 import {
@@ -41,10 +43,13 @@ function withAnalysisPresentation(items: DashboardAnalysis[]) {
 
 export default async function Page() {
   const clerkUser = await currentUser()
-  const currentEmail = clerkUser?.emailAddresses[0]?.emailAddress ?? null
+  const currentEmail = getClerkUserEmail(clerkUser)
 
   if (currentEmail === ADMIN_EMAIL) {
-    const adminDashboard = await getAdminDashboardData()
+    const [adminDashboard, contentItems] = await Promise.all([
+      getAdminDashboardData(),
+      listContent(),
+    ])
 
     return (
       <div className="min-h-screen bg-background text-foreground">
@@ -64,6 +69,24 @@ export default async function Page() {
 
           <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 py-6 sm:px-6 lg:px-8">
             <AdminDashboard data={adminDashboard} />
+
+            <section className="mt-6">
+              <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                    Content management
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Create, update, and publish blog posts and case studies
+                    without leaving the admin dashboard.
+                  </p>
+                </div>
+              </div>
+
+              <ContentManager
+                initialItems={contentItems.map(toContentSummary)}
+              />
+            </section>
           </div>
         </main>
       </div>

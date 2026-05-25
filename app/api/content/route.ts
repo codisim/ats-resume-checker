@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
-import { isAdminEmail } from "@/lib/admin"
+import { getClerkUserEmail, isAdminEmail } from "@/lib/admin"
 import {
   contentInputSchema,
   contentKindSchema,
@@ -18,7 +18,7 @@ import prisma from "@/lib/prisma"
 
 async function requireAdmin() {
   const clerkUser = await currentUser()
-  const email = clerkUser?.emailAddresses[0]?.emailAddress
+  const email = getClerkUserEmail(clerkUser)
 
   if (!isAdminEmail(email)) {
     return null
