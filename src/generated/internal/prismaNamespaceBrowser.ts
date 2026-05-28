@@ -60,7 +60,9 @@ export const ModelName = {
   Subscription: 'Subscription',
   Waitlist: 'Waitlist',
   Blog: 'Blog',
-  Review: 'Review'
+  Review: 'Review',
+  CoverLetter: 'CoverLetter',
+  JobApplication: 'JobApplication'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -208,6 +210,41 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const CoverLetterScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  analysisId: 'analysisId',
+  jobTitle: 'jobTitle',
+  company: 'company',
+  tone: 'tone',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  applicationId: 'applicationId'
+} as const
+
+export type CoverLetterScalarFieldEnum = (typeof CoverLetterScalarFieldEnum)[keyof typeof CoverLetterScalarFieldEnum]
+
+
+export const JobApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  company: 'company',
+  role: 'role',
+  status: 'status',
+  appliedDate: 'appliedDate',
+  notes: 'notes',
+  salary: 'salary',
+  url: 'url',
+  resumeId: 'resumeId',
+  followUpDate: 'followUpDate',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
 export const SortOrder = {

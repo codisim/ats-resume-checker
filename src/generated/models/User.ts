@@ -202,6 +202,8 @@ export type UserWhereInput = {
   resumes?: Prisma.ResumeListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   usages?: Prisma.UsageListRelationFilter
+  coverLetters?: Prisma.CoverLetterListRelationFilter
+  applications?: Prisma.JobApplicationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -216,6 +218,8 @@ export type UserOrderByWithRelationInput = {
   resumes?: Prisma.ResumeOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   usages?: Prisma.UsageOrderByRelationAggregateInput
+  coverLetters?: Prisma.CoverLetterOrderByRelationAggregateInput
+  applications?: Prisma.JobApplicationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -233,6 +237,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resumes?: Prisma.ResumeListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   usages?: Prisma.UsageListRelationFilter
+  coverLetters?: Prisma.CoverLetterListRelationFilter
+  applications?: Prisma.JobApplicationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -273,6 +279,8 @@ export type UserCreateInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -287,6 +295,8 @@ export type UserUncheckedCreateInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -301,6 +311,8 @@ export type UserUpdateInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -315,6 +327,8 @@ export type UserUncheckedUpdateInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -454,6 +468,34 @@ export type UserUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.UserUpdateWithoutSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type UserCreateNestedOneWithoutCoverLettersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCoverLettersInput, Prisma.UserUncheckedCreateWithoutCoverLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCoverLettersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCoverLettersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCoverLettersInput, Prisma.UserUncheckedCreateWithoutCoverLettersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCoverLettersInput
+  upsert?: Prisma.UserUpsertWithoutCoverLettersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCoverLettersInput, Prisma.UserUpdateWithoutCoverLettersInput>, Prisma.UserUncheckedUpdateWithoutCoverLettersInput>
+}
+
+export type UserCreateNestedOneWithoutApplicationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplicationsInput, Prisma.UserUncheckedCreateWithoutApplicationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplicationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutApplicationsInput, Prisma.UserUncheckedCreateWithoutApplicationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutApplicationsInput
+  upsert?: Prisma.UserUpsertWithoutApplicationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplicationsInput, Prisma.UserUpdateWithoutApplicationsInput>, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
+}
+
 export type UserCreateWithoutResumesInput = {
   id?: string
   email: string
@@ -465,6 +507,8 @@ export type UserCreateWithoutResumesInput = {
   analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -478,6 +522,8 @@ export type UserUncheckedCreateWithoutResumesInput = {
   analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -507,6 +553,8 @@ export type UserUpdateWithoutResumesInput = {
   analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -520,6 +568,8 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAnalysesInput = {
@@ -533,6 +583,8 @@ export type UserCreateWithoutAnalysesInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAnalysesInput = {
@@ -546,6 +598,8 @@ export type UserUncheckedCreateWithoutAnalysesInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAnalysesInput = {
@@ -575,6 +629,8 @@ export type UserUpdateWithoutAnalysesInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAnalysesInput = {
@@ -588,6 +644,8 @@ export type UserUncheckedUpdateWithoutAnalysesInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUsagesInput = {
@@ -601,6 +659,8 @@ export type UserCreateWithoutUsagesInput = {
   analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUsagesInput = {
@@ -614,6 +674,8 @@ export type UserUncheckedCreateWithoutUsagesInput = {
   analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUsagesInput = {
@@ -643,6 +705,8 @@ export type UserUpdateWithoutUsagesInput = {
   analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUsagesInput = {
@@ -656,6 +720,8 @@ export type UserUncheckedUpdateWithoutUsagesInput = {
   analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionsInput = {
@@ -669,6 +735,8 @@ export type UserCreateWithoutSubscriptionsInput = {
   analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -682,6 +750,8 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
   usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -711,6 +781,8 @@ export type UserUpdateWithoutSubscriptionsInput = {
   analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -724,6 +796,160 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCoverLettersInput = {
+  id?: string
+  email: string
+  name?: string | null
+  image?: string | null
+  country?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCoverLettersInput = {
+  id?: string
+  email: string
+  name?: string | null
+  image?: string | null
+  country?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCoverLettersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCoverLettersInput, Prisma.UserUncheckedCreateWithoutCoverLettersInput>
+}
+
+export type UserUpsertWithoutCoverLettersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCoverLettersInput, Prisma.UserUncheckedUpdateWithoutCoverLettersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCoverLettersInput, Prisma.UserUncheckedCreateWithoutCoverLettersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCoverLettersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCoverLettersInput, Prisma.UserUncheckedUpdateWithoutCoverLettersInput>
+}
+
+export type UserUpdateWithoutCoverLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCoverLettersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutApplicationsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  image?: string | null
+  country?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  analyses?: Prisma.AnalysisCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutApplicationsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  image?: string | null
+  country?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  analyses?: Prisma.AnalysisUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  usages?: Prisma.UsageUncheckedCreateNestedManyWithoutUserInput
+  coverLetters?: Prisma.CoverLetterUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutApplicationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplicationsInput, Prisma.UserUncheckedCreateWithoutApplicationsInput>
+}
+
+export type UserUpsertWithoutApplicationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutApplicationsInput, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutApplicationsInput, Prisma.UserUncheckedCreateWithoutApplicationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutApplicationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutApplicationsInput, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
+}
+
+export type UserUpdateWithoutApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analyses?: Prisma.AnalysisUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  usages?: Prisma.UsageUncheckedUpdateManyWithoutUserNestedInput
+  coverLetters?: Prisma.CoverLetterUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -736,6 +962,8 @@ export type UserCountOutputType = {
   resumes: number
   subscriptions: number
   usages: number
+  coverLetters: number
+  applications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -743,6 +971,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   resumes?: boolean | UserCountOutputTypeCountResumesArgs
   subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
   usages?: boolean | UserCountOutputTypeCountUsagesArgs
+  coverLetters?: boolean | UserCountOutputTypeCountCoverLettersArgs
+  applications?: boolean | UserCountOutputTypeCountApplicationsArgs
 }
 
 /**
@@ -783,6 +1013,20 @@ export type UserCountOutputTypeCountUsagesArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.UsageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCoverLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CoverLetterWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobApplicationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -796,6 +1040,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
+  coverLetters?: boolean | Prisma.User$coverLettersArgs<ExtArgs>
+  applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -835,6 +1081,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   resumes?: boolean | Prisma.User$resumesArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   usages?: boolean | Prisma.User$usagesArgs<ExtArgs>
+  coverLetters?: boolean | Prisma.User$coverLettersArgs<ExtArgs>
+  applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -847,6 +1095,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     resumes: Prisma.$ResumePayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     usages: Prisma.$UsagePayload<ExtArgs>[]
+    coverLetters: Prisma.$CoverLetterPayload<ExtArgs>[]
+    applications: Prisma.$JobApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1254,6 +1504,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   resumes<T extends Prisma.User$resumesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resumesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   usages<T extends Prisma.User$usagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  coverLetters<T extends Prisma.User$coverLettersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coverLettersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoverLetterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  applications<T extends Prisma.User$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1771,6 +2023,54 @@ export type User$usagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.UsageScalarFieldEnum | Prisma.UsageScalarFieldEnum[]
+}
+
+/**
+ * User.coverLetters
+ */
+export type User$coverLettersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CoverLetter
+   */
+  select?: Prisma.CoverLetterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CoverLetter
+   */
+  omit?: Prisma.CoverLetterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CoverLetterInclude<ExtArgs> | null
+  where?: Prisma.CoverLetterWhereInput
+  orderBy?: Prisma.CoverLetterOrderByWithRelationInput | Prisma.CoverLetterOrderByWithRelationInput[]
+  cursor?: Prisma.CoverLetterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CoverLetterScalarFieldEnum | Prisma.CoverLetterScalarFieldEnum[]
+}
+
+/**
+ * User.applications
+ */
+export type User$applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobApplication
+   */
+  select?: Prisma.JobApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobApplication
+   */
+  omit?: Prisma.JobApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobApplicationInclude<ExtArgs> | null
+  where?: Prisma.JobApplicationWhereInput
+  orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.JobApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[]
 }
 
 /**

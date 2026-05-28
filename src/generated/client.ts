@@ -89,3 +89,13 @@ export type Blog = Prisma.BlogModel
  * 
  */
 export type Review = Prisma.ReviewModel
+/**
+ * Model CoverLetter
+ * 
+ */
+export type CoverLetter = Prisma.CoverLetterModel
+/**
+ * Model JobApplication
+ * 
+ */
+export type JobApplication = Prisma.JobApplicationModel

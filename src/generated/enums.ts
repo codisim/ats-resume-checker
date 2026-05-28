@@ -32,3 +32,23 @@ export const ContentKind = {
 } as const
 
 export type ContentKind = (typeof ContentKind)[keyof typeof ContentKind]
+
+
+export const CoverLetterTone = {
+  PROFESSIONAL: 'PROFESSIONAL',
+  ENTHUSIASTIC: 'ENTHUSIASTIC',
+  CONCISE: 'CONCISE'
+} as const
+
+export type CoverLetterTone = (typeof CoverLetterTone)[keyof typeof CoverLetterTone]
+
+
+export const ApplicationStatus = {
+  APPLIED: 'APPLIED',
+  SCREENING: 'SCREENING',
+  INTERVIEW: 'INTERVIEW',
+  OFFER: 'OFFER',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
