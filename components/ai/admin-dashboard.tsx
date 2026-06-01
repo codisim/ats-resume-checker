@@ -152,7 +152,7 @@ function getVisiblePages(currentPage: number, totalPages: number) {
 }
 
 export function AdminDashboard({ data }: AdminDashboardProps) {
-  const pageSize = 10
+  const pageSize = 20
   const [page, setPage] = useState(1)
 
   const totalPages = Math.max(1, Math.ceil(data.users.length / pageSize))
