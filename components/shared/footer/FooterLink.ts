@@ -18,7 +18,7 @@ export const LINKS = {
     Legal: [
         { label: "Privacy policy", href: "/privacy" },
         { label: "Terms of service", href: "/terms" },
-        { label: "Cookie policy", href: "/cookies" },
+        // { label: "Cookie policy", href: "/cookies" },
     ],
 };
 
