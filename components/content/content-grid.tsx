@@ -29,7 +29,7 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
           kind === "BLOG"
             ? `/blog/${item.slug}`
             : `/case-studies/${item.slug}`
-w        const isBlog = kind === "BLOG"
+        const isBlog = kind === "BLOG"
 
         return (
           <Link key={item.id} href={href} className="group">
