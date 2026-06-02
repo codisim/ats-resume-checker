@@ -10,6 +10,7 @@ import {
   CircleCheckBig,
   CircleGauge,
   FileText,
+  Home,
   LayoutDashboard,
   ReceiptText,
   Newspaper,
@@ -44,6 +45,7 @@ type AiSidebarProps = {
 }
 
 const sidebarIcons: Record<string, LucideIcon> = {
+  home: Home,
   dashboard: LayoutDashboard,
   analyses: CircleGauge,
   resumes: FileText,

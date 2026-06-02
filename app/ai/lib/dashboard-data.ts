@@ -86,6 +86,7 @@ type DashboardDb = {
 const DEFAULT_WEEKLY_LIMIT = 7
 
 export const dashboardNavigation: DashboardNavigationItem[] = [
+  { label: "Home", href: "/", iconKey: "home" },
   { label: "Dashboard", href: "/ai", iconKey: "dashboard" },
   { label: "History", href: "/ai/analyses", iconKey: "analyses" },
   { label: "Resumes", href: "#", iconKey: "resumes" },

@@ -1,5 +1,6 @@
+import Link from "next/link"
 import type { LucideIcon } from "lucide-react"
-import { Bell, Sparkles } from "lucide-react"
+import { Bell, Home, Sparkles } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -56,6 +57,17 @@ export function AiHeader({
               </div>
             </CardContent>
           </Card>
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-xl border-border bg-card/90 px-4 shadow-sm"
+          >
+            <Link href="/">
+              <Home className="size-4" />
+              <span>Go to Home</span>
+            </Link>
+          </Button>
 
           <Button
             variant="outline"
