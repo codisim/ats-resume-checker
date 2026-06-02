@@ -48,17 +48,23 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
               )}
               <CardContent className="space-y-4 p-5">
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-3">
+                  {/* <div className="flex items-center justify-between gap-3">
                     <Badge variant={kind === "BLOG" ? "default" : "secondary"}>
                       {contentKindLabels[item.kind]}
                     </Badge>
                     <span className="rounded-full border border-border bg-background/90 px-3 py-1 text-xs text-muted-foreground">
                       {item.published ? "Published" : "Draft"}
                     </span>
-                  </div>
+                  </div> */}
                   <h3 className="line-clamp-2 text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
                     {item.title}
                   </h3>
+
+                  <p className="line-clamp-4 text-sm leading-6 text-muted-foreground">
+                    {excerpt}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between gap-3 my-2">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <CalendarDays className="size-3.5" />
@@ -69,17 +75,15 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
                       {readingTime} min read
                     </span>
                   </div>
-                  <p className="line-clamp-4 text-sm leading-6 text-muted-foreground">
-                    {excerpt}
-                  </p>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors group-hover:border-primary/30 group-hover:bg-primary/5">
+                      Read More
+                      <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                    {!isBlog ? <span>/{item.slug}</span> : null}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors group-hover:border-primary/30 group-hover:bg-primary/5">
-                    Read More
-                    <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
-                  {!isBlog ? <span>/{item.slug}</span> : null}
-                </div>
+
               </CardContent>
             </Card>
           </Link>
