@@ -1,10 +1,9 @@
 import Link from "next/link"
 import { ArrowUpRight, CalendarDays, Clock3 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import type { ContentKind, ContentRecord } from "@/lib/content"
-import { contentKindLabels, deriveExcerpt, estimateReadingTime } from "@/lib/content"
+import { deriveExcerpt, estimateReadingTime } from "@/lib/content"
 
 type ContentGridProps = {
   kind: ContentKind
@@ -47,6 +46,7 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
                 <div className="aspect-[16/9] border-b border-border bg-gradient-to-br from-primary/15 via-background to-warning/15" />
               )}
               <CardContent className="space-y-4 p-5">
+
                 <div className="space-y-2">
                   {/* <div className="flex items-center justify-between gap-3">
                     <Badge variant={kind === "BLOG" ? "default" : "secondary"}>
@@ -64,7 +64,9 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
                     {excerpt}
                   </p>
                 </div>
-                <div className="flex items-center justify-between gap-3 my-2">
+
+                <div className="flex items-center justify-between gap-3">
+                  
                   <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <CalendarDays className="size-3.5" />
@@ -75,6 +77,7 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
                       {readingTime} min read
                     </span>
                   </div>
+
                   <div className="flex items-center justify-between gap-3">
                     <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors group-hover:border-primary/30 group-hover:bg-primary/5">
                       Read More
@@ -82,6 +85,7 @@ export function ContentGrid({ kind, items }: ContentGridProps) {
                     </span>
                     {!isBlog ? <span>/{item.slug}</span> : null}
                   </div>
+                  
                 </div>
 
               </CardContent>
