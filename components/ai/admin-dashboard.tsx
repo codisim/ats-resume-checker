@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useMemo, useState } from "react"
 import {
   BarChart3,
@@ -7,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
+  Home,
   UserPlus,
   Users,
 } from "lucide-react"
@@ -208,12 +210,20 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
         />
         <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <Badge
-              variant="outline"
-              className="mb-4 border-primary/20 bg-card/70 px-3 py-1 text-primary backdrop-blur-xl"
-            >
-              Admin only
-            </Badge>
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <Badge
+                variant="outline"
+                className="border-primary/20 bg-card/70 px-3 py-1 text-primary backdrop-blur-xl"
+              >
+                Admin only
+              </Badge>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/">
+                  <Home className="size-4" />
+                  Go to Home
+                </Link>
+              </Button>
+            </div>
             <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               User overview and system analytics
             </h1>
