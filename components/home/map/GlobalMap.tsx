@@ -23,7 +23,7 @@ export default function GlobalMap() {
                     </h2>
                     <p className="max-w-sm text-[14px] text-muted-foreground lg:text-[15px]">
                         Real job seekers from around the world — and growing every day.
-                    </p>
+                    </p>    
                 </div>
 
                 <WorldMap />
