@@ -89,11 +89,11 @@ export const dashboardNavigation: DashboardNavigationItem[] = [
   { label: "Home", href: "/", iconKey: "home" },
   { label: "Dashboard", href: "/ai", iconKey: "dashboard" },
   { label: "History", href: "/ai/analyses", iconKey: "analyses" },
-  { label: "Resumes", href: "#", iconKey: "resumes" },
-  { label: "Saved Jobs", href: "#", iconKey: "saved_jobs" },
-  { label: "Usage", href: "#", iconKey: "usage" },
-  { label: "Settings", href: "#", iconKey: "settings" },
-  { label: "Billing", href: "#", iconKey: "billing" },
+  { label: "Resumes", href: "/ai/resumes", iconKey: "resumes" },
+  { label: "Saved Jobs", href: "/ai/saved-jobs", iconKey: "saved_jobs" },
+  { label: "Usage", href: "/ai/usage", iconKey: "usage" },
+  { label: "Settings", href: "/settings", iconKey: "settings" },
+  { label: "Billing", href: "/billing", iconKey: "billing" },
 ]
 
 function toTimeLabel(date: Date) {

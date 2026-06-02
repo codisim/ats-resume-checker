@@ -10,7 +10,7 @@ export default async function AnalysesPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <AiSidebar navigation={dashboard.navigation} historyAnalyses={dashboard.analyses} />
+      <AiSidebar navigation={dashboard.navigation} />
 
       <main className="relative lg:pl-72">
         <div

@@ -23,7 +23,7 @@ export default async function ContentPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <AiSidebar navigation={adminNavigation} historyAnalyses={[]} />
+      <AiSidebar navigation={adminNavigation} />
 
       <main className="relative lg:pl-72">
         <div

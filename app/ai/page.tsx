@@ -55,7 +55,6 @@ export default async function Page() {
       <div className="min-h-screen bg-background text-foreground">
         <AiSidebar
           navigation={adminNavigation}
-          historyAnalyses={[]}
         />
 
         <main className="relative lg:pl-72">
@@ -106,7 +105,6 @@ export default async function Page() {
     <div className="min-h-screen bg-background text-foreground">
       <AiSidebar
         navigation={dashboard.navigation}
-        historyAnalyses={dashboard.historyAnalyses}
       />
 
       <main className="relative lg:pl-72">
