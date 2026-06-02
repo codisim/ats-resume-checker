@@ -4,7 +4,7 @@ import { ContentIndexPage } from "@/components/content/content-index-page"
 import { listContent } from "@/lib/content.server"
 
 export const metadata: Metadata = {
-  title: "Blog | ATS Resume Checker",
+  title: "Blog | ATS Resume Checker and AI Cover Letter Writer",
   description:
     "Read practical advice about resumes, ATS optimization, and career growth.",
   alternates: {
