@@ -1,9 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import type { MouseEvent } from "react"
 import type { LucideIcon } from "lucide-react"
 import {
   Bot,
@@ -19,17 +17,9 @@ import {
   WalletCards,
 } from "lucide-react"
 
-import { AnalysisHistoryPanel } from "@/components/ai/analysis-history-panel"
-import type { AnalysisHistoryItem } from "@/components/ai/analysis-history-panel"
 import UserMenu from "@/components/shared/navbar/Usermenu"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
 type SidebarItem = {
@@ -41,7 +31,6 @@ type SidebarItem = {
 
 type AiSidebarProps = {
   navigation: SidebarItem[]
-  historyAnalyses?: AnalysisHistoryItem[]
 }
 
 const sidebarIcons: Record<string, LucideIcon> = {
@@ -58,20 +47,8 @@ const sidebarIcons: Record<string, LucideIcon> = {
 
 export function AiSidebar({
   navigation,
-  historyAnalyses = [],
 }: AiSidebarProps) {
   const pathname = usePathname()
-  const [historyOpen, setHistoryOpen] = useState(false)
-
-  const handleNavigationClick = (
-    event: MouseEvent<HTMLAnchorElement>,
-    item: SidebarItem
-  ) => {
-    if (item.href === "/ai/analyses") {
-      event.preventDefault()
-      setHistoryOpen(true)
-    }
-  }
 
   return (
     <>
@@ -97,7 +74,6 @@ export function AiSidebar({
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={(event) => handleNavigationClick(event, item)}
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition",
                     isActive
@@ -132,23 +108,6 @@ export function AiSidebar({
           </div>
         </div>
       </aside>
-
-      <Sheet open={historyOpen} onOpenChange={setHistoryOpen}>
-        <SheetContent className="w-full overflow-y-auto sm:max-w-5xl">
-          <SheetHeader className="px-0 pt-4">
-            <SheetTitle className="text-2xl font-semibold text-foreground">
-              Analysis History
-            </SheetTitle>
-            <p className="text-sm text-muted-foreground">
-              Browse every saved resume analysis, then open one for full details.
-            </p>
-          </SheetHeader>
-
-          <div className="mt-6 pb-8">
-            <AnalysisHistoryPanel analyses={historyAnalyses} />
-          </div>
-        </SheetContent>
-      </Sheet>
     </>
   )
 }
