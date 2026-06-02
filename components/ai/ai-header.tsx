@@ -58,7 +58,7 @@ export function AiHeader({
             </CardContent>
           </Card>
 
-          {/* <Button
+          <Button
             asChild
             variant="outline"
             className="h-11 rounded-xl border-border bg-card/90 px-4 shadow-sm"
@@ -67,7 +67,7 @@ export function AiHeader({
               <Home className="size-4" />
               <span>Go to Home</span>
             </Link>
-          </Button> */}
+          </Button>
 
           <Button
             variant="outline"
