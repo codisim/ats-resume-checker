@@ -5,6 +5,7 @@ type ClerkUserInput = {
   firstName?: string | null
   lastName?: string | null
   imageUrl?: string | null
+  country?: string | null
 }
 
 export async function upsertClerkUser({
@@ -12,6 +13,7 @@ export async function upsertClerkUser({
   firstName,
   lastName,
   imageUrl,
+  country,
 }: ClerkUserInput) {
   const name = [firstName, lastName].filter(Boolean).join(" ")
 
@@ -21,10 +23,12 @@ export async function upsertClerkUser({
       email,
       name: name || null,
       image: imageUrl || null,
+      country: country || null,
     },
     update: {
       name: name || null,
       image: imageUrl || null,
+      ...(country ? { country } : {}),
     },
   })
 }
