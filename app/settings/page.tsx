@@ -1,15 +1,11 @@
-import Image from "next/image"
-import Link from "next/link"
 import { Settings } from "lucide-react"
 import { currentUser } from "@clerk/nextjs/server"
 
 import { AiStaticPage } from "@/components/ai/ai-static-page"
-import ThemeSwitcher from "@/components/shared/navbar/ThemeSwitcher"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import prisma from "@/lib/prisma"
 import { getClerkUserEmail } from "@/lib/admin"
 import { getOrCreateDbUser } from "@/lib/auth-user"
+import { ProfileEditor } from "@/components/settings/profile-editor"
 import { getAiDashboardData } from "../ai/lib/dashboard-data"
 
 function formatDate(date: Date) {
@@ -95,13 +91,6 @@ export default async function SettingsPage() {
     clerkUser.fullName ||
     "User"
   const email = getClerkUserEmail(clerkUser) || dbUser.email
-  const initials =
-    fullName
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase() || "U"
 
   return (
     <AiStaticPage
@@ -133,60 +122,14 @@ export default async function SettingsPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
-        <div className="rounded-2xl border border-border/70 bg-background/60 p-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-4">
-              <div className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-2xl bg-primary/10 text-lg font-semibold text-primary">
-                {clerkUser.imageUrl ? (
-                  <Image
-                    src={clerkUser.imageUrl}
-                    alt={fullName}
-                    width={64}
-                    height={64}
-                    className="size-16 rounded-2xl object-cover"
-                  />
-                ) : (
-                  initials
-                )}
-              </div>
-              <div>
-                <p className="text-lg font-semibold text-foreground">{fullName}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{email}</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  <Badge variant="outline" className="border-border/70 bg-card/80">
-                    {linkedUser?.role || "USER"}
-                  </Badge>
-                  <Badge variant="outline" className="border-border/70 bg-card/80">
-                    {subscription?.plan.name || "Free plan"}
-                  </Badge>
-                </div>
-              </div>
-            </div>
-            <Button asChild variant="outline" className="w-fit">
-              <Link href="/ai">Back to dashboard</Link>
-            </Button>
-          </div>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-2xl border border-border/70 bg-card/50 p-4">
-              <p className="text-sm font-medium text-foreground">Theme</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Toggle between light and dark appearance.
-              </p>
-              <div className="mt-4">
-                <ThemeSwitcher />
-              </div>
-            </div>
-            <div className="rounded-2xl border border-border/70 bg-card/50 p-4">
-              <p className="text-sm font-medium text-foreground">Admin access</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {linkedUser?.role === "ADMIN"
-                  ? "You can access the admin dashboard and content manager."
-                  : "Standard user access is active for this account."}
-              </p>
-            </div>
-          </div>
-        </div>
+        <ProfileEditor
+          fullName={fullName}
+          email={email}
+          country={linkedUser?.country || ""}
+          role={linkedUser?.role || "USER"}
+          planName={subscription?.plan.name || "Free plan"}
+          weeklyLimit={subscription?.plan.weeklyLimit || dashboard.header.weeklyUsage.limit}
+        />
 
         <div className="rounded-2xl border border-border/70 bg-background/60 p-5">
           <p className="text-lg font-semibold text-foreground">Plan details</p>
@@ -211,6 +154,14 @@ export default async function SettingsPage() {
               <p className="text-sm font-medium text-foreground">Status</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 {subscription ? "Active" : "No active subscription"}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-card/50 p-4">
+              <p className="text-sm font-medium text-foreground">Admin access</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {linkedUser?.role === "ADMIN"
+                  ? "You can access the admin dashboard and content manager."
+                  : "Standard user access is active for this account."}
               </p>
             </div>
           </div>

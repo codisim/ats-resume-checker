@@ -14,6 +14,11 @@ import {
 } from "@/components/ui/table"
 import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
+import {
+  SavedJobCreateAction,
+  SavedJobEditAction,
+  toFormState,
+} from "@/components/ai/saved-job-actions"
 import { getAiDashboardData } from "../lib/dashboard-data"
 
 type ApplicationRow = {
@@ -25,9 +30,15 @@ type ApplicationRow = {
   salary: string | null
   url: string | null
   notes: string | null
+  resumeId: string | null
   resume: {
     fileName: string | null
   } | null
+}
+
+type ResumeOption = {
+  id: string
+  fileName: string
 }
 
 function formatDate(date: Date) {
@@ -107,25 +118,37 @@ export default async function SavedJobsPage() {
     )
   }
 
-  const applications = (await prisma.jobApplication.findMany({
-    where: { userId: dbUser.id },
-    orderBy: { appliedDate: "desc" },
-    select: {
-      id: true,
-      company: true,
-      role: true,
-      status: true,
-      appliedDate: true,
-      salary: true,
-      url: true,
-      notes: true,
-      resume: {
-        select: {
-          fileName: true,
+  const [applications, resumes] = await Promise.all([
+    prisma.jobApplication.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { appliedDate: "desc" },
+      select: {
+        id: true,
+        company: true,
+        role: true,
+        status: true,
+        appliedDate: true,
+        salary: true,
+        url: true,
+        notes: true,
+        resumeId: true,
+        resume: {
+          select: {
+            fileName: true,
+          },
         },
       },
-    },
-  })) as ApplicationRow[]
+    }),
+    prisma.resume.findMany({
+      where: { userId: dbUser.id },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        fileName: true,
+      },
+    }),
+  ])
+  const resumeOptions: ResumeOption[] = resumes
 
   const totalApplications = applications.length
   const interviews = applications.filter((item) => item.status === "INTERVIEW").length
@@ -144,6 +167,16 @@ export default async function SavedJobsPage() {
       title="Saved Jobs"
       description="A live application tracker built from your saved job records."
     >
+      <div className="flex flex-col gap-4 rounded-2xl border border-border/70 bg-background/60 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-lg font-semibold text-foreground">Saved jobs</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Add new jobs or update existing application details here.
+          </p>
+        </div>
+        <SavedJobCreateAction resumeOptions={resumeOptions} />
+      </div>
+
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryTile
           label="Saved jobs"
@@ -196,7 +229,8 @@ export default async function SavedJobsPage() {
                 <TableHead className="px-4 py-3">Status</TableHead>
                 <TableHead className="px-4 py-3">Applied</TableHead>
                 <TableHead className="px-4 py-3">Resume</TableHead>
-                <TableHead className="px-4 py-3 text-right">Link</TableHead>
+                <TableHead className="px-4 py-3">Link</TableHead>
+                <TableHead className="px-4 py-3 text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -219,16 +253,35 @@ export default async function SavedJobsPage() {
                   <TableCell className="px-4 py-4 text-muted-foreground">
                     {application.resume?.fileName || "Not linked"}
                   </TableCell>
-                  <TableCell className="px-4 py-4 text-right">
+                  <TableCell className="px-4 py-4 text-muted-foreground">
                     {application.url ? (
-                      <Button asChild variant="outline" size="sm">
-                        <a href={application.url} target="_blank" rel="noreferrer">
-                          Open job
-                        </a>
-                      </Button>
+                      <a
+                        href={application.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-sm font-medium text-primary hover:underline"
+                      >
+                        Open job
+                      </a>
                     ) : (
                       <span className="text-sm text-muted-foreground">No link</span>
                     )}
+                  </TableCell>
+                  <TableCell className="px-4 py-4 text-right">
+                    <SavedJobEditAction
+                      applicationId={application.id}
+                      initialValue={toFormState({
+                        company: application.company,
+                        role: application.role,
+                        status: application.status,
+                        appliedDate: application.appliedDate.toISOString().slice(0, 10),
+                        salary: application.salary || "",
+                        url: application.url || "",
+                        notes: application.notes || "",
+                        resumeId: application.resumeId || "",
+                      })}
+                      resumeOptions={resumeOptions}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

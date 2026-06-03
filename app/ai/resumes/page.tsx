@@ -14,6 +14,10 @@ import {
 } from "@/components/ui/table"
 import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
+import {
+  ResumeEditAction,
+  ResumeUploadAction,
+} from "@/components/ai/resume-actions"
 import { getAiDashboardData } from "../lib/dashboard-data"
 
 type ResumeRow = {
@@ -135,6 +139,16 @@ export default async function ResumesPage() {
       title="Resumes"
       description="A live library of uploaded resumes tied to your analyses."
     >
+      <div className="flex flex-col gap-4 rounded-2xl border border-border/70 bg-background/60 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-lg font-semibold text-foreground">Resume library</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Upload a new resume or rename an existing file from here.
+          </p>
+        </div>
+        <ResumeUploadAction />
+      </div>
+
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryTile
           label="Total resumes"
@@ -188,7 +202,8 @@ export default async function ResumesPage() {
                 <TableHead className="px-4 py-3">Updated</TableHead>
                 <TableHead className="px-4 py-3">Analyses</TableHead>
                 <TableHead className="px-4 py-3">Latest analysis</TableHead>
-                <TableHead className="px-4 py-3 text-right">File</TableHead>
+                <TableHead className="px-4 py-3">File</TableHead>
+                <TableHead className="px-4 py-3 text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -216,18 +231,27 @@ export default async function ResumesPage() {
                         ? formatDate(resume.latestAnalysisAt)
                         : "Not analyzed yet"}
                     </TableCell>
-                    <TableCell className="px-4 py-4 text-right">
+                    <TableCell className="px-4 py-4 text-muted-foreground">
                       {isExternalUrl ? (
-                        <Button asChild variant="outline" size="sm">
-                          <a href={resume.fileUrl} target="_blank" rel="noreferrer">
-                            Open file
-                          </a>
-                        </Button>
+                        <a
+                          href={resume.fileUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          Open file
+                        </a>
                       ) : (
                         <span className="text-sm text-muted-foreground">
                           Stored locally
                         </span>
                       )}
+                    </TableCell>
+                    <TableCell className="px-4 py-4 text-right">
+                      <ResumeEditAction
+                        resumeId={resume.id}
+                        currentFileName={resume.fileName}
+                      />
                     </TableCell>
                   </TableRow>
                 )
