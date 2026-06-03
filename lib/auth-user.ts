@@ -1,4 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server"
+import { headers } from "next/headers"
 
 import { getClerkUserEmail } from "@/lib/admin"
 import { upsertClerkUser } from "@/lib/clerk-user"
@@ -16,12 +17,16 @@ export async function getOrCreateDbUser() {
     throw new Error("No email address available for the signed-in user.")
   }
 
+  const headersList = await headers()
+  const country = headersList.get("x-vercel-ip-country") ?? null
+
   try {
     return await upsertClerkUser({
       email,
       firstName: clerkUser.firstName,
       lastName: clerkUser.lastName,
       imageUrl: clerkUser.imageUrl,
+      country,
     })
   } catch (error) {
     console.warn("Could not sync Clerk user to Prisma; continuing without DB user.", error)
