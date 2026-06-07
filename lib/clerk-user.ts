@@ -30,6 +30,15 @@ export async function upsertClerkUser({
       image: imageUrl || null,
       ...(country ? { country } : {}),
     },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      image: true,
+      country: true,
+      role: true,
+      createdAt: true,
+    },
   })
 }
 
