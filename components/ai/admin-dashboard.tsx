@@ -163,6 +163,12 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
   const visibleUsers = data.users.slice(start, start + pageSize)
   const visiblePages = getVisiblePages(currentPage, totalPages)
 
+  console.log("AdminDashboard render", {
+    visibleUsers,
+    visibleUsersCount: visibleUsers.length,
+    totalUsers: data.users.length,
+  })    
+
   const totalsChartData = useMemo(
     () => [
       {
