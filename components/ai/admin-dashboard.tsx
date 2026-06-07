@@ -167,7 +167,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
     visibleUsers,
     visibleUsersCount: visibleUsers.length,
     totalUsers: data.users.length,
-  })    
+  })
 
   const totalsChartData = useMemo(
     () => [
@@ -439,6 +439,10 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   <TableHead className="border-b border-border/70 bg-secondary/80 text-muted-foreground">
                     Joined
                   </TableHead>
+
+                  <TableHead className="border-b border-border/70 bg-secondary/80 text-muted-foreground">
+                    Country
+                  </TableHead>
                   <TableHead className="border-b border-border/70 bg-secondary/80 text-right text-muted-foreground">
                     Resumes
                   </TableHead>
@@ -490,6 +494,9 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                         <TableCell className="border-b border-r border-border/70 text-muted-foreground">
                           {user.createdAt}
                         </TableCell>
+                        <TableCell className="border-b border-r border-border/70 text-muted-foreground">
+                          {user.country ?? "—"}
+                        </TableCell>
                         <TableCell className="border-b border-r border-border/70 text-right font-medium text-foreground">
                           {user.resumes}
                         </TableCell>
@@ -501,7 +508,7 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} className="py-10 text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
                       No users found.
                     </TableCell>
                   </TableRow>
@@ -514,8 +521,8 @@ export function AdminDashboard({ data }: AdminDashboardProps) {
             <p className="text-sm text-muted-foreground">
               {data.users.length > 0
                 ? `Showing ${start + 1}-${Math.min(
-                    start + pageSize,
-                    data.users.length
+                  start + pageSize,
+                  data.users.length
                 )} of ${data.users.length} users`
                 : "No users available"}
             </p>

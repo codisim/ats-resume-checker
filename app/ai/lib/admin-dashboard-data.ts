@@ -19,6 +19,7 @@ export type AdminDashboardUserRow = {
   name: string | null
   email: string
   image: string | null
+  country: string | null
   createdAt: string
   resumes: number
   analyses: number
@@ -37,6 +38,7 @@ export type AdminDashboardData = {
 type UserRecord = {
   id: string
   name: string | null
+  country: string | null
   email: string
   image: string | null
   createdAt: Date
@@ -87,6 +89,24 @@ function getRecentWindowStart(days = 7) {
   return date
 }
 
+const countryNameFormatter = new Intl.DisplayNames(["en"], {
+  type: "region",
+})
+
+function formatCountry(country: string | null) {
+  if (!country) {
+    return null
+  }
+
+  const normalized = country.trim()
+
+  if (/^[A-Za-z]{2}$/.test(normalized)) {
+    return countryNameFormatter.of(normalized.toUpperCase()) ?? normalized
+  }
+
+  return normalized
+}
+
 export async function getAdminDashboardData(): Promise<AdminDashboardData> {
   const recentWindowStart = getRecentWindowStart()
 
@@ -97,6 +117,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
         select: {
           id: true,
           name: true,
+          country: true,
           email: true,
           image: true,
           createdAt: true,
@@ -182,6 +203,7 @@ export async function getAdminDashboardData(): Promise<AdminDashboardData> {
       name: user.name,
       email: user.email,
       image: user.image,
+      country: formatCountry(user.country),
       createdAt: new Intl.DateTimeFormat("en-US", {
         month: "short",
         day: "numeric",
