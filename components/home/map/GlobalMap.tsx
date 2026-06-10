@@ -19,7 +19,7 @@ export default function GlobalMap() {
                         </span>
                     </div>
                     <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl 2xl:text-5xl">
-                        Used in <span className="text-primary">18+ countries</span>
+                        Used in <span className="text-primary">20+ countries</span>
                     </h2>
                     <p className="max-w-sm text-[14px] text-muted-foreground lg:text-[15px]">
                         Real job seekers from around the world — and growing every day.
