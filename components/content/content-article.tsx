@@ -73,10 +73,12 @@ export function ContentArticle({
 
         <Card className="border-border/70 bg-card/95 shadow-sm">
           <CardContent className="px-6 py-8">
-            <div
-              className="content-body space-y-6 text-base leading-8 text-foreground"
-              dangerouslySetInnerHTML={{ __html: item.content }}
-            />
+              <div
+                className="content-body space-y-6 text-base leading-8 text-foreground"
+                dangerouslySetInnerHTML={{
+                  __html: (item.content || "").replace(/<script[\s\S]*?<\/script>/gi, ""),
+                }}
+              />
           </CardContent>
         </Card>
       </div>

@@ -42,11 +42,11 @@ export default async function RootLayout({
           >
             <ActiveThemeProvider initialTheme={activeThemeValue}>
               {children}
-              <GoogleAnalytics gaId="G-F4EP5EY515" />
               <Toaster position="top-left" />
             </ActiveThemeProvider>
           </ThemeProvider>
         </body>
+              <GoogleAnalytics gaId="G-F4EP5EY515" />
       </html>
     </ClerkProvider>
   );

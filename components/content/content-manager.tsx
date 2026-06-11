@@ -568,8 +568,8 @@ export function ContentManager({
               className="content-body rounded-2xl border border-border bg-background px-4 py-5 text-sm leading-7"
               dangerouslySetInnerHTML={{
                 __html:
-                  draft.content ||
-                  '<p class="text-muted-foreground">Start writing to preview the article body here.</p>',
+                  (draft.content || '<p class="text-muted-foreground">Start writing to preview the article body here.</p>')
+                    .replace(/<script[\s\S]*?<\/script>/gi, ""),
               }}
             />
           </CardContent>

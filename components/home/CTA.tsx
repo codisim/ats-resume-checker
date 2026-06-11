@@ -51,7 +51,7 @@ export default function CTA() {
           >
             <span className="size-1.5 animate-pulse rounded-full bg-primary" />
             <span className="text-[11px] font-medium tracking-wide text-primary">
-              90+ job seekers already started
+              97+ job seekers already started
             </span>
           </motion.div>
 
