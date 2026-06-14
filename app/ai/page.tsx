@@ -117,12 +117,14 @@ export default async function Page() {
         />
 
         <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 py-6 sm:px-6 lg:px-8">
-          <AiHeader
-            userName={dashboard.header.userName}
-            subtitle={dashboard.header.subtitle}
-            weeklyUsage={dashboard.header.weeklyUsage}
-            icon={Bell}
-          />
+          <div className="hidden md:block">
+            <AiHeader
+              userName={dashboard.header.userName}
+              subtitle={dashboard.header.subtitle}
+              weeklyUsage={dashboard.header.weeklyUsage}
+              icon={Bell}
+            />
+          </div>
 
           <AnalysisComposer />
 
