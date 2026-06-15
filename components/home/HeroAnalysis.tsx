@@ -18,7 +18,7 @@ const STRENGTHS = [
 ];
 
 const STATS = [
-    { value: "60+", label: "Resumes analyzed" },
+    { value: "120+", label: "Resumes analyzed" },
     { value: "94%", label: "ATS pass rate" },
     { value: "10s", label: "Avg. scan time" },
 ];

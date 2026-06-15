@@ -17,7 +17,7 @@ export default function HeroContent() {
                 <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5">
                     <span className="size-1.5 animate-pulse rounded-full bg-primary" />
                     <span className="text-[11px] font-medium tracking-wide text-primary">
-                        Free — 12 analyses every week
+                        Free — 7 analyses every week
                     </span>
                 </div>
             </motion.div>
