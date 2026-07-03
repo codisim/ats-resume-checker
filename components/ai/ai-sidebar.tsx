@@ -52,7 +52,7 @@ export function AiSidebar({
 
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 hidden w-72 flex-col border-r border-border bg-card text-foreground shadow-sm lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-72 flex-col border-r border-border bg-card text-foreground shadow-sm lg:flex">
         <div className="flex h-full flex-col gap-6 px-5 py-6">
           <div className="flex items-center gap-4 rounded-3xl border border-border bg-secondary px-4 py-4">
             <div className="grid size-12 place-items-center rounded-2xl bg-primary shadow-sm">
