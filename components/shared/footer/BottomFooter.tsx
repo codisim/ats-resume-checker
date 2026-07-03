@@ -4,21 +4,21 @@ const BottomFooter = () => {
     return (
         <>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p className="text-[12px] text-slate-500">
+                <p className="text-[12px] text-muted-foreground">
                     © {new Date().getFullYear()} resume.codisim — Built by{" "}
                     <Link
                         href="https://codisim.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="text-primary hover:text-primary/80 transition-colors"
                     >
                         codisim
                     </Link>
                 </p>
 
                 <div className="flex items-center gap-1.5">
-                    <span className="size-1.5 rounded-full bg-[#00C896] animate-pulse" />
-                    <span className="text-[12px] text-slate-500">
+                    <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+                    <span className="text-[12px] text-muted-foreground">
                         Our others products:
                     </span>
 
@@ -29,7 +29,7 @@ const BottomFooter = () => {
                         href="https://opiik.studio"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="text-primary hover:text-primary/80 transition-colors"
                     >
                         Opiik Studio
                     </Link>
@@ -37,7 +37,7 @@ const BottomFooter = () => {
                         href="https://daylogs.codisim.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="text-primary hover:text-primary/80 transition-colors"
                     >
                         Daylogs
                     </Link>
@@ -46,7 +46,7 @@ const BottomFooter = () => {
                         href="https://taharcast.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="text-primary hover:text-primary/80 transition-colors"
                     >
                         Tahar Cast
                     </Link>

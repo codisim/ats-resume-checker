@@ -5,7 +5,7 @@ import BottomFooter from "./BottomFooter";
 
 export default function Footer() {
     return (
-        <footer className="border-t border-slate-200 bg-white">
+        <footer className="border-t border-border bg-background">
             <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-12">
 
                 {/* Top row */}
@@ -21,12 +21,12 @@ export default function Footer() {
                                     <path d="M12 11l.8.8 1.5-1.5" stroke="#0f766e" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
-                            <span className="font-semibold text-[15px] text-slate-900 tracking-tight">
+                            <span className="font-semibold text-[15px] text-foreground tracking-tight">
                                 resume<span className="text-emerald-600">.</span>codisim
                             </span>
                         </Link>
 
-                        <p className="mb-5 max-w-[220px] text-[13px] leading-relaxed text-slate-600">
+                        <p className="mb-5 max-w-[220px] text-[13px] leading-relaxed text-muted-foreground">
                             AI-powered resume analyzer that helps you pass ATS and land more interviews — globally.
                         </p>
 
@@ -39,7 +39,7 @@ export default function Footer() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={label}
-                                    className="size-8 rounded-lg border border-slate-200 grid place-items-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-colors"
+                                    className="size-8 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-colors"
                                 >
                                     <Icon size={14} />
                                 </a>
@@ -50,7 +50,7 @@ export default function Footer() {
                     {/* Link cols */}
                     {Object.entries(LINKS).map(([group, items]) => (
                         <div key={group}>
-                            <p className="text-[11px] font-medium text-slate-500 tracking-widest uppercase mb-4">
+                            <p className="text-[11px] font-medium text-muted-foreground tracking-widest uppercase mb-4">
                                 {group}
                             </p>
                             <ul className="flex flex-col gap-2.5">
@@ -58,7 +58,7 @@ export default function Footer() {
                                     <li key={item.label}>
                                         <Link
                                             href={item.href}
-                                            className="text-[13px] text-slate-600 hover:text-slate-900 transition-colors"
+                                            className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
                                         >
                                             {item.label}
                                         </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
                     ))}
                 </div>
 
-                <Separator className="bg-slate-200 mb-6" />
+                <Separator className="bg-border mb-6" />
 
                 {/* Bottom row */}
                 <BottomFooter />
