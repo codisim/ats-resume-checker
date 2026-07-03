@@ -80,12 +80,12 @@ export function AiHeader({
           <ThemeSwitcher />
           {/* <UserMenu /> */}
 
-          <Button className="h-11 cursor-pointer w-full rounded-xl bg-primary px-4 text-primary-foreground shadow-sm hover:brightness-95">
+          {/* <Button className="h-11 cursor-pointer w-full rounded-xl bg-primary px-4 text-primary-foreground shadow-sm hover:brightness-95">
             <span className="flex items-center gap-2">
               <span className="text-base">👑</span>
               Upgrade to Pro
             </span>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </header>

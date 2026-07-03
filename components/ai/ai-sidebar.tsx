@@ -89,7 +89,7 @@ export function AiSidebar({
           </nav>
 
           <div className="mt-auto space-y-6">
-            <Card className="border-border bg-secondary text-foreground shadow-none">
+            {/* <Card className="border-border bg-secondary text-foreground shadow-none">
               <CardContent className="space-y-4 p-5">
                 <div className="flex items-center gap-2 text-foreground">
                   <Sparkles className="size-5" />
@@ -102,7 +102,7 @@ export function AiSidebar({
                   Upgrade Now
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
 
             <UserMenu />
           </div>
