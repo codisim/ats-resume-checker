@@ -1,10 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-
-import { JobDescriptionPanel } from "./job-description-panel"
-import { RecentAnalysis } from "./recent-analysis"
-import { UploadResumePanel, type ExtractedResume } from "./upload-resume-panel"
+import { useState } from "react";
+import { JobDescriptionPanel } from "./job-description-panel";
+import { UploadResumePanel, type ExtractedResume } from "./upload-resume-panel";
 
 export type AiAnalysisResult = {
   analysisId: string
@@ -57,7 +55,7 @@ export function AnalysisComposer() {
           resumeText: resume.text,
           jobDescription,
         }),
-      })
+      }
 
       const payload = await response.json()
 

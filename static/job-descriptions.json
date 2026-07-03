@@ -1,34 +1,34 @@
-{
-  "job_descriptions": [
-    {
-      "id": "sr_developer",
-      "title": "Senior React Developer",
-      "description": "We are seeking an experienced React Developer to join our front-end team. Responsibilities include developing reusable components, optimizing application performance, and collaborating with backend services. Requires proficiency in React, Redux, and modern JavaScript frameworks."
-    },
-    {
-      "id": "node_engineer",
-      "title": "Node.js Backend Engineer",
-      "description": "Looking for a skilled Node.js Engineer to build scalable server-side applications. Requires expertise in Express.js, REST API development, and experience with cloud platforms like AWS. Strong understanding of database design and security practices is essential."
-    },
-    {
-      "id": "junior_developer",
-      "title": "Junior Software Engineer",
-      "description": "Join our development team as a software engineer working on enterprise applications. Will work with Java 11+, Spring Boot, and Agile methodologies. This role involves full stack development and system integration with mentorship from senior engineers."
-    },
-    {
-      "id": "cloud_architect",
-      "title": "Cloud Architect",
-      "description": "We need a Cloud Architect to design and implement cloud solutions across AWS, Azure, and GCP. Requires experience with containerization (Docker, Kubernetes), orchestration systems (EKS, AKS), and infrastructure-as-code tools like Terraform."
-    },
-    {
-      "id": "data_analyst",
-      "title": "Data Analyst",
-      "description": "Entry-level position for data analysis in marketing and product teams. Requires skills in SQL, data visualization, and dashboard creation. Experience with Excel and Python for data analysis is preferred for uncovering insights from customer behavior data."
-    },
-    {
-      "id": "mid_level_dev",
-      "title": "Mid-Level Developer",
-      "description": "Experienced developer to lead small to medium-sized development teams. Will work with Python or Java technologies, implement REST APIs, and collaborate with product managers. Requires 3-5 years of experience with modern development practices."
-    }
-  ]
-}
+import { JobDescription } from '@prisma/client';
+
+export const JOB_DESCRIPTIONS = [
+  {
+    id: 'sr_developer',
+    title: 'Senior React Developer',
+    description: 'We are seeking an experienced React Developer to join our front-end team. Responsibilities include developing reusable components, optimizing application performance, and collaborating with backend services. Requires proficiency in React, Redux, and modern JavaScript frameworks.'
+  },
+  {
+    id: 'node_engineer',
+    title: 'Node.js Backend Engineer',
+    description: 'Looking for a skilled Node.js Engineer to build scalable server-side applications. Requires expertise in Express.js, REST API development, and experience with cloud platforms like AWS. Strong understanding of database design and security practices is essential.'
+  },
+  {
+    id: 'junior_developer',
+    title: 'Junior Software Engineer',
+    description: 'Join our development team as a software engineer developing enterprise applications. Will work with Java 11+, Spring Boot, and Agile methodologies. This role involves full stack development and system integration with mentorship from senior engineers.'
+  },
+  {
+    id: 'cloud_architect',
+    title: 'Cloud Architect',
+    description: 'We need a Cloud Architect to design and implement cloud solutions across AWS, Azure, and GCP. Requires experience with containerization (Docker, Kubernetes), orchestration systems (EKS, AKS), and infrastructure-as-code tools like Terraform.'
+  },
+  {
+    id: 'data_analyst',
+    title: 'Data Analyst',
+    description: 'Entry-level position for data analysis in marketing and product teams. Requires skills in SQL, data visualization, and dashboard creation. Experience with Excel and Python for data analysis is preferred for uncovering insights from customer behavior data.'
+  },
+  {
+    id: 'mid_level_dev',
+    title: 'Mid-Level Developer',
+    description: 'Experienced developer to lead small to medium-sized development teams. Will work with Python or Java technologies, implement REST APIs, and collaborate with product managers. Requires 3-5 years of experience with modern development practices.'
+  }
+] as const;
