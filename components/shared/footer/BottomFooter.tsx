@@ -37,7 +37,7 @@ const BottomFooter = () => {
                                 href={href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group inline-flex items-center gap-1 rounded-md border border-border/60 bg-muted/30 px-2 py-0.5 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/60 transition-all"
+                                className="group inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
                             >
                                 {name}
                                 <svg
@@ -45,7 +45,7 @@ const BottomFooter = () => {
                                     height="8"
                                     viewBox="0 0 10 10"
                                     fill="none"
-                                    className="shrink-0 opacity-50 group-hover:opacity-100 transition-opacity"
+                                    className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                                 >
                                     <path
                                         d="M2 8l6-6M3 2h5v5"
