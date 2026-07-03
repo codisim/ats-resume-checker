@@ -41,6 +41,15 @@ const BottomFooter = () => {
                     >
                         Daylogs
                     </Link>
+
+                     <Link
+                        href="https://taharcast.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-600 hover:text-emerald-700 transition-colors"
+                    >
+                        Tahar Cast
+                    </Link>
                     
                     
                 </div>
