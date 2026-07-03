@@ -1,5 +1,11 @@
 import Link from "next/link";
 
+const PRODUCTS = [
+    { name: "Opiik Studio", href: "https://opiik.studio" },
+    { name: "Daylogs", href: "https://daylogs.codisim.com" },
+    { name: "Tahar Cast", href: "https://taharcast.com" },
+] as const;
+
 const BottomFooter = () => {
     return (
         <>
@@ -16,42 +22,42 @@ const BottomFooter = () => {
                     </Link>
                 </p>
 
-                <div className="flex items-center gap-1.5">
-                    <span className="size-1.5 rounded-full bg-primary animate-pulse" />
-                    <span className="text-[12px] text-muted-foreground">
-                        Our others products:
+                <div className="flex flex-wrap items-center justify-end gap-x-2.5 gap-y-1.5">
+                    <span className="inline-flex items-center gap-1.5">
+                        <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+                        <span className="text-[12px] text-muted-foreground whitespace-nowrap">
+                            Our products
+                        </span>
                     </span>
 
-                    {/* <span className="text-[12px] text-slate-500">
-                        All systems operational
-                    </span> */}
-                    <Link
-                        href="https://opiik.studio"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 transition-colors"
-                    >
-                        Opiik Studio
-                    </Link>
-                    <Link
-                        href="https://daylogs.codisim.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 transition-colors"
-                    >
-                        Daylogs
-                    </Link>
-
-                     <Link
-                        href="https://taharcast.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:text-primary/80 transition-colors"
-                    >
-                        Tahar Cast
-                    </Link>
-                    
-                    
+                    <div className="flex items-center gap-1">
+                        {PRODUCTS.map(({ name, href }) => (
+                            <Link
+                                key={name}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-1 rounded-md border border-border/60 bg-muted/30 px-2 py-0.5 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/60 transition-all"
+                            >
+                                {name}
+                                <svg
+                                    width="8"
+                                    height="8"
+                                    viewBox="0 0 10 10"
+                                    fill="none"
+                                    className="shrink-0 opacity-50 group-hover:opacity-100 transition-opacity"
+                                >
+                                    <path
+                                        d="M2 8l6-6M3 2h5v5"
+                                        stroke="currentColor"
+                                        strokeWidth="1.3"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
