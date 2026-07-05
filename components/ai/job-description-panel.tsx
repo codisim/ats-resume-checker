@@ -6,10 +6,20 @@ import {
   BriefcaseBusiness,
   CheckCircle2,
   Code2,
+  FileText,
   Sparkles,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { SectionShell } from "./section-shell";
 
 const jobDescriptionTemplates = [
@@ -78,64 +88,82 @@ export function JobDescriptionPanel({
         </span>
       }
     >
-      <div className="flex h-full flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">
-            Job Description Selection
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {characterCount} / 5000
-          </span>
-        </div>
+      <div className="flex h-full flex-col gap-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2">
+            <span className="grid size-7 place-items-center rounded-full border border-border/60 bg-primary/10 text-primary">
+              <CheckCircle2 className="size-4" />
+            </span>
+            <span className="text-sm text-muted-foreground">
+              {hasResume
+                ? "Resume ready" + (resumeFileName ? `: ${resumeFileName}` : "")
+                : "Upload your resume first"}
+            </span>
+          </div>
 
-        <div className="flex flex-col gap-3">
-          {jobDescriptionTemplates.map((job) => {
-            const Icon = job.icon;
-            const isSelected = selectedJob === job.id;
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button type="button" variant="outline" className="w-full justify-center sm:w-auto">
+                <FileText className="size-4 mr-2" />
+                Sample Descriptions
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="sm:max-w-xl">
+              <DrawerHeader>
+                <DrawerTitle className="text-xl font-semibold">Sample Job Descriptions</DrawerTitle>
+                <DrawerDescription>Pick a sample to fill the job description field.</DrawerDescription>
+              </DrawerHeader>
 
-            return (
-              <button
-                key={job.id}
-                type="button"
-                onClick={() => handleSelectJob(job)}
-                className={`flex items-start gap-3 rounded-xl border px-3 py-3 text-left text-sm font-medium transition-all ${
-                  isSelected
-                    ? "border-primary/50 bg-primary/10 text-foreground"
-                    : "border-border/60 bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-foreground"
-                }`}
-              >
-                <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-                  <Icon className="size-4" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-medium text-primary">
-                    {job.title}
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    {job.description}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+              <div className="flex flex-col gap-3 py-4">
+                {jobDescriptionTemplates.map((job) => {
+                  const Icon = job.icon;
+                  const isSelected = selectedJob === job.id;
 
-        <div className="flex items-center gap-2">
-          <span className="grid size-7 place-items-center rounded-full border border-border/60 bg-primary/10 text-primary">
-            <CheckCircle2 className="size-4" />
-          </span>
-          <span className="text-sm text-muted-foreground">
-            {hasResume
-              ? "Resume ready" + (resumeFileName ? `: ${resumeFileName}` : "")
-              : "Upload your resume first"}
-          </span>
+                  return (
+                    <div
+                      key={job.id}
+                      className={`rounded-xl border p-4 transition-colors ${
+                        isSelected
+                          ? "border-primary/50 bg-primary/10"
+                          : "border-border/70 bg-muted/30"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+                          <Icon className="size-4" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-sm font-semibold text-foreground">{job.title}</h3>
+                          <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                            {job.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <DrawerClose asChild>
+                        <Button
+                          type="button"
+                          variant={isSelected ? "secondary" : "outline"}
+                          size="sm"
+                          className="mt-4 w-full"
+                          onClick={() => handleSelectJob(job)}
+                        >
+                          Use this
+                        </Button>
+                      </DrawerClose>
+                    </div>
+                  );
+                })}
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
 
         <div className="flex-1">
           <p className="mb-2 text-sm text-muted-foreground">
             {hasResume
-              ? "Paste a job description or select a template above."
-              : "Upload your resume first, then select a job description."}
+              ? "Paste a job description or choose a sample from the drawer."
+              : "Upload your resume first, then add a job description."}
           </p>
 
           <textarea
@@ -145,7 +173,7 @@ export function JobDescriptionPanel({
               setJobDescription(event.target.value);
             }}
             className="min-h-40 w-full rounded-2xl border border-border bg-background/60 p-4 text-sm text-foreground transition-all duration-200"
-            placeholder="Paste job description or select from above"
+            placeholder="Paste job description or select from samples"
           />
 
           <div className="mt-3 text-xs text-muted-foreground">
