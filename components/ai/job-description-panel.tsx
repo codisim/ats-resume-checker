@@ -160,11 +160,11 @@ export function JobDescriptionPanel({
         </div>
 
         <div className="flex-1">
-          <p className="mb-2 text-sm text-muted-foreground">
+          {/* <p className="mb-2 text-sm text-muted-foreground">
             {hasResume
               ? "Paste a job description or choose a sample from the drawer."
               : "Upload your resume first, then add a job description."}
-          </p>
+          </p> */}
 
           <textarea
             value={jobDescription}
