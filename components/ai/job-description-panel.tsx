@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BarChart3,
+  Brain,
   BriefcaseBusiness,
   CheckCircle2,
   Code2,
   FileText,
+  FlaskConical,
+  Handshake,
+  LifeBuoy,
+  Layers,
+  Megaphone,
+  PenTool,
+  Server,
+  Settings,
   Sparkles,
+  Users,
+  Wrench,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -22,31 +33,29 @@ import {
 } from "@/components/ui/drawer";
 import { SectionShell } from "./section-shell";
 
-const jobDescriptionTemplates = [
-  {
-    id: "frontend-engineer",
-    title: "Frontend Engineer",
-    description:
-      "Build accessible, responsive React interfaces, collaborate with product and design teams, optimize web performance, and maintain reusable component systems using TypeScript.",
-    icon: Code2,
-  },
-  {
-    id: "product-manager",
-    title: "Product Manager",
-    description:
-      "Own product discovery, define roadmaps, translate customer insights into requirements, partner with engineering, and measure launches through adoption and retention metrics.",
-    icon: BriefcaseBusiness,
-  },
-  {
-    id: "data-analyst",
-    title: "Data Analyst",
-    description:
-      "Analyze business performance, build dashboards, write SQL queries, communicate insights to stakeholders, and recommend experiments based on customer and revenue data.",
-    icon: BarChart3,
-  },
-] as const;
+interface JobDescriptionTemplate {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
 
-type JobDescriptionTemplate = (typeof jobDescriptionTemplates)[number];
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Wrench,
+  Layers,
+  FlaskConical,
+  Code2,
+  Server,
+  BriefcaseBusiness,
+  BarChart3,
+  Brain,
+  PenTool,
+  Settings,
+  Megaphone,
+  Handshake,
+  Users,
+  LifeBuoy,
+};
 
 type JobDescriptionPanelProps = {
   hasResume: boolean;
@@ -63,7 +72,22 @@ export function JobDescriptionPanel({
 }: JobDescriptionPanelProps) {
   const [jobDescription, setJobDescription] = useState("");
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
+  const [templates, setTemplates] = useState<JobDescriptionTemplate[]>([]);
   const characterCount = jobDescription.length;
+
+  useEffect(() => {
+    async function fetchTemplates() {
+      try {
+        const response = await fetch("/static/job-description-templates.json");
+        if (!response.ok) throw new Error("Failed to fetch templates");
+        const data = await response.json();
+        setTemplates(data);
+      } catch (error) {
+        console.error("Error fetching job description templates:", error);
+      }
+    }
+    fetchTemplates();
+  }, []);
 
   const handleSelectJob = (job: JobDescriptionTemplate) => {
     setSelectedJob(job.id);
@@ -115,8 +139,8 @@ export function JobDescriptionPanel({
               </DrawerHeader>
 
               <div className="flex flex-col gap-3 py-4">
-                {jobDescriptionTemplates.map((job) => {
-                  const Icon = job.icon;
+                {templates.map((job) => {
+                  const Icon = iconMap[job.icon] || FileText;
                   const isSelected = selectedJob === job.id;
 
                   return (
@@ -160,12 +184,6 @@ export function JobDescriptionPanel({
         </div>
 
         <div className="flex-1">
-          {/* <p className="mb-2 text-sm text-muted-foreground">
-            {hasResume
-              ? "Paste a job description or choose a sample from the drawer."
-              : "Upload your resume first, then add a job description."}
-          </p> */}
-
           <textarea
             value={jobDescription}
             onChange={(event) => {
