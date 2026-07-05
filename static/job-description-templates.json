@@ -1,4 +1,4 @@
-export const jobDescriptionTemplates = [
+[
   {
     "id": "developer-productivity-engineer",
     "title": "Developer Productivity Engineer",
