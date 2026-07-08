@@ -218,7 +218,7 @@ export function JobDescriptionPanel({
                 Sample Descriptions
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="sm:max-w-xl">
+            <DrawerContent className="sm:max-w-xl h-[400px] max-h-[800px] overflow-y-auto">
               <DrawerHeader>
                 <DrawerTitle className="text-xl font-semibold">Sample Job Descriptions</DrawerTitle>
                 <DrawerDescription>Pick a sample to fill the job description field.</DrawerDescription>
