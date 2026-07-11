@@ -84,14 +84,18 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
               <Button
                 onClick={onGenerateResume}
                 disabled={isGenerating}
-                className="ml-auto h-8 px-3 text-xs"
-                variant="outline"
+                className={
+                  "ml-auto h-10 px-6 text-sm font-semibold shadow-lg transition-all duration-300 border-2 rounded-full flex items-center gap-2 " +
+                  (isGenerating
+                    ? "bg-gray-400 text-gray-700 cursor-not-allowed border-gray-300"
+                    : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-blue-500 shadow-blue-500/30 hover:shadow-xl transform hover:scale-105 active:scale-95")
+                }
               >
                 {isGenerating ? (
                   "Generating..."
                 ) : (
                   <>
-                    <RotateCw className="mr-1.5 size-3.5" />
+                    <RotateCw className="size-4" />
                     Generate Update Resume
                   </>
                 )}
