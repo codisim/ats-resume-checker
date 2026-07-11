@@ -44,6 +44,7 @@ export type AnalysisMinAggregateOutputType = {
   atsScore: number | null
   matchPercent: number | null
   improvedSummary: string | null
+  generatedAt: Date | null
   createdAt: Date | null
 }
 
@@ -55,6 +56,7 @@ export type AnalysisMaxAggregateOutputType = {
   atsScore: number | null
   matchPercent: number | null
   improvedSummary: string | null
+  generatedAt: Date | null
   createdAt: Date | null
 }
 
@@ -70,6 +72,7 @@ export type AnalysisCountAggregateOutputType = {
   weaknesses: number
   suggestions: number
   improvedSummary: number
+  generatedAt: number
   createdAt: number
   _all: number
 }
@@ -93,6 +96,7 @@ export type AnalysisMinAggregateInputType = {
   atsScore?: true
   matchPercent?: true
   improvedSummary?: true
+  generatedAt?: true
   createdAt?: true
 }
 
@@ -104,6 +108,7 @@ export type AnalysisMaxAggregateInputType = {
   atsScore?: true
   matchPercent?: true
   improvedSummary?: true
+  generatedAt?: true
   createdAt?: true
 }
 
@@ -119,6 +124,7 @@ export type AnalysisCountAggregateInputType = {
   weaknesses?: true
   suggestions?: true
   improvedSummary?: true
+  generatedAt?: true
   createdAt?: true
   _all?: true
 }
@@ -221,6 +227,7 @@ export type AnalysisGroupByOutputType = {
   weaknesses: runtime.JsonValue
   suggestions: runtime.JsonValue
   improvedSummary: string | null
+  generatedAt: Date
   createdAt: Date
   _count: AnalysisCountAggregateOutputType | null
   _avg: AnalysisAvgAggregateOutputType | null
@@ -259,6 +266,7 @@ export type AnalysisWhereInput = {
   weaknesses?: Prisma.JsonFilter<"Analysis">
   suggestions?: Prisma.JsonFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableFilter<"Analysis"> | string | null
+  generatedAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
   job?: Prisma.XOR<Prisma.JobDescriptionNullableScalarRelationFilter, Prisma.JobDescriptionWhereInput> | null
   resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
@@ -277,6 +285,7 @@ export type AnalysisOrderByWithRelationInput = {
   weaknesses?: Prisma.SortOrder
   suggestions?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrderInput | Prisma.SortOrder
+  generatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   job?: Prisma.JobDescriptionOrderByWithRelationInput
   resume?: Prisma.ResumeOrderByWithRelationInput
@@ -298,6 +307,7 @@ export type AnalysisWhereUniqueInput = Prisma.AtLeast<{
   weaknesses?: Prisma.JsonFilter<"Analysis">
   suggestions?: Prisma.JsonFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableFilter<"Analysis"> | string | null
+  generatedAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
   job?: Prisma.XOR<Prisma.JobDescriptionNullableScalarRelationFilter, Prisma.JobDescriptionWhereInput> | null
   resume?: Prisma.XOR<Prisma.ResumeScalarRelationFilter, Prisma.ResumeWhereInput>
@@ -316,6 +326,7 @@ export type AnalysisOrderByWithAggregationInput = {
   weaknesses?: Prisma.SortOrder
   suggestions?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrderInput | Prisma.SortOrder
+  generatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AnalysisCountOrderByAggregateInput
   _avg?: Prisma.AnalysisAvgOrderByAggregateInput
@@ -339,6 +350,7 @@ export type AnalysisScalarWhereWithAggregatesInput = {
   weaknesses?: Prisma.JsonWithAggregatesFilter<"Analysis">
   suggestions?: Prisma.JsonWithAggregatesFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableWithAggregatesFilter<"Analysis"> | string | null
+  generatedAt?: Prisma.DateTimeWithAggregatesFilter<"Analysis"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Analysis"> | Date | string
 }
 
@@ -351,6 +363,7 @@ export type AnalysisCreateInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
   resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
@@ -369,6 +382,7 @@ export type AnalysisUncheckedCreateInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -381,6 +395,7 @@ export type AnalysisUpdateInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
   resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
@@ -399,6 +414,7 @@ export type AnalysisUncheckedUpdateInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -414,6 +430,7 @@ export type AnalysisCreateManyInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -426,6 +443,7 @@ export type AnalysisUpdateManyMutationInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -441,6 +459,7 @@ export type AnalysisUncheckedUpdateManyInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -466,6 +485,7 @@ export type AnalysisCountOrderByAggregateInput = {
   weaknesses?: Prisma.SortOrder
   suggestions?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrder
+  generatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -482,6 +502,7 @@ export type AnalysisMaxOrderByAggregateInput = {
   atsScore?: Prisma.SortOrder
   matchPercent?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrder
+  generatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -493,6 +514,7 @@ export type AnalysisMinOrderByAggregateInput = {
   atsScore?: Prisma.SortOrder
   matchPercent?: Prisma.SortOrder
   improvedSummary?: Prisma.SortOrder
+  generatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -644,6 +666,7 @@ export type AnalysisCreateWithoutUserInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
   resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
@@ -660,6 +683,7 @@ export type AnalysisUncheckedCreateWithoutUserInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -704,6 +728,7 @@ export type AnalysisScalarWhereInput = {
   weaknesses?: Prisma.JsonFilter<"Analysis">
   suggestions?: Prisma.JsonFilter<"Analysis">
   improvedSummary?: Prisma.StringNullableFilter<"Analysis"> | string | null
+  generatedAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Analysis"> | Date | string
 }
 
@@ -716,6 +741,7 @@ export type AnalysisCreateWithoutResumeInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
   job?: Prisma.JobDescriptionCreateNestedOneWithoutAnalysesInput
   user: Prisma.UserCreateNestedOneWithoutAnalysesInput
@@ -732,6 +758,7 @@ export type AnalysisUncheckedCreateWithoutResumeInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -770,6 +797,7 @@ export type AnalysisCreateWithoutJobInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
   resume: Prisma.ResumeCreateNestedOneWithoutAnalysesInput
   user: Prisma.UserCreateNestedOneWithoutAnalysesInput
@@ -786,6 +814,7 @@ export type AnalysisUncheckedCreateWithoutJobInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -826,6 +855,7 @@ export type AnalysisCreateManyUserInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -838,6 +868,7 @@ export type AnalysisUpdateWithoutUserInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
   resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
@@ -854,6 +885,7 @@ export type AnalysisUncheckedUpdateWithoutUserInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -868,6 +900,7 @@ export type AnalysisUncheckedUpdateManyWithoutUserInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -882,6 +915,7 @@ export type AnalysisCreateManyResumeInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -894,6 +928,7 @@ export type AnalysisUpdateWithoutResumeInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobDescriptionUpdateOneWithoutAnalysesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
@@ -910,6 +945,7 @@ export type AnalysisUncheckedUpdateWithoutResumeInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -924,6 +960,7 @@ export type AnalysisUncheckedUpdateManyWithoutResumeInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -938,6 +975,7 @@ export type AnalysisCreateManyJobInput = {
   weaknesses: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: string | null
+  generatedAt?: Date | string
   createdAt?: Date | string
 }
 
@@ -950,6 +988,7 @@ export type AnalysisUpdateWithoutJobInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resume?: Prisma.ResumeUpdateOneRequiredWithoutAnalysesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutAnalysesNestedInput
@@ -966,6 +1005,7 @@ export type AnalysisUncheckedUpdateWithoutJobInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -980,6 +1020,7 @@ export type AnalysisUncheckedUpdateManyWithoutJobInput = {
   weaknesses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   suggestions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   improvedSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -997,6 +1038,7 @@ export type AnalysisSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   weaknesses?: boolean
   suggestions?: boolean
   improvedSummary?: boolean
+  generatedAt?: boolean
   createdAt?: boolean
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
   resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
@@ -1015,6 +1057,7 @@ export type AnalysisSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   weaknesses?: boolean
   suggestions?: boolean
   improvedSummary?: boolean
+  generatedAt?: boolean
   createdAt?: boolean
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
   resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
@@ -1033,6 +1076,7 @@ export type AnalysisSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   weaknesses?: boolean
   suggestions?: boolean
   improvedSummary?: boolean
+  generatedAt?: boolean
   createdAt?: boolean
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
   resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
@@ -1051,10 +1095,11 @@ export type AnalysisSelectScalar = {
   weaknesses?: boolean
   suggestions?: boolean
   improvedSummary?: boolean
+  generatedAt?: boolean
   createdAt?: boolean
 }
 
-export type AnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "resumeId" | "jobId" | "atsScore" | "matchPercent" | "missingSkills" | "strengths" | "weaknesses" | "suggestions" | "improvedSummary" | "createdAt", ExtArgs["result"]["analysis"]>
+export type AnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "resumeId" | "jobId" | "atsScore" | "matchPercent" | "missingSkills" | "strengths" | "weaknesses" | "suggestions" | "improvedSummary" | "generatedAt" | "createdAt", ExtArgs["result"]["analysis"]>
 export type AnalysisInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   job?: boolean | Prisma.Analysis$jobArgs<ExtArgs>
   resume?: boolean | Prisma.ResumeDefaultArgs<ExtArgs>
@@ -1090,6 +1135,7 @@ export type $AnalysisPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     weaknesses: runtime.JsonValue
     suggestions: runtime.JsonValue
     improvedSummary: string | null
+    generatedAt: Date
     createdAt: Date
   }, ExtArgs["result"]["analysis"]>
   composites: {}
@@ -1528,6 +1574,7 @@ export interface AnalysisFieldRefs {
   readonly weaknesses: Prisma.FieldRef<"Analysis", 'Json'>
   readonly suggestions: Prisma.FieldRef<"Analysis", 'Json'>
   readonly improvedSummary: Prisma.FieldRef<"Analysis", 'String'>
+  readonly generatedAt: Prisma.FieldRef<"Analysis", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Analysis", 'DateTime'>
 }
     

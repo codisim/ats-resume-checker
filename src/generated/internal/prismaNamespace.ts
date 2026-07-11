@@ -1392,6 +1392,7 @@ export const AnalysisScalarFieldEnum = {
   weaknesses: 'weaknesses',
   suggestions: 'suggestions',
   improvedSummary: 'improvedSummary',
+  generatedAt: 'generatedAt',
   createdAt: 'createdAt'
 } as const
 

@@ -142,6 +142,23 @@ export async function POST(req: Request) {
       }
     }
 
+    // Generate the updated (ATS-optimized) resume from the AI rewrite content.
+    // This runs after the analysis record exists so we can reference its id.
+    const generatedResumeId = canPersist
+      ? await generateUpdatedResume({
+          analysis: {
+            id: record!.id,
+            strengths: analysis.matchedSkills,
+            weaknesses: analysis.weaknesses,
+            suggestions: aiRewrite.recruiterSuggestions,
+            improvedSummary: aiRewrite.improvedSummary,
+            atsOptimizedRewrite: aiRewrite.atsOptimizedRewrite,
+            bulletPoints: aiRewrite.bulletPoints,
+          },
+          userId: dbUser!.id,
+        })
+      : null
+
     return NextResponse.json({
       analysisId: record?.id ?? "",
       resumeId: ensuredResume?.id ?? resumeId ?? "",
@@ -185,6 +202,50 @@ async function getWeeklyLimit(userId: string) {
   })
 
   return subscription?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT
+}
+
+async function generateUpdatedResume({
+  analysis,
+  userId,
+}: {
+  analysis: {
+    id: string
+    strengths: string[]
+    weaknesses: string[]
+    suggestions: string[]
+    improvedSummary: string
+    atsOptimizedRewrite: string
+    bulletPoints: string[]
+  }
+  userId: string
+}) {
+  "use server"
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/ai/generate-resume`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        analysisId: analysis.id,
+        atsOptimizedRewrite: analysis.atsOptimizedRewrite,
+        improvedSummary: analysis.improvedSummary,
+        bulletPoints: analysis.bulletPoints,
+      }),
+    })
+
+    if (!response.ok) {
+      console.warn("Failed to generate updated resume:", await response.text())
+      return null
+    }
+
+    const result = await response.json()
+    return result.generatedResumeId
+  } catch (error) {
+    console.warn("Error generating updated resume:", error)
+    return null
+  }
 }
 
 async function ensureResumeRecord({

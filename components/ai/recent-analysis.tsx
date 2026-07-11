@@ -2,13 +2,14 @@
 
 import { useState } from "react"
 import { CircleGauge, FileText } from "lucide-react"
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, RotateCw } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type RecentAnalysisProps = {
   analysis?: {
+    analysisId: string
     atsScore: number
     matchPercent: number
     matchedSkills: string[]
@@ -21,10 +22,12 @@ type RecentAnalysisProps = {
     bulletPoints: string[]
   } | null
   error?: string | null
+  onGenerateResume?: () => void
+  isGenerating?: boolean
 }
 
 
-export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
+export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating }: RecentAnalysisProps) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
 
   const copyText = async (text: string, key: string) => {
@@ -77,6 +80,23 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
             <CardTitle className="text-lg font-semibold text-foreground">
               Recent Analysis
             </CardTitle>
+            {onGenerateResume && (
+              <Button
+                onClick={onGenerateResume}
+                disabled={isGenerating}
+                className="ml-auto h-8 px-3 text-xs"
+                variant="outline"
+              >
+                {isGenerating ? (
+                  "Generating..."
+                ) : (
+                  <>
+                    <RotateCw className="mr-1.5 size-3.5" />
+                    Generate Update Resume
+                  </>
+                )}
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent className="space-y-6 p-6">
@@ -102,14 +122,6 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
                 }`}>
                 {analysis.matchPercent}%
               </p>
-              {/* <p className={`mt-1 text-3xl font-semibold ${analysis.matchPercent <= 40
-                  ? "text-red-600"
-                  : analysis.matchPercent <= 70
-                    ? "text-amber-500"
-                    : "text-green-600"
-                }`}>
-                {analysis.matchPercent}%
-              </p> */}
             </div>
             <div className="rounded-2xl border border-border bg-secondary p-4">
               <p className="text-sm text-muted-foreground">Matched Skills</p>
@@ -170,7 +182,7 @@ export function RecentAnalysis({ analysis, error }: RecentAnalysisProps) {
                   disabled={analysis.suggestions.length === 0}
                 >
                   <Copy className="mr-1.5 size-3.5" />
-                  {copiedKey === "suggestions-all" ? "Copied" : "Copy all"}
+                  {copiedKey === "suggestions-all" ? "Copied all" : "Copy all"}
                 </Button>
               </div>
               <ul className="mt-2 space-y-2 text-sm leading-6 text-muted-foreground">

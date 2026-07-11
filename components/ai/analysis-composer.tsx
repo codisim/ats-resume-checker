@@ -76,6 +76,47 @@ export function AnalysisComposer() {
     }
   }
 
+  const handleGenerateResume = async () => {
+    if (!analysis) return
+
+    setIsAnalyzing(true)
+    setError(null)
+
+    try {
+      const response = await fetch("/api/ai/generate-resume", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          analysisId: analysis.analysisId,
+          resumeId: analysis.resumeId,
+          atsOptimizedRewrite: analysis.atsOptimizedRewrite,
+          improvedSummary: analysis.improvedSummary,
+          bulletPoints: analysis.bulletPoints,
+        }),
+      })
+
+      const payload = await response.json()
+
+      if (!response.ok) {
+        throw new Error(payload?.error || "Failed to generate updated resume.")
+      }
+
+      // Show success message
+      setError(null)
+      alert("✅ Updated resume generated and saved to your resume library!")
+    } catch (generateError) {
+      setError(
+        generateError instanceof Error
+          ? generateError.message
+          : "Something went wrong during resume generation."
+      )
+    } finally {
+      setIsAnalyzing(false)
+    }
+  }
+
   return (
     <div className="grid gap-6 xl:grid-cols-[1.12fr_0.88fr]">
       <UploadResumePanel onResumeReady={handleResumeReady} />
@@ -87,7 +128,12 @@ export function AnalysisComposer() {
       />
 
       <div className="xl:col-span-2">
-        <RecentAnalysis analysis={analysis} error={error} />
+        <RecentAnalysis
+          analysis={analysis}
+          error={error}
+          onGenerateResume={analysis ? handleGenerateResume : undefined}
+          isGenerating={isAnalyzing}
+        />
       </div>
     </div>
   )

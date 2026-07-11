@@ -58,6 +58,7 @@ model Analysis {
   weaknesses      Json
   suggestions     Json
   improvedSummary String?
+  generatedAt     DateTime        @default(now())
   createdAt       DateTime        @default(now())
   job             JobDescription? @relation(fields: [jobId], references: [id])
   resume          Resume          @relation(fields: [resumeId], references: [id], onDelete: Cascade)
