@@ -3,9 +3,15 @@ import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
 import { savePdf } from "@/lib/pdf-generator"
 
+type RouteContext = {
+  params: Promise<{
+    id: string
+  }>
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   try {
     const dbUser = await getOrCreateDbUser()
@@ -38,13 +44,14 @@ export async function GET(
     }
 
     // Generate PDF with download prompt
-    const pdfBuffer = await savePdf({
+    const pdfBytes = await savePdf({
       content: resume.rawText,
       fileName: resume.fileName,
     })
+    const pdfBuffer = Buffer.from(pdfBytes)
 
     // Return file for download
-    return new NextResponse(Buffer.from(pdfBuffer as ArrayBuffer), {
+    return new NextResponse(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="${encodeURIComponent(
