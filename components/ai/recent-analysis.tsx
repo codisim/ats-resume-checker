@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { CircleGauge, FileText } from "lucide-react"
+import { CircleGauge, FileText, Download } from "lucide-react"
 import { Check, Copy, RotateCw } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 type RecentAnalysisProps = {
   analysis?: {
     analysisId: string
+    resumeId: string
     atsScore: number
     matchPercent: number
     matchedSkills: string[]
@@ -29,6 +30,7 @@ type RecentAnalysisProps = {
 
 export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating }: RecentAnalysisProps) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
+  const [isDownloading, setIsDownloading] = useState(false)
 
   const copyText = async (text: string, key: string) => {
     try {
@@ -44,6 +46,36 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
 
   const copyList = async (items: string[], key: string) => {
     await copyText(items.map((item) => `- ${item}`).join("\n"), key)
+  }
+
+  const handleDownload = async () => {
+    if (!analysis?.resumeId) return
+
+    setIsDownloading(true)
+    try {
+      const response = await fetch(`/api/resumes/${analysis.resumeId}/download`, {
+        method: "GET",
+      })
+
+      if (!response.ok) {
+        throw new Error("Download failed")
+      }
+
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = `updated-resume-${Date.now()}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error("Download failed:", err)
+      alert("Failed to download PDF. Please try again.")
+    } finally {
+      setIsDownloading(false)
+    }
   }
 
   if (error) {
@@ -245,6 +277,26 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* Download Updated Resume - Only show if generated */}
+          {analysis.resumeId && (
+            <div className="flex justify-center pt-4">
+              <Button
+                onClick={handleDownload}
+                disabled={isDownloading}
+                className="bg-success hover:bg-success/90 text-success-foreground font-semibold px-6 py-3 rounded-full flex items-center gap-2"
+              >
+                {isDownloading ? (
+                  "Preparing PDF..."
+                ) : (
+                  <>
+                    <Download className="size-4" />
+                    Download Updated Resume
+                  </>
+                )}
+              </Button>
             </div>
           )}
         </CardContent>
