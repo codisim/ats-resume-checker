@@ -7,6 +7,7 @@ const globalForPrisma = global as unknown as {
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
+  connectionTimeoutMillis: 5000,
 })
 
 const prisma =

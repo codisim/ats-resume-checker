@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { listContent } from "@/lib/content.server";
 import prisma from "@/lib/prisma";
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -44,10 +45,32 @@ export const metadata: Metadata = {
   },
 };
 
+async function getLatestBlogPosts() {
+  try {
+    return await listContent("BLOG", true)
+  } catch (error) {
+    console.error("Failed to load homepage blog posts:", error)
+    return []
+  }
+}
+
+const getResumesAnalyzed = unstable_cache(
+  async () => {
+    try {
+      return await prisma.analysis.count()
+    } catch (error) {
+      console.error("Failed to load homepage analysis count:", error)
+      return 0
+    }
+  },
+  ["homepage-resumes-analyzed"],
+  { revalidate: 60 }
+)
+
 export default async function Home() {
   const [latestBlogPosts, resumesAnalyzed] = await Promise.all([
-    listContent("BLOG", true),
-    prisma.analysis.count(),
+    getLatestBlogPosts(),
+    getResumesAnalyzed(),
   ])
 
   return (
