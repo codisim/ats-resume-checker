@@ -8,12 +8,11 @@ import { Menu } from "lucide-react";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 const links = [
-    { label: "Features", href: "#features" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Features", href: "/#features" },
+    { label: "How it works", href: "/#how-it-works" },
+    { label: "Pricing", href: "/#pricing" },
     { label: "Blog", href: "/blog" },
-    { label: "Case studies", href: "/case-studies" },
-    { label: "Live users 🌍", href: "#map" },
+    { label: "Live users", href: "/#map" },
 ];
 
 export default function MobileMenu() {
@@ -77,7 +76,7 @@ export default function MobileMenu() {
                                 </div>
                             </div>
                             <Button asChild className="rounded-full border border-border bg-card text-foreground shadow-sm backdrop-blur-xl hover:bg-secondary">
-                                <Link href="/dashboard">Dashboard</Link>
+                                <Link href="/ai">Dashboard</Link>
                             </Button>
                             <SignOutButton>
                                 <Button variant="ghost" className="text-danger hover:bg-danger/10 hover:text-danger">

@@ -11,11 +11,11 @@ export default function Features() {
                     <SectionBadge label="Features" />
                     <h2 className="mb-4 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl 2xl:text-5xl">
                         Everything you need to{" "}
-                        <span className="text-primary">get hired faster</span>
+                        <span className="text-primary">pass that ATS</span>
                     </h2>
                     <p className="max-w-xl text-[14px] leading-relaxed text-muted-foreground lg:text-[15px]">
-                        Most tools just tell you what is wrong. We fix it — and show you
-                        exactly why 94% of our users pass ATS on the next try.
+                        One job at a time: score, skill gap, and a rewrite for
+                        that description. No LinkedIn optimizer, cover letters, or GitHub review.
                     </p>
                 </div>
 

@@ -19,6 +19,8 @@ export async function getOrCreateDbUser() {
 
   const headersList = await headers()
   const country = headersList.get("x-vercel-ip-country") ?? null
+  const sourceHeader = headersList.get("x-client")?.toLowerCase()
+  const source = sourceHeader === "mobile" ? "mobile" : "web"
 
   try {
     return await upsertClerkUser({
@@ -27,6 +29,7 @@ export async function getOrCreateDbUser() {
       lastName: clerkUser.lastName,
       imageUrl: clerkUser.imageUrl,
       country,
+      source,
     })
   } catch (error) {
     console.warn("Could not sync Clerk user to Prisma; continuing without DB user.", error)

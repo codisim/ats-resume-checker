@@ -97,7 +97,8 @@ export async function POST(request: Request) {
       analysis?.job?.title ||
       analysis?.resume?.fileName?.replace(/\.(pdf|docx)$/i, "") ||
       "resume"
-    const fileName = `${baseName} (ATS Optimized).txt`
+    const safeBase = baseName.replace(/\.(pdf|docx|txt)$/i, "").replace(/[<>:"/\\|?*]/g, "-").trim() || "resume"
+    const fileName = `${safeBase} (ATS Optimized).pdf`
 
     const generatedText = buildGeneratedResumeText({
       atsOptimizedRewrite: input.atsOptimizedRewrite,

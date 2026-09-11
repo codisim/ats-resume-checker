@@ -6,6 +6,9 @@ import {
   calculateLocalAnalysis,
   generateAiRewrite,
 } from "@/lib/ai/analysis"
+import { inferJobFromDescription } from "@/lib/infer-job"
+import { notifySuccessfulAnalysis } from "@/lib/discord"
+import { headers } from "next/headers"
 
 export const runtime = "nodejs"
 
@@ -30,8 +33,12 @@ export async function POST(req: Request) {
     const body = (await req.json()) as AnalyzeBody
     const resumeId = body.resumeId?.trim() || null
     const jobDescription = cleanText(body.jobDescription || "")
-    const jobTitle = body.jobTitle?.trim() || null
-    const company = body.company?.trim() || null
+    const inferred = inferJobFromDescription(jobDescription, {
+      title: body.jobTitle,
+      company: body.company,
+    })
+    const jobTitle = inferred.title
+    const company = inferred.company
 
     if (!jobDescription) {
       return NextResponse.json(
@@ -89,7 +96,7 @@ export async function POST(req: Request) {
       ? await ensureResumeRecord({
           dbUserId: dbUser!.id,
           resumeId,
-          fileName: body.jobTitle ? `${body.jobTitle}.pdf` : "uploaded-resume.pdf",
+          fileName: `${jobTitle}.pdf`,
           extractedText: effectiveResumeText,
         })
       : null
@@ -142,27 +149,24 @@ export async function POST(req: Request) {
       }
     }
 
-    // Generate the updated (ATS-optimized) resume from the AI rewrite content.
-    // This runs after the analysis record exists so we can reference its id.
-    const generatedResumeId = canPersist
-      ? await generateUpdatedResume({
-          analysis: {
-            id: record!.id,
-            strengths: analysis.matchedSkills,
-            weaknesses: analysis.weaknesses,
-            suggestions: aiRewrite.recruiterSuggestions,
-            improvedSummary: aiRewrite.improvedSummary,
-            atsOptimizedRewrite: aiRewrite.atsOptimizedRewrite,
-            bulletPoints: aiRewrite.bulletPoints,
-          },
-          userId: dbUser!.id,
-        })
-      : null
+    if (canPersist) {
+      const headerList = await headers()
+      const source = headerList.get("x-client")?.toLowerCase() === "mobile" ? "mobile" : "web"
+      void notifySuccessfulAnalysis({
+        name: dbUser!.name,
+        email: dbUser!.email,
+        jobTitle,
+        atsScore: analysis.atsScore,
+        source,
+      })
+    }
 
     return NextResponse.json({
       analysisId: record?.id ?? "",
       resumeId: ensuredResume?.id ?? resumeId ?? "",
       jobId: job?.id ?? "",
+      jobTitle,
+      company,
       atsScore: analysis.atsScore,
       matchPercent: analysis.matchPercent,
       matchedSkills: analysis.matchedSkills,
@@ -202,50 +206,6 @@ async function getWeeklyLimit(userId: string) {
   })
 
   return subscription?.plan.weeklyLimit ?? DEFAULT_WEEKLY_LIMIT
-}
-
-async function generateUpdatedResume({
-  analysis,
-  userId,
-}: {
-  analysis: {
-    id: string
-    strengths: string[]
-    weaknesses: string[]
-    suggestions: string[]
-    improvedSummary: string
-    atsOptimizedRewrite: string
-    bulletPoints: string[]
-  }
-  userId: string
-}) {
-  "use server"
-
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/ai/generate-resume`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        analysisId: analysis.id,
-        atsOptimizedRewrite: analysis.atsOptimizedRewrite,
-        improvedSummary: analysis.improvedSummary,
-        bulletPoints: analysis.bulletPoints,
-      }),
-    })
-
-    if (!response.ok) {
-      console.warn("Failed to generate updated resume:", await response.text())
-      return null
-    }
-
-    const result = await response.json()
-    return result.generatedResumeId
-  } catch (error) {
-    console.warn("Error generating updated resume:", error)
-    return null
-  }
 }
 
 async function ensureResumeRecord({

@@ -15,7 +15,7 @@ import {
 import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
 import {
-  ResumeEditAction,
+  ResumeLibraryActions,
   ResumeUploadAction,
 } from "@/components/ai/resume-actions"
 import { getAiDashboardData } from "../lib/dashboard-data"
@@ -143,7 +143,7 @@ export default async function ResumesPage() {
         <div>
           <p className="text-lg font-semibold text-foreground">Resume library</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Upload a new resume or rename an existing file from here.
+            Upload a new resume, or view and download a PDF from here.
           </p>
         </div>
         <ResumeUploadAction />
@@ -208,8 +208,6 @@ export default async function ResumesPage() {
             </TableHeader>
             <TableBody>
               {resumes.map((resume) => {
-                const isExternalUrl = /^https?:\/\//.test(resume.fileUrl)
-
                 return (
                   <TableRow key={resume.id}>
                     <TableCell className="px-4 py-4 font-medium text-foreground">
@@ -232,23 +230,10 @@ export default async function ResumesPage() {
                         : "Not analyzed yet"}
                     </TableCell>
                     <TableCell className="px-4 py-4 text-muted-foreground">
-                      {isExternalUrl ? (
-                        <a
-                          href={resume.fileUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-sm font-medium text-primary hover:underline"
-                        >
-                          Open file
-                        </a>
-                      ) : (
-                        <span className="text-sm text-muted-foreground">
-                          Stored locally
-                        </span>
-                      )}
+                      PDF
                     </TableCell>
                     <TableCell className="px-4 py-4 text-right">
-                      <ResumeEditAction
+                      <ResumeLibraryActions
                         resumeId={resume.id}
                         currentFileName={resume.fileName}
                       />

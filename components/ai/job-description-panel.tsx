@@ -19,9 +19,12 @@ import {
   Sparkles,
   Users,
   Wrench,
+  Link2,
+  Loader2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Drawer,
   DrawerClose,
@@ -162,7 +165,10 @@ type JobDescriptionPanelProps = {
   hasResume: boolean;
   resumeFileName?: string;
   isAnalyzing?: boolean;
-  onAnalyze: (jobDescription: string) => Promise<void> | void;
+  onAnalyze: (
+    jobDescription: string,
+    meta?: { jobTitle?: string; company?: string }
+  ) => Promise<void> | void;
 };
 
 export function JobDescriptionPanel({
@@ -172,12 +178,60 @@ export function JobDescriptionPanel({
   onAnalyze,
 }: JobDescriptionPanelProps) {
   const [jobDescription, setJobDescription] = useState("");
+  const [jobUrl, setJobUrl] = useState("");
+  const [urlError, setUrlError] = useState<string | null>(null);
+  const [isFetchingUrl, setIsFetchingUrl] = useState(false);
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
   const characterCount = jobDescription.length;
 
   const handleSelectJob = (job: JobDescriptionTemplate) => {
     setSelectedJob(job.id);
     setJobDescription(job.description);
+    setUrlError(null);
+  };
+
+  const handleFetchUrl = async () => {
+    const raw = jobUrl.trim();
+    if (!raw) {
+      setUrlError("Paste a job posting URL first.");
+      return;
+    }
+
+    const normalized = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+    setIsFetchingUrl(true);
+    setUrlError(null);
+
+    try {
+      const response = await fetch("/api/ai/jd-extract", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Client": "web",
+        },
+        body: JSON.stringify({ url: normalized }),
+      });
+      const payload = (await response.json().catch(() => null)) as
+        | { text?: string; error?: string }
+        | null;
+
+      if (!response.ok || !payload?.text) {
+        throw new Error(
+          payload?.error ||
+            "Could not load that job URL. Paste the description text instead."
+        );
+      }
+
+      setSelectedJob(null);
+      setJobDescription(payload.text);
+    } catch (error) {
+      setUrlError(
+        error instanceof Error
+          ? error.message
+          : "Could not load that job URL. Paste the description text instead."
+      );
+    } finally {
+      setIsFetchingUrl(false);
+    }
   };
 
   const handleAnalyze = () => {
@@ -185,7 +239,8 @@ export function JobDescriptionPanel({
       return;
     }
 
-    onAnalyze(jobDescription);
+    const selected = sampleJobDescriptions.find((job) => job.id === selectedJob);
+    onAnalyze(jobDescription, selected ? { jobTitle: selected.title } : undefined);
   };
 
   return (
@@ -270,6 +325,36 @@ export function JobDescriptionPanel({
         </div>
 
         <div className="flex-1">
+          <div className="mb-3 flex flex-col gap-2 sm:flex-row">
+            <Input
+              value={jobUrl}
+              onChange={(event) => {
+                setJobUrl(event.target.value);
+                setUrlError(null);
+              }}
+              placeholder="Paste a job URL (LinkedIn often blocks scrapers)"
+              className="h-11 rounded-xl"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleFetchUrl}
+              disabled={isFetchingUrl || !jobUrl.trim()}
+              className="w-full justify-center sm:w-auto"
+            >
+              {isFetchingUrl ? (
+                <Loader2 className="size-4 mr-2 animate-spin" />
+              ) : (
+                <Link2 className="size-4 mr-2" />
+              )}
+              {isFetchingUrl ? "Fetching..." : "Fetch JD"}
+            </Button>
+          </div>
+          {urlError && (
+            <p className="mb-3 rounded-xl border border-warning/20 bg-warning/10 px-3 py-2 text-xs text-warning-foreground">
+              {urlError} LinkedIn listings usually need the job text pasted below.
+            </p>
+          )}
           <textarea
             value={jobDescription}
             onChange={(event) => {
@@ -277,7 +362,7 @@ export function JobDescriptionPanel({
               setJobDescription(event.target.value);
             }}
             className="min-h-40 w-full rounded-2xl border border-border bg-background/60 p-4 text-sm text-foreground transition-all duration-200"
-            placeholder="Paste job description or select from samples"
+            placeholder="Paste job description, fetch from a URL, or select a sample"
           />
 
           <div className="mt-3 text-xs text-muted-foreground">

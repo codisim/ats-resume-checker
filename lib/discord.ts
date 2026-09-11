@@ -12,7 +12,6 @@ function countryCodeToFlagEmoji(countryCode?: string | null): string | null {
         .split("")
         .map((char) => 0x1f1e6 - 65 + char.charCodeAt(0))
 
-    // Guard against non A-Z characters producing garbage emoji
     if (codePoints.some((cp) => cp < 0x1f1e6 || cp > 0x1f1ff)) {
         return null
     }
@@ -20,10 +19,6 @@ function countryCodeToFlagEmoji(countryCode?: string | null): string | null {
     return String.fromCodePoint(...codePoints)
 }
 
-/**
- * Best-effort country name lookup from a 2-letter code, using Intl
- * (no extra dependency / API call needed).
- */
 function countryCodeToName(countryCode?: string | null): string | null {
     if (!countryCode || countryCode.length !== 2) {
         return null
@@ -46,56 +41,18 @@ function formatCurrentTime() {
     }).format(new Date())
 }
 
-type NewUserSignupNotificationInput = {
-    name?: string | null
-    email?: string | null
-    imageUrl?: string | null
-    countryCode?: string | null
+function clientLabel(source?: string | null) {
+    if (source === "mobile") return "Mobile"
+    if (source === "web") return "Web"
+    return "Unknown"
 }
 
-/**
- * Sends a "new user signed up" notification to the admin Discord channel.
- * Fails silently (logs a warning) so a Discord outage never breaks signup.
- */
-export async function notifyNewUserSignup({
-    name,
-    email,
-    imageUrl,
-    countryCode,
-}: NewUserSignupNotificationInput) {
+async function postDiscord(payload: Record<string, unknown>) {
     const webhookUrl = process.env.DISCORD_WEBHOOK
 
     if (!webhookUrl) {
-        console.warn("DISCORD_WEBHOOK is not configured; skipping signup notification.")
+        console.warn("DISCORD_WEBHOOK is not configured; skipping notification.")
         return
-    }
-
-    const displayName = name?.trim() || "new user"
-    const displayNameForNotification = "Resume Tailor: Captain Hook"
-
-    const flag = countryCodeToFlagEmoji(countryCode) ?? "🌍"
-    const countryName = countryCodeToName(countryCode) ?? "Unknown"
-    const countryLabel = `${flag} ${countryName}`
-    const signupTitle = `${displayName} signed up from ${countryLabel} at ${formatCurrentTime()}`
-
-    const embed = {
-        title: signupTitle,
-        description: email ? email : "New Daylog user",
-        color: 0x22c55e,
-        thumbnail: imageUrl ? { url: imageUrl } : undefined,
-        fields: [
-            {
-                name: "User",
-                value: email ? `${displayName}\n${email}` : displayName,
-                inline: true,
-            },
-            {
-                name: "Country",
-                value: countryLabel,
-                inline: true,
-            },
-        ],
-        timestamp: new Date().toISOString(),
     }
 
     try {
@@ -103,10 +60,8 @@ export async function notifyNewUserSignup({
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                content: signupTitle,
-                // username: displayName,
-                avatar_url: imageUrl || undefined,
-                embeds: [embed],
+                username: "ATS Resume Checker",
+                ...payload,
             }),
         })
 
@@ -116,7 +71,105 @@ export async function notifyNewUserSignup({
             )
         }
     } catch (error) {
-        // Never let a Discord outage break the signup flow.
-        console.warn("Failed to send Discord signup notification.", error)
+        console.warn("Failed to send Discord notification.", error)
     }
+}
+
+type NewUserSignupNotificationInput = {
+    name?: string | null
+    email?: string | null
+    imageUrl?: string | null
+    countryCode?: string | null
+    source?: string | null
+}
+
+export async function notifyNewUserSignup({
+    name,
+    email,
+    imageUrl,
+    countryCode,
+    source,
+}: NewUserSignupNotificationInput) {
+    const displayName = name?.trim() || "new user"
+    const flag = countryCodeToFlagEmoji(countryCode) ?? "🌍"
+    const countryName = countryCodeToName(countryCode) ?? "Unknown"
+    const countryLabel = `${flag} ${countryName}`
+    const signupTitle = `${displayName} signed up from ${countryLabel} at ${formatCurrentTime()}`
+
+    await postDiscord({
+        content: signupTitle,
+        avatar_url: imageUrl || undefined,
+        embeds: [
+            {
+                title: signupTitle,
+                description: email || "New ATS Resume Checker user",
+                color: 0x22c55e,
+                thumbnail: imageUrl ? { url: imageUrl } : undefined,
+                fields: [
+                    {
+                        name: "User",
+                        value: email ? `${displayName}\n${email}` : displayName,
+                        inline: true,
+                    },
+                    {
+                        name: "Country",
+                        value: countryLabel,
+                        inline: true,
+                    },
+                    {
+                        name: "Client",
+                        value: clientLabel(source),
+                        inline: true,
+                    },
+                ],
+                timestamp: new Date().toISOString(),
+            },
+        ],
+    })
+}
+
+type AnalysisNotificationInput = {
+    name?: string | null
+    email?: string | null
+    jobTitle?: string | null
+    atsScore?: number | null
+    source?: string | null
+}
+
+export async function notifySuccessfulAnalysis({
+    name,
+    email,
+    jobTitle,
+    atsScore,
+    source,
+}: AnalysisNotificationInput) {
+    const displayName = name?.trim() || email || "a user"
+    const title = `${displayName} analyzed a resume (score ${atsScore ?? "?"})`
+    await postDiscord({
+        content: title,
+        embeds: [
+            {
+                title,
+                color: 0x14999c,
+                fields: [
+                    {
+                        name: "User",
+                        value: email || displayName,
+                        inline: true,
+                    },
+                    {
+                        name: "Job",
+                        value: jobTitle || "Untitled job",
+                        inline: true,
+                    },
+                    {
+                        name: "Client",
+                        value: clientLabel(source),
+                        inline: true,
+                    },
+                ],
+                timestamp: new Date().toISOString(),
+            },
+        ],
+    })
 }

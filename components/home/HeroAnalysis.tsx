@@ -17,13 +17,19 @@ const STRENGTHS = [
     { label: "Soft skills", color: "bg-warning" },
 ];
 
-const STATS = [
-    { value: "120+", label: "Resumes analyzed" },
-    { value: "94%", label: "ATS pass rate" },
-    { value: "10s", label: "Avg. scan time" },
-];
-
-export default function HeroAnalysis() {
+export default function HeroAnalysis({
+    resumesAnalyzed = 0,
+}: {
+    resumesAnalyzed?: number;
+}) {
+    const stats = [
+        {
+            value: new Intl.NumberFormat("en-US").format(resumesAnalyzed),
+            label: "Resumes analyzed",
+        },
+        { value: "94%", label: "ATS pass rate" },
+        { value: "10s", label: "Avg. scan time" },
+    ];
     return (
         <div className="relative z-10 mx-auto mt-14 w-full max-w-[560px] xl:mx-0 xl:mt-0 xl:max-w-[620px]">
 
@@ -126,10 +132,10 @@ export default function HeroAnalysis() {
                 {...fade(0.7)}
                 className="mt-6 flex items-center overflow-hidden rounded-xl border border-border bg-card shadow-sm"
             >
-                {STATS.map((s, i) => (
+                {stats.map((s, i) => (
                     <div
-                        key={s.value}
-                        className={`flex-1 py-4 text-center ${i < STATS.length - 1 ? "border-r border-border" : ""}`}
+                        key={s.label}
+                        className={`flex-1 py-4 text-center ${i < stats.length - 1 ? "border-r border-border" : ""}`}
                     >
                         <span className="block text-lg font-bold text-foreground">{s.value}</span>
                         <span className="mt-0.5 block text-[10px] text-muted-foreground">{s.label}</span>

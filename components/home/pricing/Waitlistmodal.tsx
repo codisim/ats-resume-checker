@@ -4,9 +4,10 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PAID_PLAN_LABELS, type PaidPlanId } from "./pricing.data";
 
 interface WaitlistModalProps {
-    plan: "pro" | "gold";
+    plan: PaidPlanId;
     onClose: () => void;
 }
 
@@ -16,12 +17,9 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
     const [done, setDone] = useState(false);
     const [error, setError] = useState("");
 
-    const planColor = plan === "pro" ? "var(--primary)" : "var(--warning)";
-    const planTint =
-        plan === "pro"
-            ? "color-mix(in oklab, var(--primary) 14%, transparent)"
-            : "color-mix(in oklab, var(--warning) 14%, transparent)";
-    const planName = plan === "pro" ? "Pro" : "Gold";
+    const planColor = plan === "year" ? "var(--warning)" : "var(--primary)";
+    const planTint = `color-mix(in oklab, ${planColor} 14%, transparent)`;
+    const planName = PAID_PLAN_LABELS[plan];
 
     async function handleSubmit() {
         if (!email || !email.includes("@")) {
@@ -50,16 +48,12 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-            {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                 onClick={onClose}
             />
 
-            {/* Modal */}
             <div className="relative z-10 w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-xl shadow-slate-900/10">
-
-                {/* Close */}
                 <button
                     onClick={onClose}
                     className="absolute right-4 top-4 text-muted-foreground transition-colors hover:text-foreground"
@@ -79,7 +73,8 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                             You&apos;re on the list!
                         </h3>
                         <p className="text-[13px] leading-relaxed text-muted-foreground">
-                            We&apos;ll notify you when {planName} launches — with an early access discount.
+                            We&apos;ll email you when the {planName} plan is ready to pay
+                            — Whop on the web, Play Billing in the Android app.
                         </p>
                         <Button
                             onClick={onClose}
@@ -91,7 +86,6 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                     </div>
                 ) : (
                     <>
-                        {/* Header */}
                         <div className="mb-5">
                             <span
                                 className="text-[10px] font-bold tracking-widest"
@@ -103,11 +97,11 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                                 Join the waitlist
                             </h3>
                             <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
-                                Be first to know when {planName} launches. Early access members get a discount.
+                                Get notified when you can pay for {planName}. Same ATS
+                                score + JD rewrite on web and mobile.
                             </p>
                         </div>
 
-                        {/* Input */}
                         <Input
                             type="email"
                             placeholder="your@email.com"
@@ -130,9 +124,9 @@ export default function WaitlistModal({ plan, onClose }: WaitlistModalProps) {
                             {loading ? "Joining..." : "Join Waitlist →"}
                         </Button>
 
-                            <p className="mt-3 text-center text-[11px] text-muted-foreground">
-                                No spam. Unsubscribe anytime.
-                            </p>
+                        <p className="mt-3 text-center text-[11px] text-muted-foreground">
+                            No spam. Unsubscribe anytime.
+                        </p>
                     </>
                 )}
             </div>

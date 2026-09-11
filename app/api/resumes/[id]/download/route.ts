@@ -3,6 +3,12 @@ import prisma from "@/lib/prisma"
 import { getOrCreateDbUser } from "@/lib/auth-user"
 import { savePdf } from "@/lib/pdf-generator"
 
+function toPdfFileName(fileName: string) {
+  const cleaned = fileName.replace(/["\r\n]/g, "").trim() || "resume"
+  if (/\.pdf$/i.test(cleaned)) return cleaned
+  return `${cleaned.replace(/\.[^/.]+$/, "") || "resume"}.pdf`
+}
+
 type RouteContext = {
   params: Promise<{
     id: string
@@ -43,20 +49,19 @@ export async function GET(
       )
     }
 
-    // Generate PDF with download prompt
     const pdfBytes = await savePdf({
       content: resume.rawText,
       fileName: resume.fileName,
     })
     const pdfBuffer = Buffer.from(pdfBytes)
+    const url = new URL(request.url)
+    const inline = url.searchParams.get("disposition") === "inline"
+    const downloadName = toPdfFileName(resume.fileName)
 
-    // Return file for download
     return new NextResponse(pdfBuffer, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${encodeURIComponent(
-          resume.fileName.replace(/\.[^/.]+$/, '')
-        )}-updated.pdf"`,
+        "Content-Disposition": `${inline ? "inline" : "attachment"}; filename="${downloadName}"`,
         "Content-Length": pdfBuffer.length.toString(),
       },
     })

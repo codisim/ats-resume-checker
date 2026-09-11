@@ -19,22 +19,23 @@ export default function Pricing() {
                     </div>
                     <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl 2xl:text-5xl">
                         Start free. Upgrade when{" "}
-                        <span className="text-primary">ready.</span>
+                        <span className="text-primary">you are applying.</span>
                     </h2>
                     <p className="max-w-xl text-[14px] leading-relaxed text-muted-foreground lg:text-[15px]">
-                        No hidden fees. No credit card needed to start.
+                        7 free scans a week. Then $2.99 for 7 days, $7.99 a month, or $19.99 a year.
+                        Website checkout is Whop. Play Store uses Play Billing. Same plan on both.
                     </p>
                 </div>
 
                 {/* Cards */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 lg:gap-5">
                     {PLANS.map((plan, i) => (
                         <motion.div
                             key={plan.id}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+                            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
                         >
                             <PricingCard {...plan} />
                         </motion.div>
@@ -43,9 +44,9 @@ export default function Pricing() {
 
                 {/* Bottom note */}
                 <p className="mt-10 text-center text-[12px] text-muted-foreground">
-                    All plans include a{" "}
-                    <span className="text-foreground">referral program</span>
-                    {" "}— share your link, get 1 free month when your friend joins.
+                    Paid plans are fair-use unlimited{" "}
+                    <span className="text-foreground">(up to 50 analyses per week)</span>
+                    {" "}so one cheap week cannot drain AI costs. No LinkedIn optimizer, cover letters, or GitHub review.
                 </p>
 
             </div>

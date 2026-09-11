@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { PencilLine, Upload } from "lucide-react"
+import { PencilLine, Upload, Download, Eye } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -290,5 +290,84 @@ export function ResumeEditAction({
         </SheetContent>
       </Sheet>
     </>
+  )
+}
+
+export function ResumeLibraryActions({
+  resumeId,
+  currentFileName,
+}: {
+  resumeId: string
+  currentFileName: string
+}) {
+  const [isDownloading, setIsDownloading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const downloadPdf = async (inline = false) => {
+    setError(null)
+    setIsDownloading(true)
+    try {
+      const url = `/api/resumes/${resumeId}/download${inline ? "?disposition=inline" : ""}`
+      if (inline) {
+        window.open(url, "_blank", "noopener,noreferrer")
+        return
+      }
+
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(await readApiError(response))
+      }
+
+      const blob = await response.blob()
+      const objectUrl = window.URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = objectUrl
+      const downloadName = currentFileName.toLowerCase().endsWith(".pdf")
+        ? currentFileName
+        : `${currentFileName.replace(/\.[^/.]+$/, "") || "resume"}.pdf`
+      link.download = downloadName
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.URL.revokeObjectURL(objectUrl)
+    } catch (downloadError) {
+      setError(
+        downloadError instanceof Error
+          ? downloadError.message
+          : "Could not download the resume."
+      )
+    } finally {
+      setIsDownloading(false)
+    }
+  }
+
+  return (
+    <div className="flex flex-wrap items-center justify-end gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => downloadPdf(true)}
+        className="w-fit"
+      >
+        <Eye className="size-4" />
+        View
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => downloadPdf(false)}
+        disabled={isDownloading}
+        className="w-fit"
+      >
+        <Download className="size-4" />
+        {isDownloading ? "Downloading..." : "Download"}
+      </Button>
+      <ResumeEditAction resumeId={resumeId} currentFileName={currentFileName} />
+      {error && (
+        <p className="w-full text-right text-xs text-danger">{error}</p>
+      )}
+    </div>
   )
 }

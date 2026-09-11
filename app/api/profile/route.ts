@@ -8,6 +8,28 @@ import prisma from "@/lib/prisma"
 
 export const runtime = "nodejs"
 
+export async function GET() {
+  const clerkUser = await currentUser()
+  const dbUser = await getOrCreateDbUser()
+
+  if (!clerkUser || !dbUser) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  return NextResponse.json({
+    id: dbUser.id,
+    email: dbUser.email,
+    name: dbUser.name,
+    fullName: dbUser.name,
+    firstName: clerkUser.firstName,
+    lastName: clerkUser.lastName,
+    imageUrl: dbUser.image || clerkUser.imageUrl,
+    country: dbUser.country,
+    createdAt: dbUser.createdAt,
+    updatedAt: dbUser.createdAt,
+  })
+}
+
 const profileSchema = z.object({
   fullName: z.string().trim().min(1).max(120),
   country: z.string().trim().max(80).optional().or(z.literal("")),

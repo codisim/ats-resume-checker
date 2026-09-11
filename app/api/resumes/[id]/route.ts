@@ -16,6 +16,38 @@ type RouteContext = {
   }>
 }
 
+export async function GET(
+  _request: Request,
+  { params }: RouteContext
+) {
+  const dbUser = await getOrCreateDbUser()
+  if (!dbUser) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  const { id } = await params
+  const resume = await prisma.resume.findFirst({
+    where: {
+      id,
+      userId: dbUser.id,
+    },
+    select: {
+      id: true,
+      fileName: true,
+      fileUrl: true,
+      rawText: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  })
+
+  if (!resume) {
+    return NextResponse.json({ error: "Resume not found." }, { status: 404 })
+  }
+
+  return NextResponse.json(resume)
+}
+
 export async function PATCH(
   request: Request,
   { params }: RouteContext

@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
         firstName: user.first_name,
         lastName: user.last_name,
         imageUrl: user.image_url,
+        skipDiscordNotification: event.type === "user.updated",
       })
     }
 

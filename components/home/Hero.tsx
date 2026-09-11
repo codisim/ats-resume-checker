@@ -4,7 +4,11 @@ import { useEffect, useRef } from "react";
 import HeroContent from "./HeroContent";
 import HeroAnalysis from "./HeroAnalysis";
 
-export default function Hero() {
+export default function Hero({
+    resumesAnalyzed = 0,
+}: {
+    resumesAnalyzed?: number;
+}) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -78,7 +82,7 @@ export default function Hero() {
 
             <div className="container relative z-10 mx-auto grid items-center gap- lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:gap-10 2xl:gap-16">
                 <HeroContent />
-                <HeroAnalysis />
+                <HeroAnalysis resumesAnalyzed={resumesAnalyzed} />
             </div>
 
         </section>

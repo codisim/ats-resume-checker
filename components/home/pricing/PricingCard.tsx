@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import WaitlistModal from "./Waitlistmodal";
+import type { PaidPlanId } from "./pricing.data";
 
 interface Feature {
     label: string;
@@ -42,14 +43,14 @@ export default function PricingCard(props: PricingCardProps) {
                 )}
             >
                 {/* Most popular badge */}
-                {featured && !comingSoon && (
+                {featured && (
                     <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-wider text-primary-foreground">
                         MOST POPULAR
                     </span>
                 )}
 
                 {/* Coming soon badge */}
-                {comingSoon && (
+                {comingSoon && !featured && (
                     <span
                         className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border px-3 py-1 text-[10px] font-bold tracking-wider"
                         style={{
@@ -133,9 +134,9 @@ export default function PricingCard(props: PricingCardProps) {
             </div>
 
             {/* Waitlist Modal */}
-            {showModal && (
+            {showModal && id !== "free" && (
                 <WaitlistModal
-                    plan={id as "pro" | "gold"}
+                    plan={id as PaidPlanId}
                     onClose={() => setShowModal(false)}
                 />
             )}

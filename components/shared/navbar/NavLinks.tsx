@@ -1,11 +1,10 @@
 import Link from "next/link";
 
 const links = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  // { label: "Pricing", href: "#pricing" },
+  { label: "Features", href: "/#features" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "Pricing", href: "/#pricing" },
   { label: "Blog", href: "/blog" },
-  // { label: "Case studies", href: "/case-studies" },
 ];
 
 export default function NavLinks() {
@@ -31,7 +30,7 @@ export default function NavLinks() {
         )
       )}
       <a
-        href="#map"
+        href="/#map"
         className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-emerald-700 transition-colors hover:bg-emerald-50/80 dark:text-emerald-300 dark:hover:bg-emerald-500/10"
       >
         <span className="size-1.5 rounded-full bg-[#00C896] animate-pulse" />

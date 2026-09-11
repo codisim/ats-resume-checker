@@ -17,7 +17,7 @@ export default function HowItWorks() {
                     </div>
                     <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl 2xl:text-5xl">
                         From upload to{" "}
-                        <span className="text-primary">hired</span>
+                        <span className="text-primary">a tailored PDF</span>
                         {" "}in 3 steps
                     </h2>
                     <p className="max-w-sm text-[14px] leading-relaxed text-muted-foreground lg:text-[15px]">

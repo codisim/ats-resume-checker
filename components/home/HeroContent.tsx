@@ -17,7 +17,7 @@ export default function HeroContent() {
                 <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5">
                     <span className="size-1.5 animate-pulse rounded-full bg-primary" />
                     <span className="text-[11px] font-medium tracking-wide text-primary">
-                        Free — 12 analyses every week
+                        Free — 7 analyses every week
                     </span>
                 </div>
             </motion.div>
@@ -36,8 +36,9 @@ export default function HeroContent() {
                 {...fade(0.3)}
                 className="mb-8 max-w-xl text-[15px] leading-relaxed text-muted-foreground lg:text-base lg:leading-8"
             >
-                75% of resumes never reach a recruiter. Our AI scans, scores, and
-                rewrites your resume to pass any ATS — in seconds.
+                75% of resumes never reach a recruiter. Paste a job description,
+                get an ATS score for that role, and download a rewrite aimed at
+                that posting — in seconds.
             </motion.p>
 
             <motion.div
@@ -65,7 +66,7 @@ export default function HeroContent() {
                 {...fade(0.5)}
                 className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
-                {["No credit card", "12 free scans/week", "Results in 10 seconds"].map((text) => (
+                {["No credit card", "7 free scans/week", "Results in 10 seconds"].map((text) => (
                     <div key={text} className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

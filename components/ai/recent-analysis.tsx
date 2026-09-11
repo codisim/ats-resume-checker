@@ -11,6 +11,7 @@ type RecentAnalysisProps = {
   analysis?: {
     analysisId: string
     resumeId: string
+    generatedResumeId?: string
     atsScore: number
     matchPercent: number
     matchedSkills: string[]
@@ -49,7 +50,8 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
   }
 
   const handleDownload = async () => {
-    if (!analysis?.resumeId) return
+    const resumeId = analysis?.generatedResumeId || analysis?.resumeId
+    if (!resumeId) return
 
     setIsDownloading(true)
     try {
@@ -280,8 +282,7 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
             </div>
           )}
 
-          {/* Download Updated Resume - Only show if generated */}
-          {analysis.resumeId && (
+          {analysis.generatedResumeId && (
             <div className="flex justify-center pt-4">
               <Button
                 onClick={handleDownload}
@@ -293,7 +294,7 @@ export function RecentAnalysis({ analysis, error, onGenerateResume, isGenerating
                 ) : (
                   <>
                     <Download className="size-4" />
-                    Download Updated Resume
+                    Download ATS PDF
                   </>
                 )}
               </Button>

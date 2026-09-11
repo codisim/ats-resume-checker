@@ -10,13 +10,14 @@ import Navbar from "@/components/shared/navbar/Navbar";
 import { ContentGrid } from "@/components/content/content-grid";
 import { Button } from "@/components/ui/button";
 import { listContent } from "@/lib/content.server";
+import prisma from "@/lib/prisma";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "ATS Resume Checker | AI Resume Analysis for Job Seekers",
+  title: "ATS Resume Checker | Score and rewrite for a specific job",
   description:
-    "Analyze your resume against real job descriptions, uncover ATS issues, and get AI-powered recommendations to improve your chances of landing interviews.",
+    "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week. Then $2.99/week, $7.99/month, or $19.99/year.",
   keywords: [
     "ATS resume checker",
     "resume analysis",
@@ -29,27 +30,30 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "ATS Resume Checker | AI Resume Analysis for Job Seekers",
+    title: "ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Analyze your resume against real job descriptions, uncover ATS issues, and get AI-powered recommendations to improve your chances of landing interviews.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week.",
     url: "/",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ATS Resume Checker | AI Resume Analysis for Job Seekers",
+    title: "ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Analyze your resume against real job descriptions, uncover ATS issues, and get AI-powered recommendations to improve your chances of landing interviews.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week.",
   },
 };
 
 export default async function Home() {
-  const latestBlogPosts = await listContent("BLOG", true)
+  const [latestBlogPosts, resumesAnalyzed] = await Promise.all([
+    listContent("BLOG", true),
+    prisma.analysis.count(),
+  ])
 
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero resumesAnalyzed={resumesAnalyzed} />
       <Features />
       <HowItWorks />
       <section className="bg-background px-4 py-24">

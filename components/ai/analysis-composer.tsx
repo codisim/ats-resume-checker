@@ -8,7 +8,10 @@ import { UploadResumePanel, type ExtractedResume } from "./upload-resume-panel";
 export type AiAnalysisResult = {
   analysisId: string
   resumeId: string
+  generatedResumeId?: string
   jobId: string
+  jobTitle?: string
+  company?: string | null
   atsScore: number
   matchPercent: number
   matchedSkills: string[]
@@ -25,6 +28,23 @@ export type AiAnalysisResult = {
   }
 }
 
+async function downloadResumePdf(resumeId: string, fileName?: string) {
+  const response = await fetch(`/api/resumes/${resumeId}/download`)
+  if (!response.ok) {
+    throw new Error("Could not download the PDF.")
+  }
+
+  const blob = await response.blob()
+  const url = window.URL.createObjectURL(blob)
+  const link = document.createElement("a")
+  link.href = url
+  link.download = fileName?.replace(/\.(txt|docx)$/i, ".pdf") || "ats-resume.pdf"
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  window.URL.revokeObjectURL(url)
+}
+
 export function AnalysisComposer() {
   const [resume, setResume] = useState<ExtractedResume | null>(null)
   const [analysis, setAnalysis] = useState<AiAnalysisResult | null>(null)
@@ -37,7 +57,10 @@ export function AnalysisComposer() {
     setError(null)
   }
 
-  const handleAnalyze = async (jobDescription: string) => {
+  const handleAnalyze = async (
+    jobDescription: string,
+    meta?: { jobTitle?: string; company?: string }
+  ) => {
     if (!resume) {
       return
     }
@@ -50,11 +73,14 @@ export function AnalysisComposer() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Client": "web",
         },
         body: JSON.stringify({
           resumeId: resume.resumeId,
           resumeText: resume.text,
           jobDescription,
+          jobTitle: meta?.jobTitle,
+          company: meta?.company,
         }),
       });
 
@@ -87,6 +113,7 @@ export function AnalysisComposer() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Client": "web",
         },
         body: JSON.stringify({
           analysisId: analysis.analysisId,
@@ -94,6 +121,8 @@ export function AnalysisComposer() {
           atsOptimizedRewrite: analysis.atsOptimizedRewrite,
           improvedSummary: analysis.improvedSummary,
           bulletPoints: analysis.bulletPoints,
+          jobTitle: analysis.jobTitle,
+          company: analysis.company,
         }),
       })
 
@@ -103,9 +132,12 @@ export function AnalysisComposer() {
         throw new Error(payload?.error || "Failed to generate updated resume.")
       }
 
-      // Show success message
-      setError(null)
-      alert("✅ Updated resume generated and saved to your resume library!")
+      const generatedResumeId = payload.generatedResumeId as string
+      setAnalysis({
+        ...analysis,
+        generatedResumeId,
+      })
+      await downloadResumePdf(generatedResumeId, payload.fileName)
     } catch (generateError) {
       setError(
         generateError instanceof Error
