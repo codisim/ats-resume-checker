@@ -4,7 +4,6 @@ import Features from "@/components/home/featutes/Features";
 import Hero from "@/components/home/Hero";
 import HowItWorks from "@/components/home/how-it-works/HowItWorks";
 import GlobalMap from "@/components/home/map/GlobalMap";
-import Pricing from "@/components/home/pricing/Pricing";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
 import { ContentGrid } from "@/components/content/content-grid";
@@ -18,7 +17,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "ATS Resume Checker | Score and rewrite for a specific job",
   description:
-    "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week. Then $2.99/week, $7.99/month, or $19.99/year.",
+    "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
   keywords: [
     "ATS resume checker",
     "resume analysis",
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
     url: "/",
     type: "website",
   },
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 7 free scans a week.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
   },
 };
 
@@ -109,7 +108,6 @@ export default async function Home() {
           )}
         </div>
       </section>
-      <Pricing />
       <FAQ />
       <GlobalMap />
       <CTA />

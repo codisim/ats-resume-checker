@@ -1,7 +1,7 @@
 export const FAQS = [
     {
         q: "Is it really free?",
-        a: "Yes. You get 7 analyses every week with no credit card. Upgrade for a week ($2.99), a month ($7.99), or a year ($19.99) if you need unlimited scans.",
+        a: "Yes. It is 100% free with no credit card. Run unlimited analyses without a subscription or hidden fees.",
     },
     {
         q: "What does this tool actually do?",
@@ -12,8 +12,8 @@ export const FAQS = [
         a: "ATS software filters resumes before a recruiter sees them. Matching the keywords in that specific posting is what gets you through.",
     },
     {
-        q: "Can I pay in the mobile app?",
-        a: "On the website you pay with Whop. In the Play Store app you pay with Play Billing. Same account and the same plan either way — you do not buy twice.",
+        q: "Do I need to pay anything?",
+        a: "No. The website and mobile app are both free to use. No credit card, no subscription, and no paywall.",
     },
     {
         q: "Does it rewrite my whole resume?",

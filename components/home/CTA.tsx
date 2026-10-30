@@ -12,8 +12,8 @@ const AVATARS = [
 ];
 
 const TRUST = [
+  "100% free",
   "No credit card",
-  "7 free scans/week",
   "Results in 10 seconds",
   "Cancel anytime",
 ];
@@ -75,8 +75,8 @@ export default function CTA() {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             className="mx-auto mb-8 max-w-sm text-[14px] leading-relaxed text-muted-foreground"
           >
-            Free to start. No credit card. 7 analyses every week — then $2.99
-            for a week of unlimited if you are in a real search.
+            Free. No credit card. Run unlimited analyses and land your next
+            interview without paying a cent.
           </motion.p>
 
           {/* Avatars */}
@@ -126,10 +126,10 @@ export default function CTA() {
               Check my resume — it&apos;s free
             </Link>
             <a
-              href="#pricing"
+              href="#features"
               className="rounded-full border border-border bg-background px-6 py-3 text-[14px] text-muted-foreground transition-all hover:border-primary/30 hover:text-foreground"
             >
-              See pricing →
+              See features →
             </a>
           </motion.div>
 

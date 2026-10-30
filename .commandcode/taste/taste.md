@@ -1,0 +1,1 @@
+- Prefers landing page stats/counters to be dynamic (pulled from real backend data) rather than hardcoded, e.g. "Resumes analyzed". Confidence: 0.7

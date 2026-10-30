@@ -17,7 +17,7 @@ export default function HeroContent() {
                 <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5">
                     <span className="size-1.5 animate-pulse rounded-full bg-primary" />
                     <span className="text-[11px] font-medium tracking-wide text-primary">
-                        Free — 7 analyses every week
+                        100% free — no credit card
                     </span>
                 </div>
             </motion.div>
@@ -66,7 +66,7 @@ export default function HeroContent() {
                 {...fade(0.5)}
                 className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
             >
-                {["No credit card", "7 free scans/week", "Results in 10 seconds"].map((text) => (
+                {["100% free", "No credit card", "Results in 10 seconds"].map((text) => (
                     <div key={text} className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
