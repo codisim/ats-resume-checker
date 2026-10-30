@@ -15,12 +15,12 @@ import { unstable_cache } from "next/cache";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "ATS Resume Checker | Score and rewrite for a specific job",
+  title: "Free ATS Resume Checker | Score and rewrite for a specific job",
   description:
-    "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
+    "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 100% free — no credit card, unlimited analyses.",
   keywords: [
-    "ATS resume checker",
-    "resume analysis",
+    "free ATS resume checker",
+    "free resume analysis",
     "AI resume checker",
     "resume score",
     "job description matching",
@@ -30,17 +30,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "ATS Resume Checker | Score and rewrite for a specific job",
+    title: "Free ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 100% free — no credit card, unlimited analyses.",
     url: "/",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ATS Resume Checker | Score and rewrite for a specific job",
+    title: "Free ATS Resume Checker | Score and rewrite for a specific job",
     description:
-      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. Free — no credit card required.",
+      "Upload your resume, paste a job description, get an ATS match score, and download a rewrite for that role. 100% free — no credit card, unlimited analyses.",
   },
 };
 
